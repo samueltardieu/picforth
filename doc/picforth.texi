@@ -1293,11 +1293,39 @@ data stack.
 Some libraries can be used to enhance your application:
 
 @itemize @bullet
-@item @file{libnibble.fs}
-nibbles and characters conversion
 
 @item @file{libcmove.fs}
 implementation of ANS Forth @code{cmove} word
+
+@item @file{libextra.fs}
+implementation of ANS Forth @code{rot} and @code{2swap} words as well as
+@code{-rot}
+
+@item @file{libfetch.fs}
+implementation of ANS Forth @code{@@} word with arbitrary addresses
+
+@item @file{libjtable.fs}
+jump tables
+
+@item @file{liblshift.fs}
+implementation of ANS Forth @code{lshift} word with arbitrary shift
+
+@item @file{libnibble.fs}
+nibbles and characters conversion
+
+@item @file{libroll.fs}
+implementation of ANS Forth @code{roll} word as well as its counterpart
+@code{-roll}
+
+@item @file{librshift.fs}
+implementation of ANS Forth @code{rshift} word with arbitrary shift
+
+@item @file{libstore.fs}
+implementation of ANS Forth @code{!} word with arbitrary addresses
+
+@item @file{libstrings.fs}
+counted strings in flash memory
+
 @end itemize
 
 @node Configuration word, Caveats and limitations, Libraries, Compiler documentation
