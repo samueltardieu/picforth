@@ -1,0 +1,39 @@
+0x0000	018A	clrf	0x0A
+0x0001	281A	goto	0x01A	; (init-picforth)
+	; name: (isr-save)
+	; max return-stack depth: 0
+0x0004	00FF	movwf	0x7F
+0x0005	0E03	swapf	0x03,w
+0x0006	0183	clrf	0x03
+0x0007	00A2	movwf	0x22
+0x0008	080A	movf	0x0A,w
+0x0009	00A3	movwf	0x23
+	; name: suspend-interrupts
+	; max return-stack depth: 0
+0x000D	0AA5	incf	0x25,f
+0x000E	0B25	decfsz	0x25,w
+0x000F	0008	return	
+0x0010	080B	movf	0x0B,w
+0x0011	00A4	movwf	0x24
+0x0012	138B	bcf	0x0B,7
+0x0013	0008	return	
+	; name: restore-interrupts
+	; max return-stack depth: 0
+0x0014	0BA5	decfsz	0x25,f
+0x0015	0008	return	
+0x0016	1BA4	btfsc	0x24,7
+0x0017	178B	bsf	0x0B,7
+0x0018	0008	return	
+	; name: criticalsection
+	; max return-stack depth: 0
+0x0019	0008	return	
+	; name: (init-picforth)
+	; max return-stack depth: 0
+0x001A	3036	movlw	0x36
+0x001B	0084	movwf	0x04
+0x001C	01A5	clrf	0x25
+	; name: test2
+	; max return-stack depth: 1
+0x001D	200D	call	0x00D	; suspend-interrupts
+0x001E	2019	call	0x019	; criticalsection
+0x001F	2814	goto	0x014	; restore-interrupts

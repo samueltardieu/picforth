@@ -17,10 +17,15 @@ To understand the scope of these changes, please refer to the documentation.
   + Document the effect of "exit" in inlined words. Thanks to
     Alex Holden <alex@linuxhacker.org> for asking for clarification.
 
-** Bug fix
+** Bug fixes
 
   + Flash tables generated an error due to new nesting checks introduced in
     PicForth 1.2.2. Reported by Jamie Lawson <jlawson@ces.uoguelph.ca>.
+
+  + Fix bug in macro processing where a word defined first in the
+    metacompiler then later in target mode (such as "suspend-interrupts"
+    when "picisr.fs" is included) was seen as the first definition in
+    macros. Reported by Alex Holden <alex@linuxhacker.org>. 
 
 * New in version 1.2.3
 

@@ -57,7 +57,7 @@ vocabulary macrowords
     also forth ;
 : target only metacompiler also picforth definitions ;
 : host only picassembler also picforth also forth definitions ;
-: macro only picforth also metacompiler definitions also macrowords ;
+: macro only metacompiler definitions also picforth also macrowords ;
 
 \ Import a word from the forth dictionary into the metacompiler wordlist
 \ (has to be executed in meta mode)
