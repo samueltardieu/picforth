@@ -9,7 +9,10 @@ LIBRARIES=	picisr.fs libfetch.fs libstore.fs picflash.fs piceeprom.fs \
 		libnibble.fs libcmove.fs libstrings.fs
 
 PROGS=		booster.hex generator.hex silver.hex \
-		spifcard.hex taskexample.hex controller.hex i2cloader.hex
+		spifcard.hex taskexample.hex controller.hex i2cloader.hex \
+		libroll.hex libfetch.hex libjtable.hex libstore.hex \
+		librshift.hex liblshift.hex libnibble.hex libcmove.hex \
+		libstrings.hex libextra.hex
 
 GFORTH?=	gforth-0.6.2
 
