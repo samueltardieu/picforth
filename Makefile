@@ -80,6 +80,7 @@ clean::
 	cd doc && ${MAKE} clean
 
 test::
+	rm -rf testresults
 	${MAKE} release all
 	mkdir testresults
 	cp ${DISASM} testresults
