@@ -14,6 +14,10 @@ To understand the scope of these changes, please refer to the documentation.
 
   + Regression tests
 
+** Changes
+
+  + gforth's call is now hidden by picassembler's call
+
 * New in version 1.0
 
 ** Port to GForth 0.6.2

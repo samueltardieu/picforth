@@ -433,8 +433,11 @@ e bofro: swapf
 
 \ Control operations
 : co: create 8 lshift , does> @ >prefix swap 7ff and or cs, ;
-20 co: call 20 co: tgt-call \ Alias for call as it exists in gforth 0.6.x
+20 co: call
 28 co: goto
+
+\ Since call is also a gforth word, hide it with the picasm one
+forth-wordlist set-current also picassembler : call call ; definitions previous
 
 \ ----------------------------------------------------------------------
 \ Literals operations
@@ -1001,7 +1004,7 @@ variable prev-cbank
 
 : l-goto ( addr -- ) adjust-cbank goto ;
 : l-call ( addr -- )
-    adjust-cbank tgt-call
+    adjust-cbank call
     current-cbank @ if no-cbank then    \ A call in bank 0 holds 0 in PCLATH
 ;
 
