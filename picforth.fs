@@ -110,8 +110,8 @@ host
 : t! dup data-check t>abs ! ;
 : t@ t>abs @ ;
 
-\ Uninitialized data is marked with 10000 (this is quite practical to have
-\ the host cells be greater than the target ones here)
+\ Uninitialized data is marked with 10000 (this is doable because host
+\ cells are bigger than target cell).
 
 : initialized? t@ f0000 and  10000 <> ;
 
@@ -536,6 +536,9 @@ host
 
 meta
 
+\ Constants in PicForth are immediate words which do the right thing
+\ depending on the current target compilation mode.
+
 : constant ( n "name" -- ) create , immediate does> (t-constant) ;
 
 : [ -tcompile also forth ;
@@ -870,12 +873,12 @@ does>
     teehere 1+ to teehere
 ;
 
-: (sliteral) ( addr n -- )
+: (sliteral) ( addr n -- ) ( run: -- eeaddr n )
     teehere (literal) dup (literal) 0 ?do dup c@ ee, char+ loop drop
 ;
 
-: s" ( -- ) [char] " parse (sliteral) ;
-: l" ( -- )
+: s" ( "ccc<quote>" -- ) ( run: -- eaddr n ) [char] " parse (sliteral) ;
+: l" ( "ccc<quote>" -- ) ( run: -- eaddr n )
   [char] " parse 2 + (sliteral)                  \ "Keep VIM happy
   $d teehere 2 - tee!
   $a teehere 1- tee!
@@ -889,7 +892,7 @@ does>
     meta> create 1 allot
 ;
 
-: [char] char (literal) ;
+: [char] ( "name" -- ) ( run: -- ascii) char (literal) ;
 
 \ ----------------------------------------------------------------------
 \ Dictionary
