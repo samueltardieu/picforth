@@ -1565,9 +1565,12 @@ forth
 
 : resolve ( FORWARDMARK faddr -- )
     swap FORWARDMARK <> abort" Unbalanced nested statements"
-    dup -1 = if drop exit then
     dup cbank current-cbank !
-    tcshere swap org reachable dup l-goto org reachable ;
+    dup -1 = if
+        drop
+    else
+        tcshere swap org reachable dup l-goto org reachable
+    then ;
 
 meta
 
