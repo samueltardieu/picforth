@@ -1890,6 +1890,26 @@ meta
 : : false t-header +tcompile ;
 : :: true t-header +tcompile pushw ;
 
+\ Case statement and friends
+
+: case 0 ;
+: of
+    1+ >r
+    meta> over = if drop
+    r>
+;
+: endof
+    >r
+    meta> else
+    r>
+;
+: endcase
+    meta> drop 0
+    ?do
+	meta> then
+    loop
+;
+
 host
 
 \ A call followed by a return can always be replaced by a goto, regardless

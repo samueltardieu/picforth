@@ -414,6 +414,9 @@ defined in PicForth), as are @code{trisa}, @code{trisb} and @code{trisc}:
 : mirror ( n -- ) porta @@ swap if portb ! else portc ! then ;
 @end example
 
+It is also possible to use Forth's @code{case}, @code{of}, @code{endof} and
+@code{endcase}.
+
 @node Loops,  , Tests, A very short Forth primer
 @section Loops
 
