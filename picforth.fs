@@ -132,6 +132,8 @@ idata
 120 16f section bank2
 1a0 1ef section bank3
 
+\ Default is to work in bank 0
+
 bank0
 
 host
@@ -253,6 +255,13 @@ does>
 \ Annotations
 \ ----------------------------------------------------------------------
 
+\ Annotations are used along with code to remember whether some code
+\ has been generated specifically to test for carry or zero status bits.
+\ In this case, if a test of the corresponding bit occurs just after this
+\ code, it will be removed and replaced by a direct bit test or conditional
+\ jump instruction if possible. This allows us to generate good code even
+\ since we are using a one-pass model.
+
 host
 
 1 constant note-z
@@ -277,8 +286,17 @@ host
 : set true swap ! ;
 : unset false swap ! ;
 
+\ deadcode? indicates whether the current code point is reachable (false)
+\ or not (true)
+
 variable deadcode?
+
+\ code-depth represents the number of code words which constitute a single
+\ block: no jump starts from within this block and no jump can arrive in
+\ the middle of this block.
+
 variable code-depth
+
 : add-depth code-depth +! ;
 : inc-depth 1 add-depth ;
 : dec-depth -1 add-depth ;
@@ -302,6 +320,8 @@ variable code-depth
 : opt? 0 code-depth @ < ;
 : opt2? 1 code-depth @ < ;
 : opt3? 2 code-depth @ < ;
+
+\ tcompile is the equivalent of state for the cross-compiler
 
 variable tcompile
 : +tcompile tcompile set ;
@@ -350,6 +370,9 @@ import: forth>
 \ ----------------------------------------------------------------------
 
 picasm
+
+\ Allow the assembler to use a prefix notation if the user wants it instead
+\ of a postfix one
 
 variable prefix?
 : prefix prefix? set ;
@@ -411,7 +434,6 @@ e bofro: swapf
 : co: create 8 lshift , does> @ >prefix swap 7ff and or cs, ;
 20 co: call 20 co: tgt-call \ Alias for call as it exists in gforth 0.6.x
 28 co: goto
-
 
 \ ----------------------------------------------------------------------
 \ Literals operations
@@ -831,6 +853,8 @@ target
 
 meta
 
+\ RAM
+
 : create
     create data-here , immediate
 does>
@@ -848,6 +872,14 @@ does>
 : c,          \ 8 bits system, "c," and "," are equivalent
     meta> ,
 ;
+
+: allot data-here + dup data-org 1- data-check ;
+
+: variable
+    meta> create 1 allot
+;
+
+\ EEPROM
 
 : eecreate
     create teehere , immediate
@@ -881,13 +913,11 @@ does>
   $a teehere 1- tee!
 ;
 
+\ Flash
+
 : align ;     \ 8 bits system, no alignment is needed
 
-: allot data-here + dup data-org 1- data-check ;
-
-: variable
-    meta> create 1 allot
-;
+\ Misc
 
 : [char] char (literal) ;
 
