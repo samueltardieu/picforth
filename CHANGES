@@ -10,6 +10,13 @@ To understand the scope of these changes, please refer to the documentation.
     This situation can arise when a bit name is given and only the
     bit number is interesting.
 
+** Enhancements
+
+  + "picisr.fs" now include versions of "suspend-interrupts" and
+    "restore-interrupts" that can be nested up to 256 levels. However
+    this requires one more byte of memory (problem signaled by
+    Alex Holden <alex@linuxhacker.org>).
+
 ** Cleanups
 
   + Remove extra definition of "set-wrt". Reported by Jamie Lawson

@@ -58,10 +58,22 @@ create isr-origin tcshere ,
 target
 
 variable isr-enabled
+create isr-depth 0 ,
 
-: suspend-interrupts ( -- )
-    0 isr-enabled !
-    gie bit-set? if 1 isr-enabled or! then
-    gie bit-clr ;
+code suspend-interrupts
+    isr-depth ,f incf
+    isr-depth ,w decfsz
+    return
+    gie drop ,w movf
+    isr-enabled movwf
+    disable-interrupts
+    return
+end-code
 
-: restore-interrupts ( -- ) isr-enabled @ 1 and if gie bit-set then ;
+code restore-interrupts
+    isr-depth ,f decfsz
+    return
+    isr-enabled gie nip btfsc
+    enable-interrupts
+    return
+end-code
