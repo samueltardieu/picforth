@@ -19,6 +19,9 @@ To understand the scope of these changes, please refer to the documentation.
   + Fix overflow in "goto" instruction patching in "multitasker.fs". Bug
     reported and diagnosed by Alex Holden <alex@linuxhacker.org>.
 
+  + Fix a bug involving dead code elimination and conditional branches.
+    Reported by Alex Holden <alex@linuxhacker.org>.
+
 * New in version 1.2.4
 
 ** New words

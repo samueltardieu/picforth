@@ -1560,15 +1560,21 @@ meta
 
 forth
 
+\ The ahead/resolve mechanism use -1 if the ahead call produces nothing
+\ (deadcode)
+
 : resolve ( FORWARDMARK faddr -- )
     swap FORWARDMARK <> abort" Unbalanced nested statements"
+    dup -1 = if drop exit then
     dup cbank current-cbank !
     tcshere swap org reachable dup l-goto org reachable ;
 
 meta
 
 : ahead ( -- FORWARDMARK faddr )
-    FORWARDMARK tcshere adjust-cbank drop tcshere 0 goto unreachable ;
+    FORWARDMARK
+    deadcode? @ if -1 exit then
+    tcshere adjust-cbank drop tcshere 0 goto unreachable ;
 
 : w-or-indf ( opcode -- f ) dup ff and 80 = swap 80 and 0 = or ;
 : complastcs ( mask -- f ) lastcs ff00 and = ;
@@ -1932,7 +1938,9 @@ meta
 
 : then ( FORWARDMARK faddr -- )
     tcshere manipulate-cbank
-    dup cbank tcshere cbank <> abort" Bank switch over test"
+    dup -1 <> if
+      dup cbank tcshere cbank <> abort" Bank switch over test"
+    then
     short-if? opt-allowed? and if
 	swap FORWARDMARK <> abort" Nested statements problem"
 	drop reachable l-cs-unwind cs-rewind invert-last-btfsx
