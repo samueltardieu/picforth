@@ -15,7 +15,7 @@ variable l-task
 : chain-yield ( addr -- ) align here swap , l-yield @ , l-yield ! ;
 : patch-addr ( addr host-tcb -- )
     l-task ! l-yield @
-    begin dup while 2dup @ dup tcs@ rot or swap tcs! cell+ @ repeat 2drop
+    begin dup while 2dup @ dup tcs@ rot $7ff and or swap tcs! cell+ @ repeat 2drop
 ;
 
 \ Two bytes are necessary to save the task structure (FSR, PCL, PCLATH,

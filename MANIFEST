@@ -142,6 +142,8 @@ tests/expected/ifcbanks.disasm
 tests/expected/ifcbanks.hex
 tests/expected/flags.hex
 tests/expected/flags.disasm
+tests/expected/multitaskertest2.hex
+tests/expected/multitaskertest2.disasm
 tests/minusonesmaller.fs
 tests/onesmaller.fs
 tests/abs.fs
@@ -151,6 +153,7 @@ tests/multiplewhile.fs
 tests/ftable.fs
 tests/retlw.fs
 tests/onegreaterequal.fs
+tests/multitaskertest2.fs
 tests/opt-tail.fs
 tests/emptyif.fs
 tests/opt-dupdrop.fs

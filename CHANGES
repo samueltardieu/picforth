@@ -2,6 +2,13 @@
 
 To understand the scope of these changes, please refer to the documentation.
 
+* New in version 1.2.5
+
+** Bug fixes
+
+  + Fix overflow in "goto" instruction patching in "multitasker.fs". Bug
+    reported and diagnosed by Alex Holden <alex@linuxhacker.org>.
+
 * New in version 1.2.4
 
 ** New words
