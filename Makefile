@@ -79,8 +79,7 @@ clean::
 	cd doc && ${MAKE} clean
 
 test::
-	${MAKE} all
-	rm -rf testresults
+	${MAKE} release all
 	mkdir testresults
 	cp ${DISASM} testresults
 	diff --recursive testresults tests/expected
