@@ -2,6 +2,13 @@
 
 To understand the scope of these changes, please refer to the documentation.
 
+* New in version 1.2
+
+** Cleanups
+
+  + Remove extra definition of "set-wrt". Reported by Jamie Lawson
+  <jlawson@ces.uoguelph.ca>.
+
 * New in version 1.1
 
 ** New words  
