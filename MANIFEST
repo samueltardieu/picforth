@@ -50,8 +50,10 @@ tests/banks.fs
 tests/case.fs
 tests/cond-dead.fs
 tests/condcomp.fs
+tests/cquotebank.fs
 tests/dup0ne.fs
 tests/emptyif.fs
+tests/exitif.fs
 tests/expected/abs.disasm
 tests/expected/abs.hex
 tests/expected/bankloop.disasm
@@ -68,10 +70,14 @@ tests/expected/condcomp.disasm
 tests/expected/condcomp.hex
 tests/expected/controller.disasm
 tests/expected/controller.hex
+tests/expected/cquotebank.disasm
+tests/expected/cquotebank.hex
 tests/expected/dup0ne.disasm
 tests/expected/dup0ne.hex
 tests/expected/emptyif.disasm
 tests/expected/emptyif.hex
+tests/expected/exitif.disasm
+tests/expected/exitif.hex
 tests/expected/flags.disasm
 tests/expected/flags.hex
 tests/expected/ftable.disasm

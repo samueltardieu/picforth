@@ -27,14 +27,22 @@ host
 \ Install a jump over the string data (which is stored in the code) and
 \ store the packed data.
 
+: jump-over ( u -- u )
+  \ Compute target address
+  dup 1+ ( account for zero ) 1+ 2/ ( stored length ) 3 + ( goto ) tcshere +
+  \ Set bank
+  dup 8 rshift movlw pclath movwf
+  \ Jump to this address
+  goto reachable ;
+
 : store-packed ( caddr u -- )
-  2>r meta> ahead
-  reachable
-  2r> tcshere >r write-packed
-  meta> then
+  deadcode? @ if exit then
+  jump-over
+  tcshere >r write-packed
   r> dup 8 rshift (literal) eeadrh (literal) meta> !
   $ff and (literal) eeadr (literal) meta> !
   0 (literal) string-odd (literal) meta> !
+  cbank-ok
 ;
 
 meta

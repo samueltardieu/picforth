@@ -25,6 +25,9 @@ To understand the scope of these changes, please refer to the documentation.
   + Fix a bug involving exit followed by if. Reported by
     Alex Holden <alex@linuxhacker.org>.
 
+  + Fix a bug involving constant strings. Reported by Alex Holden
+    <alex@linuxhacker.org>.
+
 * New in version 1.2.4
 
 ** New words
