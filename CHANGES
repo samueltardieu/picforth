@@ -11,6 +11,9 @@ To understand the scope of these changes, please refer to the documentation.
     David McNab <david@rebirthing.co.nz>.
   + Added the SSPCON2 bit definitions, thanks to
     J.C. Wren <jcwren@jcwren.com>.
+  + The "pick" word was added, thanks to J.C. Wren <jcwren@jcwren.com>.
+  + The "rot", "-rot" and "2swap" were added in libextra.fs,
+    thanks to J.C. Wren <jcwren@jcwren.com>.
 
 ** Bug fixes
 

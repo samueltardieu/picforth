@@ -1309,6 +1309,11 @@ import: adjust-bank   import: restore-bank
   s" restore-interrupts" evaluate
 ;
 
+: pick
+  s" suspend-interrupts" evaluate
+  popw w>tmp1 fsr ,f addwf indf ,w movf w>tmp2 tmp1>w fsr ,f subwf tmp2>w pushw
+  s" restore-interrupts" evaluate
+;
 
 : +!
     const? if                           \ Address is constant

@@ -18,6 +18,7 @@ liblshift.fs
 libnibble.fs
 libcmove.fs
 libstrings.fs
+libextra.fs
 priotasker.fs
 multitasker.fs
 taskexample.fs
