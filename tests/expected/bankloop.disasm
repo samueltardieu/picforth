@@ -1,0 +1,21 @@
+0x0000	3008	movlw	0x08
+0x0001	008A	movwf	0x0A
+0x0002	2800	goto	0x000	; (init-picforth) (0x800)
+	; name: x
+	; max return-stack depth: 0
+0x0004	0008	return	
+	; name: y
+	; max return-stack depth: 0
+0x0005	0008	return	
+	; name: (init-picforth)
+	; max return-stack depth: 0
+0x0800	3032	movlw	0x32
+0x0801	0084	movwf	0x04
+	; name: main
+	; max return-stack depth: 1
+0x0802	018A	clrf	0x0A
+0x0803	2004	call	0x004	; x
+0x0804	018A	clrf	0x0A
+0x0805	2005	call	0x005	; y
+0x0806	158A	bsf	0x0A,3
+0x0807	2804	goto	0x004	; main + 0x002 (0x804)
