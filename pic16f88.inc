@@ -15,10 +15,10 @@ unsupported2 porte pin-e
 \ Change no-cp constant
 
 meta
-: set-cp 2020 config-mask-1 ;
+: set-cp 2000 config-mask-1 ;
 target
 
-2020 constant no-cp 
+2000 constant no-cp 
 
 \ CCP2 is unsupported
 

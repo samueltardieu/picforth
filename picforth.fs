@@ -226,6 +226,10 @@ does>
 200 config-switch-1 set-wrt
 800 config-switch-1 set-debug
 
+\ It looks like boden/boren may be interchanged
+
+: set-boren set-boden ;
+
 : set-cp 3030 config-mask-1 ;
 3030 constant no-cp
 0000 constant full-cp

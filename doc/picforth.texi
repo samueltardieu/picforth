@@ -1,12 +1,11 @@
 \input texinfo
 
-@settitle PIC 16F87x and 16F88 Forth programmer manual
+@settitle PicForth programmer manual
 @setfilename picforth.info
 
 @titlepage
-@title PIC 16F87x and 16F88 Forth programmer manual
-@c $Format: "@subtitle Using PicForth $ReleaseVersion$"$
-@subtitle Using PicForth 0.30
+@title PicForth programmer manual
+@subtitle Using PicForth 0.31
 @subtitle @today
 @author Samuel Tardieu
 
@@ -111,7 +110,7 @@ Optimizations
 @node Preamble, Introduction, Top, Top
 @chapter Preamble
 
-Microchip PIC 16F87x microcontrollers are very well suited for a number
+Microchip PIC 16Fx microcontrollers are very well suited for a number
 of tasks.  However, the programmer is left with several choices to
 program them:
 
@@ -152,7 +151,8 @@ Unix is more user-friendly for the developper.
 @node What is that?, Why this project?, Introduction, Introduction
 @section What is that?
 
-This program is a Forth compiler for the Microchip PIC 16F87x family.
+This program is a Forth compiler for the Microchip PIC 16F87x and 16F88
+family.
 
 @node Why this project?, State of the compiler, What is that?, Introduction
 @section Why this project?
@@ -1186,6 +1186,7 @@ On PIC1687x, he configuration can be configured with the following words:
   set-wdte   ( flag -- )    Watchdog timer enable (default: true)
   set-/pwrte ( flag -- )    Power-on timer disable (default: true)
   set-boden  ( flag -- )    Brown-out detect enable (default: true)
+  set-boren  ( flag -- )    (alias for set-boden)
   set-lvp    ( flag -- )    Low voltage programming (default: true)
   set-cpd    ( flag -- )    EEPROM protection disable (default: true)
   set-wrt    ( flag -- )    FLASH protection disable (default: true)
