@@ -2,6 +2,23 @@
 
 To understand the scope of these changes, please refer to the documentation.
 
+* Changes since PicForth 0.31
+
+** Enhancements
+
+  + Added jump tables, thanks to David McNab <david@rebirthing.co.nz>.
+  + Added note in serial-monitor.fs indicating that it cannot handle
+    16f87xA devices, whose flash is organized in blocks.
+
+** Bug fixes
+
+  + 2dup fix by David McNab <david@rebirthing.co.nz>.
+
+** Doc fixes
+
+  + Document trisa/trisb/trisc. Omission noted by David McNab
+    <david@rebirthing.co.nz>.
+
 * Changes since PicForth 0.30
 
 ** Glitch fixes
