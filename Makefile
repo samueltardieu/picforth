@@ -26,7 +26,7 @@ interactive:
 	${GFORTH} picforth.fs -e 'host picquit'
 
 .fs.hex: ${COMPILER} ${LIBRARIES}
-	${GFORTH} picforth.fs -e 'include $< file-dump ${$:.fs=.hex} \
+	${GFORTH} picforth.fs -e 'include $< file-dump ${<:.fs=.hex} \
 		write-map ${<:.fs=.map} bye'
 
 .fs.disasm: ${COMPILER} ${LIBRARIES}
