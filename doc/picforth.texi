@@ -1318,7 +1318,9 @@ typically 14. Also, the multitasker takes care of clearing the watchdog
 timer at each round.
 
 Each task needs 3 bytes in RAM to save its context and 8 bytes for its
-data stack.
+data stack. You can change the size of the data stack by redefining the
+@code{task-stack-size} value after including @file{multitasker.fs}. This
+value must be changed in @code{meta} mode.
 
 @node Libraries, Configuration word, Multitasking, Compiler documentation
 @section Libraries

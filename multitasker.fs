@@ -29,8 +29,13 @@ variable l-task
 \   - the latest address to patch for a yield (1 cell)
 \   - XT to execute (1 cell)
 
+8 value task-stack-size
+
+: task-private-data-size ( -- n ) task-stack-size 3 + ;
+
 : task ( -- )
-    align here data-here dup , 0b + data-org l-task @ , l-task ! 0 , tcshere , ;
+    align here data-here dup ,
+    task-private-data-size + data-org l-task @ , l-task ! 0 , tcshere , ;
 
 : resume-task ( host-tcb -- )
     @ dup ,w movf fsr movwf dup 2 + ,w movf pclath movwf 1+ ,w movf pcl movwf ;
@@ -44,7 +49,7 @@ meta
 : init-tasks ( -- )
     l-task @ begin
 	dup while
-	dup @ dup 0b + movlw movwf
+	dup @ dup task-private-data-size + movlw movwf
 	dup 3 cells + @
 	dup (literal) over @ 1+ (literal) meta> !
 	8 rshift (literal) dup @ 2 + (literal) meta> !

@@ -144,6 +144,8 @@ tests/expected/flags.hex
 tests/expected/flags.disasm
 tests/expected/multitaskertest2.hex
 tests/expected/multitaskertest2.disasm
+tests/expected/multitaskertest3.disasm
+tests/expected/multitaskertest3.hex
 tests/minusonesmaller.fs
 tests/onesmaller.fs
 tests/abs.fs
@@ -177,3 +179,4 @@ tests/macrometa.fs
 tests/multitaskertest.fs
 tests/ifcbanks.fs
 tests/flags.fs
+tests/multitaskertest3.fs
