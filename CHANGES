@@ -4,6 +4,12 @@ To understand the scope of these changes, please refer to the documentation.
 
 * New in version 1.2
 
+** Optimizations
+
+  + "nip" now optimizes code such as "1 2 nip" by replacing it by "2".
+    This situation can arise when a bit name is given and only the
+    bit number is interesting.
+
 ** Cleanups
 
   + Remove extra definition of "set-wrt". Reported by Jamie Lawson

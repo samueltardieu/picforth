@@ -1079,8 +1079,6 @@ meta
 : code false t-header ]asm ;
 : ::code true t-header ]asm ;
 
-: nip meta> popw storew ;
-
 : recurse last-addr @ l-call ;
 
 host
@@ -1331,6 +1329,14 @@ import: adjust-bank   import: restore-bank
     indf ,w xorwf
     pushw
 ;
+
+: nip
+    const? if kill-const const? if
+	    \ We have two constants (coming from a bit definition for
+	    \ example), we will remove the first stacked one
+	    kill-const drop (literal) exit then (literal)
+    then
+  meta> popw storew ;
 
 : over
   s" suspend-interrupts" evaluate
