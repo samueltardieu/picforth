@@ -1,0 +1,37 @@
+	; name: t
+	; max return-stack depth: 0
+0x0004	0008	return	
+	; name: e
+	; max return-stack depth: 0
+0x0005	0008	return	
+	; name: o
+	; max return-stack depth: 0
+0x0006	0008	return	
+	; name: test1
+	; max return-stack depth: 1
+0x0007	190B	btfsc	0x0B,2
+0x0008	2004	call	0x004	; t
+0x0009	2806	goto	0x006	; o
+	; name: test2
+	; max return-stack depth: 1
+0x000A	1D0B	btfss	0x0B,2
+0x000B	280E	goto	0x00E	; test2 + 0x004
+0x000C	2004	call	0x004	; t
+0x000D	280F	goto	0x00F	; test2 + 0x005
+0x000E	2005	call	0x005	; e
+0x000F	2806	goto	0x006	; o
+	; name: test3
+	; max return-stack depth: 1
+0x0010	1D0B	btfss	0x0B,2
+0x0011	2005	call	0x005	; e
+0x0012	2806	goto	0x006	; o
+	; name: test4
+	; max return-stack depth: 0
+0x0013	190B	btfsc	0x0B,2
+0x0014	2815	goto	0x015	; test4 + 0x002
+0x0015	2806	goto	0x006	; o
+	; name: test5
+	; max return-stack depth: 0
+0x0016	1D0B	btfss	0x0B,2
+0x0017	2818	goto	0x018	; test5 + 0x002
+0x0018	2806	goto	0x006	; o

@@ -213,6 +213,9 @@ I would like to thank the following people, in no particular order:
 @itemize @bullet
 
 @item
+Alex Holden for his bug reports
+
+@item
 Jamie Lawson for his ports on the 16F88 architecture
 
 @item
