@@ -47,7 +47,6 @@ tests/expected/spifcard.disasm
 tests/expected/silver.disasm
 tests/expected/i2cloader.disasm
 tests/expected/generator.disasm
-tests/expected/dcc2.disasm
 tests/expected/controller.disasm
 tests/expected/booster.disasm
 tests/expected/taskexample.hex
@@ -55,7 +54,6 @@ tests/expected/spifcard.hex
 tests/expected/silver.hex
 tests/expected/i2cloader.hex
 tests/expected/generator.hex
-tests/expected/dcc2.hex
 tests/expected/controller.hex
 tests/expected/booster.hex
 tests/expected/onesmaller.disasm
