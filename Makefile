@@ -92,3 +92,4 @@ mirror::
 	darcs get . mirror-dist
 	chmod -R og=u-w mirror-dist
 	rsync -av --delete mirror-dist/ www.rfc1149.net:rfc1149.net/data/download/picforth-repository/${DEVELOPMENTBRANCH}/
+	rm -rf mirror-dist
