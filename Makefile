@@ -82,7 +82,7 @@ taskexample.disasm: multitasker.fs
 
 clean::
 	rm -f *.hex *.map *.disasm CHANGES.html *~ \
-		tests/*.hex tests/*.map tests/*.disasm
+		tests/*.hex tests/*.map tests/*.disasm testresults
 	cd doc && ${MAKE} clean
 
 test::
