@@ -58,7 +58,7 @@ release:
 	mkdir picforth-${RELEASEVERSION}
 	tar cf - `cat MANIFEST` | (cd picforth-${RELEASEVERSION} && tar xvf -)
 	chmod -R og=u-w picforth-${RELEASEVERSION}
-	tar zcf picforth-${RELEASEVERSION}.tar.gz picforth-${RELEASEVERSION}
+	fakeroot tar zcf picforth-${RELEASEVERSION}.tar.gz picforth-${RELEASEVERSION}
 	rm -rf picforth-${RELEASEVERSION}
 	chmod a+r picforth-${RELEASEVERSION}.tar.gz
 
