@@ -1,0 +1,10 @@
+	; name: action
+	; max return-stack depth: 0
+0x0004	0008	return	
+	; name: action-times
+	; max return-stack depth: 1
+0x0005	2004	call	0x004	; action
+0x0006	0B80	decfsz	0x00,f
+0x0007	2805	goto	0x005	; action-times (rs depth: 1)
+0x0008	0A84	incf	0x04,f
+0x0009	0008	return	

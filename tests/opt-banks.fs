@@ -1,0 +1,1 @@
+:: ee@ ( addr -- n ) eeadr ! eepgd bit-set rd bit-set eedata @ ;

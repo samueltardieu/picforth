@@ -1,0 +1,12 @@
+	; name: x
+	; max return-stack depth: 0
+0x0004	3009	movlw	0x09
+0x0005	0580	andwf	0x00,f
+0x0006	0008	return	
+	; name: y
+	; max return-stack depth: 0
+0x0007	0800	movf	0x00,w
+0x0008	3909	andlw	0x09
+0x0009	1D03	btfss	0x03,2
+0x000A	2804	goto	0x004	; x
+0x000B	0008	return	
