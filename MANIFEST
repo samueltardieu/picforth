@@ -138,6 +138,8 @@ tests/expected/libroll.hex
 tests/expected/libroll.disasm
 tests/expected/multitaskertest.hex
 tests/expected/multitaskertest.disasm
+tests/expected/ifcbanks.disasm
+tests/expected/ifcbanks.hex
 tests/minusonesmaller.fs
 tests/onesmaller.fs
 tests/abs.fs
@@ -168,3 +170,4 @@ tests/smaller.fs
 tests/dup0ne.fs
 tests/macrometa.fs
 tests/multitaskertest.fs
+tests/ifcbanks.fs

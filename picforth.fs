@@ -1908,6 +1908,7 @@ meta
 : invert-last-btfsx ( -- ) cs-unwind 0400 xor cs, ;
 
 : then ( FORWARDMARK faddr -- )
+    tcshere manipulate-cbank
     dup cbank tcshere cbank <> abort" Bank switch over test"
     short-if? opt-allowed? and if
 	swap FORWARDMARK <> abort" Nested statements problem"
