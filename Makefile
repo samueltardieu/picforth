@@ -15,6 +15,10 @@ GFORTH?=	gforth
 
 DISASM=		${PROGS:.hex=.disasm}
 
+TESTS_PROGS=	tests/onesmaller.hex tests/minusonesmaller.hex \
+		tests/onegreaterequal.hex
+TESTS_DISASM=	${TESTS_PROGS:.hex=.disasm}
+
 all:	${DISASM} CHANGES.html docs
 docs:
 	cd doc && ${MAKE} RELEASEVERSION=${RELEASEVERSION}

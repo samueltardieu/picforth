@@ -1589,11 +1589,19 @@ meta
 ;
    
 : <
-    meta> - carry-clr?
+    const? if
+	kill-const negate popw addlw pushw carry-clr?
+    else
+	meta> - carry-clr?
+    then
 ;
 
 : >=
-    meta> - carry-set?
+    const? if
+	kill-const negate popw addlw pushw carry-set?
+    else
+	meta> - carry-set?
+    then
 ;
 
 : >
