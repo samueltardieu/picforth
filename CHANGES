@@ -2,6 +2,52 @@
 
 To understand the scope of these changes, please refer to the documentation.
 
+* New in version 0.35
+
+** New words
+
+  + "case"/"of"/"endof"/"endcase". Requested by David McNab
+    <david@rebirthing.co.nz>.
+
+  + Do not warn about words redefined in PicForth. Suggested by
+    Alex Holden <alex@linuxhacker.org>.
+
+** Bug fixes
+
+  + Allow empty (but useless) code words
+
+* New in version 1.2
+
+** Optimizations
+
+  + "nip" now optimizes code such as "1 2 nip" by replacing it by "2".
+    This situation can arise when a bit name is given and only the
+    bit number is interesting.
+
+** Enhancements
+
+  + "picisr.fs" now include versions of "suspend-interrupts" and
+    "restore-interrupts" that can be nested up to 256 levels. However
+    this requires one more byte of memory (problem signaled by
+    Alex Holden <alex@linuxhacker.org>).
+
+** Cleanups
+
+  + Remove extra definition of "set-wrt". Reported by Jamie Lawson
+  <jlawson@ces.uoguelph.ca>.
+
+* New in version 0.34
+
+** Distribution glitches in 0.33
+
+  (reported by David McNab <david@rebirthing.co.nz>)
+  + Missing tools/bootloading directory
+  + Missing dcc2.fs
+
+** New files
+
+  + Regression tests
+
 * Changes since PicForth 0.32
 
 ** Enhancements
