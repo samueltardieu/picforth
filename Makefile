@@ -77,14 +77,15 @@ taskexample.hex: multitasker.fs
 taskexample.disasm: multitasker.fs
 
 clean::
-	rm -f *.hex *.map *.disasm CHANGES.html *~
+	rm -f *.hex *.map *.disasm CHANGES.html *~ \
+		tests/*.hex tests/*.map tests/*.disasm
 	cd doc && ${MAKE} clean
 
 test::
 	rm -rf testresults
-	${MAKE} release all
+	${MAKE} release all ${TESTS_DISASM}
 	mkdir testresults
-	cp ${DISASM} ${PROGS} testresults
+	cp ${DISASM} ${PROGS} ${TESTS_DISASM} ${TESTS_PROGS} testresults
 	diff --recursive testresults tests/expected
 	rm -rf testresults
 
