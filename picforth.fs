@@ -570,8 +570,13 @@ meta
 : [ -tcompile also forth ;
 : ] +tcompile previous ;
 
+: 2constant ( u "name" -- ) ( run: -- high low )
+    create dup 8 rshift , $ff and , immediate does>
+    >r r@ (t-constant) r> cell+ (t-constant) ;
+
 : bit ( n port "name" -- )
-    create , , immediate does> >r r@ (t-constant) r> cell+ (t-constant) ;
+    100 * + meta> 2constant
+;
 
 target
 
@@ -853,7 +858,7 @@ target
   2 osctune bit tun2
   1 osctune bit tun1
   0 osctune bit tun0
-  
+
 \ ----------------------------------------------------------------------
 \ Data and variables
 \ ----------------------------------------------------------------------
@@ -862,17 +867,7 @@ meta
 
 \ RAM
 
-: create
-    create data-here , immediate
-does>
-    @ tcompile? if
-	(literal)
-    else
-	state @ if
-	    postpone literal macro?
-	then
-    then
-;
+: create ( "name" -- ) create data-here , immediate does> (t-constant) ;
 
 : , data-here t! data-here 1+ data-org ;
 
