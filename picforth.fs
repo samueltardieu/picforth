@@ -1,5 +1,5 @@
 \
-\ PicForth: Forth compiler for Microchip PIC 16F873 / 16F876
+\ PicForth: Forth compiler for Microchip PIC 16F87x/16F88
 \
 \ Copyright (c) 2002-2004 Samuel Tardieu <sam@rfc1149.net>
 \
