@@ -42,6 +42,7 @@ tools/README
 tools/bootloading/pfd.py
 tools/bootloading/example.fs
 tools/bootloading/README
+support/runtests.sh
 tests/expected/taskexample.disasm
 tests/expected/spifcard.disasm
 tests/expected/silver.disasm

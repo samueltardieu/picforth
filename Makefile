@@ -15,10 +15,6 @@ GFORTH?=	gforth-0.6.2
 
 DISASM=		${PROGS:.hex=.disasm}
 
-TESTS_SOURCES!=	ls tests/*.fs
-TESTS_PROGS=	${TESTS_SOURCES:.fs=.hex}
-TESTS_DISASM=	${TESTS_SOURCES:.fs=.disasm}
-
 all:	${DISASM} CHANGES.html docs
 docs:
 	cd doc && ${MAKE} RELEASEVERSION=${RELEASEVERSION}
@@ -86,10 +82,9 @@ clean::
 	cd doc && ${MAKE} clean
 
 test::
-	rm -rf testresults
-	${MAKE} release all ${TESTS_DISASM}
-	mkdir testresults
-	cp ${DISASM} ${PROGS} ${TESTS_DISASM} ${TESTS_PROGS} testresults
+	${MAKE} release all
+	env MAKE=${MAKE} sh support/runtests.sh
+	cp ${PROGS} ${DISASM} testresults/
 	diff --unified --recursive tests/expected testresults
 	rm -rf testresults
 
