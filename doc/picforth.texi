@@ -1312,15 +1312,21 @@ your program. The following words are defined:
 This multitasker makes no use of the return stack at all. However, each
 task takes four to six program words for initialization and five program
 words to resume the task, plus three or four program words per yield
-instruction. Context-switching takes at most 18 instruction cycles (3.6
-microseconds max on a 20MHz PIC, 18 microseconds on a 4MHz PIC), and
-typically 14. Also, the multitasker takes care of clearing the watchdog
+instruction. Context-switching takes at most 20 instruction cycles (4
+microseconds max on a 20MHz PIC, 20 microseconds on a 4MHz PIC), and
+typically 16. Also, the multitasker takes care of clearing the watchdog
 timer at each round.
 
 Each task needs 3 bytes in RAM to save its context and 8 bytes for its
 data stack. You can change the size of the data stack by redefining the
 @code{task-stack-size} value after including @file{multitasker.fs}. This
 value must be changed in @code{meta} mode.
+
+However, one must take care of calling @code{yield} only from the
+toplevel word of each task, as the return stack is not addressable on
+this architecture. To be precise, only one task in the system is able
+to call @code{yield} from words deeper than the toplevel, but this is
+not recommended.
 
 @node Libraries, Configuration word, Multitasking, Compiler documentation
 @section Libraries
