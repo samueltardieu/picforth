@@ -15,6 +15,9 @@ To understand the scope of these changes, please refer to the documentation.
     non-nesting of definition words. Requested by David McNab
     <david@rebirthing.co.nz>.
 
+  + Do not warn about words redefined in PicForth. Suggested by
+    Alex Holden <alex@linuxhacker.org>.
+
 ** Bug fixes
 
   + Allow empty (but useless) code words

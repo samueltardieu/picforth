@@ -9,6 +9,10 @@
 
 hex
 
+\ Turn warnings off, as we redefine existing Forth words
+
+warnings off
+
 \ ----------------------------------------------------------------------
 \ PicForth name spaces
 \ ----------------------------------------------------------------------
@@ -2491,6 +2495,10 @@ meta
 \ ----------------------------------------------------------------------
 \ Switch into picforth parser mode from now on
 \ ----------------------------------------------------------------------
+
+\ Turn warnings back on
+
+warnings on
 
 target
 
