@@ -1,0 +1,6 @@
+	; name: timer
+	; max return-stack depth: 0
+0x0004	0900	comf	0x00,w
+0x0005	0A84	incf	0x04,f
+0x0006	0081	movwf	0x01
+0x0007	0008	return	

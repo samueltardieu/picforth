@@ -1,0 +1,6 @@
+	; name: z
+	; max return-stack depth: 0
+0x0004	1907	btfsc	0x07,2
+0x0005	1005	bcf	0x05,0
+0x0006	1486	bsf	0x06,1
+0x0007	0008	return	

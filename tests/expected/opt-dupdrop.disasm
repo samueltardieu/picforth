@@ -1,0 +1,15 @@
+	; name: x
+	; max return-stack depth: 0
+0x0004	0800	movf	0x00,w
+0x0005	0384	decf	0x04,f
+0x0006	0080	movwf	0x00
+0x0007	0008	return	
+	; name: y
+	; max return-stack depth: 0
+0x0008	3003	movlw	0x03
+0x0009	0080	movwf	0x00
+0x000A	0008	return	
+	; name: z
+	; max return-stack depth: 0
+0x000B	0180	clrf	0x00
+0x000C	0008	return	

@@ -1,0 +1,13 @@
+	; name: parity-error
+	; max return-stack depth: 0
+0x0004	0008	return	
+	; name: x
+	; max return-stack depth: 0
+0x0005	1822	btfsc	0x22,0
+0x0006	2804	goto	0x004	; parity-error
+0x0007	0008	return	
+	; name: y
+	; max return-stack depth: 0
+0x0008	1985	btfsc	0x05,3
+0x0009	0A80	incf	0x00,f
+0x000A	0008	return	

@@ -1451,7 +1451,7 @@ conditions. For example, the following word:
 @example
   \ This word clears port a0 if port c2 is high, and sets port b1
   \ in any case.
-  : z portc 2 high? if porta 0 low then portb 0 high ;
+  : z portc 2 high? if porta 0 low then portb 1 high ;
 @end example
 
 generates the following code:
@@ -1532,14 +1532,14 @@ will be compiled as:
 Using an explicit bit-test holds the same result:
 
 @example
-  porta 3 high? if exit then
+  porta 3 high? if 1+ then
 @end example
 
 will be compiled as:
 
 @example
   btfsc   0x05,3
-  return
+  incf    0x00,f
 @end example
 
 @node Useless loads removed when testing, Increment/decrement and skip if zero used when possible, Bit test operations, Optimizations
@@ -1610,7 +1610,7 @@ generates
 @example
   addlw   0xFD
   btfss   0x03,0
-  call    a
+  goto    a
   return
 @end example
 

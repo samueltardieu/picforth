@@ -1,0 +1,9 @@
+	; name: a
+	; max return-stack depth: 0
+0x0004	0008	return	
+	; name: x
+	; max return-stack depth: 0
+0x0005	3EFD	addlw	0xFD
+0x0006	1C03	btfss	0x03,0
+0x0007	2804	goto	0x004	; a
+0x0008	0008	return	

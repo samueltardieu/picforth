@@ -1,0 +1,1 @@
+: z portc 2 high? if porta 0 low then portb 1 high ;
