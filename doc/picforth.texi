@@ -378,7 +378,7 @@ defined by PicForth):
 The word @code{mirror }duplicates port A to port B or port C, depending on
 its argument; @code{0} for port B, anything else for port C
 (@code{porta}, @code{portb} and @code{portc} constant are already
-defined in PicForth):
+defined in PicForth), as are @code{trisa}, @code{trisb} and @code{trisc}:
 @example
 : mirror ( n -- ) porta @@ swap if portb ! else portc ! then ;
 @end example
