@@ -174,9 +174,9 @@ host
 : unset false swap ! ;
 
 variable tcompile
-: +tcompile tcompile set ;
-: -tcompile tcompile unset ;
 : tcompile? tcompile @ ;
+: +tcompile tcompile? abort" Already in compilation mode" tcompile set ;
+: -tcompile tcompile unset ;
 
 \ Current data bank as seen from the code generator
 
@@ -1093,8 +1093,16 @@ variable last-word
 	then
     loop
     last-addr 4 cells + !
-    ;
-: end-word ( -- ) compute-length compute-depth ;
+;
+
+\ Those words are used to check statements indentation
+1234 constant FORWARDMARK
+1235 constant BACKWARDMARK
+1236 constant DEFINITIONMARK
+
+: end-word ( DEFINITIONMARK -- )
+    DEFINITIONMARK <> abort" Unbalanced nested statements"
+    compute-length compute-depth ;
 
 : (t-act) 
     tcompile? if
@@ -1112,9 +1120,9 @@ variable last-word
     create last-addr start-word tcshere , -1 , , , -1 , , 0 ,
 ;
 
-: t-header ( w? -- )
+: t-header ( w? -- DEFINITIONMARK )
     0 current-bank !
-    store-name t-dict reachable cbank-ok does> (t-act) ;
+    store-name t-dict DEFINITIONMARK reachable cbank-ok does> (t-act) ;
 
 : return-in-w ( -- ) 1 last-addr 6 cells + ! ;
 
@@ -1127,8 +1135,8 @@ meta
 : ]asm postfix -tcompile also forth also picforth also picassembler ;
 : asm[ +tcompile previous previous previous reachable ;
 
-: code false t-header ]asm ;
-: ::code true t-header ]asm ;
+: code ( -- DEFINITIONMARK ) false t-header ]asm ;
+: ::code ( -- DEFINITIONMARK ) true t-header ]asm ;
 
 : recurse last-addr @ l-call ;
 
@@ -1484,13 +1492,15 @@ meta
 
 forth
 
-: resolve ( faddr -- )
+: resolve ( FORWARDMARK faddr -- )
+    swap FORWARDMARK <> abort" Unbalanced nested statements"
     dup cbank current-cbank !
     tcshere swap org reachable dup l-goto org reachable ;
 
 meta
 
-: ahead ( -- faddr ) tcshere adjust-cbank drop tcshere 0 goto unreachable ;
+: ahead ( -- FORWARDMARK faddr )
+    FORWARDMARK tcshere adjust-cbank drop tcshere 0 goto unreachable ;
 
 : w-or-indf ( opcode -- f ) dup ff and 80 = swap 80 and 0 = or ;
 : complastcs ( mask -- f ) lastcs ff00 and = ;
@@ -1816,7 +1826,7 @@ meta
     rot note-invert and if btfsc else btfss then
 ;
 
-: if ( -- faddr )
+: if ( -- FORWARDMARK faddr )
     note? if
 	rewrite-note
     else
@@ -1848,9 +1858,10 @@ meta
 \ Invert the conditional which was put last
 : invert-last-btfsx ( -- ) cs-unwind 0400 xor cs, ;
 
-: then ( faddr -- )
+: then ( FORWARDMARK faddr -- )
     dup cbank tcshere cbank <> abort" Bank switch over test"
     short-if? opt-allowed? and if
+	swap FORWARDMARK <> abort" Nested statements problem"
 	drop reachable l-cs-unwind cs-rewind invert-last-btfsx
 	check-incdectos-btfsz
 	l-cs, reachable
@@ -1869,12 +1880,13 @@ meta
     prevlastcs 1800 and 1800 = and
 ;
 
-: else ( faddr1 -- faddr2 )
+: else ( FORWARDMARK faddr1 -- FORWARDMARK faddr2 )
     empty-if? opt-allowed? and if
+	over FORWARDMARK <> abort" Nested statements problem"
 	reachable cs-unwind invert-last-btfsx cs, exit
     else
 	meta> ahead
-	swap resolve
+	2swap resolve
     then
 ;
 
@@ -1883,38 +1895,42 @@ meta
 \ value it should have, but this may be an underoptimization as we may
 \ need to explicitely call code in another bank just after the backward
 \ reference.
-: backref ( -- baddr ) tcshere no-opt no-cbank ;
+: backref ( -- BACKWARDMARK baddr ) BACKWARDMARK tcshere no-opt no-cbank ;
 
-: begin ( -- 0 baddr ) 0 backref ;
+: begin ( -- 0 BACKWARDMARK baddr ) 0 backref ;
 
-: again ( 0 baddr -- ) l-goto drop unreachable ;
+: again ( 0 BACKWARDMARK baddr -- )
+    swap BACKWARDMARK <> abort" Nested statements problem"
+    l-goto drop unreachable ;
 
-: while ( 0 i*x baddr -- 0 i*x faddr baddr )
+: while
+    ( 0 i*x BACKWARDMARK baddr -- 0 i*x FORWARDMARK faddr BACKWARDMARK baddr )
+    over BACKWARDMARK <> abort" Nested statements problem"
     meta> if
-    swap
+    2swap
 ;
 
-: repeat ( 0 i*x baddr -- )
-    0 swap meta> again
+: repeat ( 0 i*x BACKWARD baddr -- )
+    0 -rot meta> again
     begin dup while meta> then
     repeat drop
 ;
 
-: until ( 0 baddr -- )
+: until ( 0 BACKWARDMARK baddr -- )
     meta> 0= while repeat
 ;
 
-: v-for ( -- vaddr 0 baddr ) ( runtime: n -- )
+: v-for ( -- vaddr 0 BACKWARDMARK baddr ) ( runtime: n -- )
     get-const dup 180 and abort" needs a variable in bank 0"
     dup const-! meta> begin
 ;
 
-: v-next ( vaddr 0 baddr -- ) ( runtime: -- )
-    rot
+: v-next ( vaddr 0 BACKWARDMARK baddr -- ) ( runtime: -- )
     \ Set bank before the test so that we do have a
     \ short jump
-    over adjust-cbank drop over cbank current-cbank !
-    ,f decfsz meta> again
+    dup adjust-cbank drop
+    dup cbank current-cbank !
+    3 roll ,f decfsz meta> again
     reachable
 ;
 
@@ -2113,7 +2129,7 @@ variable init-chain-last
     make-stack movlw fsr movwf
     init-tdata
     init-chain
-    end-word
+    -tcompile end-word
 ;
 
 \ Set a goto to the current address at addr

@@ -8,7 +8,7 @@ LIBRARIES=	picisr.fs libfetch.fs libstore.fs picflash.fs piceeprom.fs \
 		librshift.fs liblshift.fs multitasker.fs priotasker.fs \
 		libnibble.fs libcmove.fs libstrings.fs
 
-PROGS=		booster.hex dcc2.hex generator.hex silver.hex \
+PROGS=		booster.hex generator.hex silver.hex \
 		spifcard.hex taskexample.hex controller.hex i2cloader.hex
 
 GFORTH?=	gforth-0.6.2

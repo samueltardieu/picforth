@@ -9,6 +9,12 @@ To understand the scope of these changes, please refer to the documentation.
   + "case"/"of"/"endof"/"endcase". Requested by David McNab
     <david@rebirthing.co.nz>.
 
+** Enhancements
+
+  + Check nesting of loops and conditional constructs as well as
+    non-nesting of definition words. Requested by David McNab
+    <david@rebirthing.co.nz>.
+
 ** Bug fixes
 
   + Allow empty (but useless) code words
