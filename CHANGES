@@ -13,7 +13,7 @@ To understand the scope of these changes, please refer to the documentation.
 ** Cleanups
 
   + Remove extra definition of "set-wrt". Reported by Jamie Lawson
-  <jlawson@ces.uoguelph.ca>.
+    <jlawson@ces.uoguelph.ca>.
 
 * New in version 1.1
 
@@ -29,13 +29,13 @@ To understand the scope of these changes, please refer to the documentation.
 
   + Test with empty action part and a "else" is now handled properly.
     Bug reported by Alex Holden <alex@linuxhacker.org>.
-  + Make include/needs work properly
+  + Make "include" and "needs" work properly.
 
 ** Miscellenaous
 
   + Add more comments to explain PicForth internals
-  + Add a note in the documentation about c" working in target mode only.
-    Problem reported by Alex Holden <alex@linuxhacker.org>.
+  + Add a note in the documentation about static flash strings working
+    in target mode only.Problem reported by Alex Holden <alex@linuxhacker.org>.
 
 * New in version 1.0.1
 
