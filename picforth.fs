@@ -2132,7 +2132,10 @@ meta
 
 \ Add the capability to include a file
 
-import: include
+import: include     import: included
+import: require     import: required
+
+: needs require ;
 
 \ ----------------------------------------------------------------------
 \ Dump of hexadecimal data
