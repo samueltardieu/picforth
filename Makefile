@@ -1,5 +1,6 @@
 #
-# Makefile for PicForth
+# Makefile for PicForth -- don't hesitate to get ideas from it as it
+# automates the process of building files for PIC quite well
 #
 
 COMPILER=	picforth.fs
