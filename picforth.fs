@@ -1182,6 +1182,8 @@ host
 : call-no-opt? lastcs 3800 and 2000 = ;
 : short-call-address cs-unwind 7ff and ;
 
+: movlw? lastcs 3f00 and 3000 = lastcs 0103 = or opt? and ;
+
 : const?-0 opt2? if
     lastcs 0180 = prevlastcs 0384 = and exit
   else false then ;
@@ -2096,8 +2098,13 @@ host
 \ of the opt? value. However, if opt? is true, the following code becomes
 \ unreachable.
 
+: movlw>retlw
+    cs-unwind
+    dup 0103 = if drop 0 else ff and then retlw
+;
 : call>goto short-call-address goto prev-cbank @ current-cbank ! ;
 : (return)
+    movlw? if movlw>retlw unreachable then
     call-no-opt? if call>goto opt? if unreachable then then
     return ;
 : (exit) (return) unreachable ;
