@@ -58,7 +58,7 @@ release:
 CHANGES.html: CHANGES makedoc.pl
 	perl makedoc.pl < CHANGES > CHANGES.html
 
-WWWDIR=/home/sam/build/rfc1149/devel
+WWWDIR=/home/sam/build/rfc1149--zengarden/devel
 
 installwww:
 	${MAKE} release
@@ -69,7 +69,7 @@ installwww2:
 	cp CHANGES.html ${WWWDIR}/CHANGES.picforth.html
 	cp doc/picforth.html doc/picforth.pdf ${WWWDIR}/doc
 	scp -p picforth-${RELEASEVERSION}.tar.gz \
-		marvin:/home/rfc1149.data/download/picforth/
+		www.rfc1149.net:rfc1149.net/data/download/picforth/
 	echo "Do not forget to edit ${WWWDIR}/picforth.whtml"
 
 taskexample.hex: multitasker.fs
