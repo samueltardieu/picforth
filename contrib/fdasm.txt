@@ -1,0 +1,90 @@
+From: David McNab <david@rebirthing.co.nz>
+Subject: A smarter disassembly utility
+Newsgroups: gmane.comp.lang.forth.picforth
+Date: Thu, 28 Oct 2004 16:00:11 +1300
+
+Hi,
+
+I've written a picforth utility called 'fdasm' (python script attached).
+
+fdasm is a wrapper for the gputils 'gpdasm' disassembler, which parses
+a hex file disassembly and cross-references it against a
+picforth-generated .map file.
+
+It then outputs a disassembly annotated with known symbols, much more
+intelligible than raw disassembly.
+
+--------
+Example
+
+1. forth source
+
+   false set-wdte false set-boden false set-lvp
+   pic16f87x
+
+   : f0 ;
+   : f1 ;
+   : f2 ;
+
+   main : main
+       f0
+       begin
+           f1 f2
+       again
+   ;
+
+2. raw gpdasm disassembly (yuck)
+
+   000000:  018a  clrf     0xa
+   000001:  2808  goto     0x8
+   000002:  0000  nop
+   000003:  0000  nop
+   000004:  0000  nop
+   000005:  0008  return
+   000006:  0008  return
+   000007:  0008  return
+   000008:  3032  movlw    0x32
+   000009:  0084  movwf    0x4
+   00000a:  2005  call     0x5
+   00000b:  2006  call     0x6
+   00000c:  2007  call     0x7
+   00000d:  280b  goto     0xb
+   00000e:  0000  nop
+   00000f:  0000  nop
+   002007:  3f22  addlw    0x22
+   002008:  3fff  addlw    0xff
+
+3. fdasm output (easier than constantly flicking between
+    raw disassembly and map)
+
+     000001:  2808  goto   (init-picforth)
+     000002:  0000  nop
+     000003:  0000  nop
+     000004:  0000  nop
+
+   f0:
+     000005:  0008  return
+
+   f1:
+     000006:  0008  return
+
+   f2:
+     000007:  0008  return
+
+   (init-picforth):
+     000008:  3032  movlw  0x32
+     000009:  0084  movwf  0x4
+
+   main:
+     00000a:  2005  call   f0
+     00000b:  2006  call   f1
+     00000c:  2007  call   f2
+     00000d:  280b  goto   0xb
+     00000e:  0000  nop
+     00000f:  0000  nop
+     002007:  3f22  addlw  0x22
+     002008:  3fff  addlw  0xff
+
+
+-- 
+Cheers

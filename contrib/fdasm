@@ -1,0 +1,170 @@
+#! /usr/bin/env python
+
+"""
+fdasm
+
+Smart-ish disassembler for picforth programs.
+
+Wraps gpdasm (from gputils).
+Analyses the .map file.
+
+Outputs a more meaningful disassembly by annotating
+code addresses with known symbols, and converting
+arguments of call/goto with symbols
+
+If you're running on windows, please note that you'll have to rename
+this file as fdasm.py, and ensure you have python 2.3 or later installed.
+
+Written Oct 2004 by David McNab david at freenet dot org dot nz
+Released into the public domain
+"""
+
+# set your processor type here
+defaultProcessor = "pic16f873"
+
+# --------------------------------------------------
+# shouldn't need to worry about anything below
+
+import sys, os, commands, re, getopt
+
+reSpaces = re.compile("\\s+")
+
+progname = sys.argv[0]
+
+# mnemonics operating on registers
+regops = ['addwf', 'andwf', 'clrf', 'comf', 'decf', 'decfsz', 'incf',
+          'incfsz', 'iorwf', 'movf', 'movwf', 'rlf', 'rrf',
+          'subwf', 'swapf', 'xorwf', 'bcf', 'bsf', 'btfsc',
+          'btfss']
+
+def usage():
+    print "Usage: %s [-p processor] [-l] filename" % progname
+    print
+    print "A disassembly-smartener for picForth programs which"
+    print "runs gpdasm on a picforth-compiled .hex file,"
+    print "cross-references with the picforth-generated .map file,"
+    print "and outputs an annotated disassembly"
+    print
+    print "Options:"
+    print "  -h, --help                show this help"
+    print "  -p, --processor=procname  select processor (default 'pic16f873')"
+    print "  -l, --list-processors     show available processors"
+    print
+    print "Any suffix on the 'filename' argument is ignored. This utility"
+    print "attempts to open 'filename.hex' and 'filename.map'"
+    print
+    sys.exit(1)
+
+def main():
+
+    # handle options
+    try:
+        opts, args = getopt.getopt(
+            sys.argv[1:],
+            "?hp:l",
+            ["help", "processor=", "list-processors"])
+    except getopt.GetoptError:
+        # print help information and exit:
+        usage()
+        sys.exit(2)
+
+    processor = defaultProcessor
+
+    for o, a in opts:
+        if o in ("-h", "-?", "--help"):
+            usage()
+        elif o in ('-p', '--processor'):
+            processor = a
+        elif o in ('-l', '--list-processors'):
+            os.system("gpdasm -l")
+            sys.exit(0)
+
+    gpdasmCmd = "gpdasm -p %s %%s.hex" % processor
+
+    # barf if not exactly 1 arg
+    if len(args) != 1:
+        usage()
+    basename = os.path.splitext(args[0])[0]
+    
+    # check that .map and .hex files are available
+    if not os.path.isfile(basename+".map"):
+        print "Can't find %s.map" % basename
+        usage()
+    if not os.path.isfile(basename+".hex"):
+        print "Can't find %s.hex" % basename
+        usage()
+    
+    # get lines of disassembly
+    disRaw = commands.getoutput(gpdasmCmd % basename).strip()
+    disLines = [line.strip() for line in disRaw.split("\n")]
+
+    # sanity check
+    if len(disLines) < 2:
+        print "Sorry, but we can't get a disassembly"
+        print "Please check that:"
+        print " 1. You have gputils installed on your system"
+        print " 2. You have 'gpdasm' on your PATH"
+        usage()
+
+    disItems = []
+    for line in disLines:
+        flds = reSpaces.split(line) # break up disassembly into fields
+        addr = int(flds[0][:-1], 16) # convert to numerical addr
+        opcode = flds[1]             # take opcode as string, no need to process
+        mnemonic = flds[2]
+        if len(flds) > 3:
+            arg1 = flds[3]
+            if len(flds) == 5:
+                arg1 = arg1[:-1] # remove comma
+                arg2 = flds[4]
+            else:
+                arg2 = ''
+        else:
+            arg1 = ''
+        # can add now
+        disItems.append({'addr': addr, 'opcode' : opcode, 'mnemonic' : mnemonic,
+                         'arg1': arg1, 'arg2': arg2})
+    
+    # build map as dictionary numerical addr->sym
+    mapRaw = file(basename + ".map").read().strip()
+    mapLines = [line.strip() for line in mapRaw.split("\n")]
+    addr2sym = {}
+    for line in mapLines:
+        addr, crap, sym = reSpaces.split(line)
+        addr = int(addr, 16)
+        addr2sym[addr] = sym
+
+    # can now dump out
+    outLines = []
+    for item in disItems:
+        addr = item['addr']
+        opcode = item['opcode']
+        mnemonic = item['mnemonic']
+        arg1 = item['arg1']
+        arg2 = item['arg2']
+
+        # pick up known addresses
+        if addr2sym.has_key(addr):
+            outLines.append('')
+            outLines.append("%s:" % addr2sym[addr])
+
+        # pick up goto/gosub to known address
+        if mnemonic in ['goto', 'call']:
+            target = int(arg1, 16)
+            if addr2sym.has_key(target):
+                # going to known address
+                arg1 = addr2sym[target]
+        
+        # now can output line
+        line = "  %06x:  %s  %-6s %s" % (addr, opcode, mnemonic, arg1)
+        if arg2:
+            line += ", %s" % arg2
+        outLines.append(line)
+
+    # join 'em up
+    outRaw = "\n".join(outLines)
+    
+    print outRaw
+
+if __name__ == '__main__':
+    main()
