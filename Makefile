@@ -101,5 +101,5 @@ mirror::
 update-tests::
 	$(MAKE) clean
 	grep -v '^tests/' MANIFEST > MANIFEST.tmp
-	find tests -name '*.fs' -o -name '*.disasm' -o -name '*.hex' >> MANIFEST.tmp
+	find tests -name '*.fs' -o -name '*.disasm' -o -name '*.hex' | sort >> MANIFEST.tmp
 	mv MANIFEST.tmp MANIFEST
