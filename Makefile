@@ -99,3 +99,8 @@ mirror::
 	chmod -R og=u-w mirror-dist
 	rsync -av --delete mirror-dist/ www.rfc1149.net:rfc1149.net/data/download/picforth-repository/${DEVELOPMENTBRANCH}/
 	rm -rf mirror-dist
+
+update-tests::
+	grep -v '^tests/' MANIFEST > MANIFEST.tmp
+	find tests -name '*.fs' -o -name '*.disasm' -o -name '*.hex' >> MANIFEST.tmp
+	mv MANIFEST.tmp MANIFEST
