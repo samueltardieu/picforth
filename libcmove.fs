@@ -6,6 +6,9 @@
 \ It belongs to the public domain. Do whatever you want with it.
 \
 
+needs libfetch.fs
+needs libstore.fs
+
 variable cmove-src
 variable cmove-dst
 
