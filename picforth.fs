@@ -195,6 +195,10 @@ variable configword-1
 
 : config-mask-1 invert configword-1 @ and or configword-1 ! ;
 
+\ Aliases for configword-1 and config-mask-1
+: configword configword-1 ;
+: config-mask config-mask-1 ;
+
 variable configword-2
 3fff configword-2 !
 
