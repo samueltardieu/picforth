@@ -6,13 +6,13 @@ To understand the scope of these changes, please refer to the documentation.
 
 ** New words
 
-  + "case"/"of"/"endof"/"endcase". Requested by David McNab
+  + "case"/"of"/"endof"/"endcase". Suggested by David McNab
     <david@rebirthing.co.nz>.
 
 ** Enhancements
 
   + Check nesting of loops and conditional constructs as well as
-    non-nesting of definition words. Requested by David McNab
+    non-nesting of definition words. Suggested by David McNab
     <david@rebirthing.co.nz>.
 
   + Do not warn about words redefined in PicForth. Suggested by
