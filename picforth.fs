@@ -225,7 +225,7 @@ does>
 004 config-switch-1 set-wdte
 008 config-switch-1 set-/pwrte
 020 config-switch-1 set-mclre
-040 config-switch-1 set-boren
+040 config-switch-1 set-boden
 080 config-switch-1 set-lvp
 100 config-switch-1 set-cpd
 200 config-switch-1 set-wrt
