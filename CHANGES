@@ -2,6 +2,13 @@
 
 To understand the scope of these changes, please refer to the documentation.
 
+* New in version 1.2.4
+
+** Bug fix
+
+  + Flash tables generated an error due to new nesting checks introduced in
+    PicForth 1.2.2. Reported by Jamie Lawson <jlawson@ces.uoguelph.ca>.
+
 * New in version 1.2.3
 
 ** Bug fix

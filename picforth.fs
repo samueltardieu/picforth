@@ -2194,7 +2194,7 @@ host
 
 : element-ftable ( n -- ) retlw ;
 
-: end-ftable ( start -- )
+: end-ftable ( DEFINITIONMARK start -- )
     $ff00 and tcshere $ff00 and <> abort" flash table crosses page boundaries"
     unreachable meta> ;
 ;
@@ -2222,18 +2222,19 @@ meta
 : t, ( endxt elemxt n -- endxt elemxt ) over execute ;
 
 : table> ( endxt elemxt -- endxt elemxt )
-    >r depth >r source >in @ /string evaluate depth 2r> rot swap - 1- for
+    >r depth >r evaluate-eol depth 2r> rot swap - 1- for
       i 1+ roll over execute
-    next postpone \
+    next
 ;
 
 : end-table ( endxt elemxt -- ) drop execute ;
 
-: ftable ( "name" -- start endxt elemxt )
-    reachable tcshere ['] end-ftable ['] element-ftable
+: ftable ( "name" -- DEFINITIONMARK start endxt elemxt )
     meta> :: >w
+    reachable tcshere
     return-in-w pcl ,f addwf
     -tcompile
+    ['] end-ftable ['] element-ftable
 ;
 
 : eetable ( "name" -- endxt elemxt )
