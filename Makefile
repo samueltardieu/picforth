@@ -80,6 +80,7 @@ clean::
 	cd doc && ${MAKE} clean
 
 test::
+	rm -rf testresults
 	${MAKE} release all
 	mkdir testresults
 	cp ${DISASM} testresults
@@ -91,4 +92,3 @@ mirror::
 	darcs get . mirror-dist
 	chmod -R og=u-w mirror-dist
 	rsync -av --delete mirror-dist/ www.rfc1149.net:rfc1149.net/data/download/picforth-repository/${DEVELOPMENTBRANCH}/
-	rm -rf mirror-dist
