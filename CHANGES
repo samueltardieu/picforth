@@ -9,6 +9,11 @@ To understand the scope of these changes, please refer to the documentation.
   + Make stack size configurable in multitasker. Feature requested
     by David McNab <david@rebirthing.co.nz>.
 
+** New optimization
+
+  + Use "subwf" when it leads to better code. Feature requested by
+    David McNab <david@rebirthing.co.nz>.
+
 ** Bug fixes
 
   + Fix overflow in "goto" instruction patching in "multitasker.fs". Bug

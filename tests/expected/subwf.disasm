@@ -1,0 +1,5 @@
+	; name: x
+	; max return-stack depth: 0
+0x0004	0822	movf	0x22,w
+0x0005	02A3	subwf	0x23,f
+0x0006	0008	return	

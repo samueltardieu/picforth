@@ -1503,7 +1503,12 @@ import: adjust-bank   import: restore-bank
 		movlw select-bank ,f addwf restore-bank
 	    then then
 	else
-	    popw select-bank addwf restore-bank
+	    popw
+	    opt? lastcs 3c00 = and if
+		select-bank cs-rewind subwf restore-bank
+	    else
+		select-bank addwf restore-bank
+	    then
 	then
     else
 	meta> tuck @ + swap !

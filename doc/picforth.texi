@@ -110,6 +110,7 @@ Optimizations
 * Increment/decrement and skip if zero used when possible::  
 * Values are not normalized when this is not necessary::  
 * Optimize words ending with constants pushing::  
+* Use subwf when possible::     
 
 @end detailmenu
 @end menu
@@ -1444,6 +1445,7 @@ The following optimizations are implemented:
 * Increment/decrement and skip if zero used when possible::  
 * Values are not normalized when this is not necessary::  
 * Optimize words ending with constants pushing::  
+* Use subwf when possible::     
 @end menu
 
 @node Tail recursion, Redundant pop/push are removed, Optimizations, Optimizations
@@ -1732,7 +1734,7 @@ generates
 The @code{<} test did not cause the value to be normalized to 0 or -1, as it is
 not needed.
 
-@node Optimize words ending with constants pushing,  , Values are not normalized when this is not necessary, Optimizations
+@node Optimize words ending with constants pushing, Use subwf when possible, Values are not normalized when this is not necessary, Optimizations
 @section Optimize words ending with constants pushing
 
 If a word is marked as returning the top of stack in w using
@@ -1756,6 +1758,26 @@ will be compiled as
   btfsc   0x08,4
   retlw   0x04
   retlw   0x00
+@end example
+
+@node Use subwf when possible,  , Optimize words ending with constants pushing, Optimizations
+@section Use subwf when possible
+
+The following code:
+
+@example
+variable v1
+variable v2
+
+: op v1 @ v2 -! ;
+@end example
+
+generates the following code:
+
+@example
+  movf    0x22,w
+  subwf   0x23,f
+  return  
 @end example
 
 @node Examples,  , Optimizations, Top
