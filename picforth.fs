@@ -2349,6 +2349,7 @@ meta
 
 target
 
-\ Reserve space for jump to main (up to three bytes, because of pclath)
-3 org
+\ Reserve space for jump to main (4 bytes, because of the need to erase
+\ 4 bytes at a time on 16F8xxA devices)
 
+4 org
