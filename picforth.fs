@@ -1780,21 +1780,38 @@ meta
     prevlastcs 2800 = and
     prevprevlastcs 1800 and 1800 = and
 ;
-    
+
+\ Invert the conditional which was put last
+: invert-last-btfsx ( -- ) cs-unwind 0400 xor cs, ;
+
 : then ( faddr -- )
     dup cbank tcshere cbank <> abort" Bank switch over test"
     short-if? opt-allowed? and if
-	drop reachable l-cs-unwind cs-rewind cs-unwind 0400 xor cs,
+	drop reachable l-cs-unwind cs-rewind invert-last-btfsx
 	check-incdectos-btfsz
 	l-cs, reachable
     else
 	resolve
     then ;
-    
+
+\ At resolve time, check whether we have something like:
+\   btfsc ... or btfss ...
+\   goto  0 \ unresolved yet
+\ This would mean that we get a if with an else and nothing in between
+
+: empty-if? ( faddr -- faddr f )
+    dup 1 + tcshere =
+    lastcs 2800 = and
+    prevlastcs 1800 and 1800 = and
+;
+
 : else ( faddr1 -- faddr2 )
-    meta> ahead
-    swap
-    meta> then
+    empty-if? opt-allowed? and if
+	reachable cs-unwind invert-last-btfsx cs, exit
+    else
+	meta> ahead
+	swap resolve
+    then
 ;
 
 \ In a backward reference, we cannot assume that the bank will be properly

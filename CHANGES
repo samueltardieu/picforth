@@ -4,7 +4,7 @@ To understand the scope of these changes, please refer to the documentation.
 
 * New in version 1.0.2
 
-** New words
+** New words  
 
   + Import conditional compilation words "[IF]", "[ELSE]", "[THEN]",
     "[IFDEF]" and "[IFUNDEF]" from gforth. Suggested by David McNab
@@ -14,6 +14,8 @@ To understand the scope of these changes, please refer to the documentation.
 
 ** Bug fixes
 
+  + Test with empty action part and a "else" is now handled properly.
+    Bug reported by Alex Holden <alex@linuxhacker.org>.
   + Make include/needs work properly
 
 ** Miscellenaous
