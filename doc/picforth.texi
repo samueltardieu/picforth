@@ -5,7 +5,7 @@
 
 @titlepage
 @title PicForth programmer manual
-@subtitle Using PicForth 0.31
+@subtitle Using PicForth 0.32
 @subtitle @today
 @author Samuel Tardieu
 
@@ -207,19 +207,30 @@ However, no code has been reused, as both Forth do not have the same goal.
 I would like to thank the following people, in no particular order:
 
 @itemize @bullet
+
 @item
-Keith Wootten for his precious examples of how he uses a forth-ish
-assembler for the PIC and his inspiration for some control structures
+Jamie Lawson for his ports on the 16F88 architecture
+
+@item
+David McNab for his numerous enhancements, bug fixes, contributions and
+ideas
 
 @item
 Francisco Rodrigo Escobedo Robles for his Mary PIC Forth compiler
 
 @item
+Daniel Serpell for his superoptimizer (a program looking for the
+shortest possible sequences doing a particular job)
+
+@item
 Herman Tamas for his suggestions for some word names
 
 @item
-Daniel Serpell for his superoptimizer (a program looking for the
-shortest possible sequences doing a particular job)
+Keith Wootten for his precious examples of how he uses a forth-ish
+assembler for the PIC and his inspiration for some control structures
+
+@item
+John C. Wren for his code contributions
 
 @item
 Wojciech Zabolotny for his helpful remarks on interrupts and context saving
