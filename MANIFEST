@@ -40,6 +40,3 @@ pic16f87x.inc
 tools/fdasm
 tools/fdasm.txt
 tools/README
-tools/bootloading/pfd.py
-tools/bootloading/example.fs
-tools/bootloading/README
