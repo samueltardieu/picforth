@@ -592,15 +592,21 @@ target
   8c constant  pie1
   8d constant  pie2
   8e constant  pcon
+  8f constant  osccon
+  90 constant  osctune
   91 constant  sspcon2
   92 constant  pr2
   93 constant  sspadd
   94 constant  sspstat
   98 constant  txsta
   99 constant  spbrg
+  9b constant  ansel
+  9c constant  cmcon
+  9d constant  cvrcon
   9e constant  adresl
   9f constant  adcon1
 
+ 105 constant  wdtcon
  10c constant  eedata
  10d constant  eeadr
  10e constant  eedath
@@ -666,6 +672,7 @@ target
   6 rcsta bit rx9
   5 rcsta bit sren
   4 rcsta bit cren
+  3 rcsta bit adden
   2 rcsta bit ferr
   1 rcsta bit oerr
   0 rcsta bit rx9d
@@ -681,7 +688,13 @@ target
   1 pir1 bit tmr2if
   0 pir1 bit tmr1if
 
-  ( pie1 bits )
+( pir2 bits )
+
+  7 pir2 bit osfif
+  6 pir2 bit cmif
+  4 pir2 bit eeif
+
+( pie1 bits )
 
   7 pie1 bit pspie
   6 pie1 bit adie
@@ -692,8 +705,15 @@ target
   1 pie1 bit tmr2ie
   0 pie1 bit tmr1ie
   
-  ( t1con bits )
+( pie2 bits )
 
+  7 pie2 bit osfie
+  6 pie2 bit cmie
+  4 pie2 bit eeie
+
+( t1con bits )
+
+  6 t1con bit t1run
   5 t1con bit t1ckps1
   4 t1con bit t1ckps0
   3 t1con bit t1oscen
@@ -701,7 +721,8 @@ target
   1 t1con bit tmr1cs
   0 t1con bit tmr1on
 
-  ( t2con bits )
+( t2con bits )
+
   6 t2con bit toutps3
   5 t2con bit toutps2
   4 t2con bit toutps1
@@ -710,7 +731,7 @@ target
   1 t2con bit t2ckps1
   0 t2con bit t2ckps0
   
-  ( sspcon bits )
+( sspcon bits )
 
   7 sspcon bit wcol
   6 sspcon bit sspov
@@ -721,7 +742,7 @@ target
   1 sspcon bit sspm1
   0 sspcon bit sspm0
 
-  ( sspstat bits )
+( sspstat bits )
 
   7 sspstat bit smp
   6 sspstat bit cke
@@ -732,7 +753,18 @@ target
   1 sspstat bit ua
   0 sspstat bit bf
 
-  ( adcon0 bits )
+( ansel bits )
+
+  6 ansel bit ans6
+  5 ansel bit ans5
+  4 ansel bit ans4
+  3 ansel bit ans3
+  2 ansel bit ans2
+  1 ansel bit ans1
+  0 ansel bit ans0
+  
+( adcon0 bits )
+
   7 adcon0 bit adcs1
   6 adcon0 bit adcs0
   5 adcon0 bit chs2
@@ -740,6 +772,46 @@ target
   3 adcon0 bit chs0
   2 adcon0 bit go//done
   0 adcon0 bit adon
+  
+( adcon1 bits )
+
+  7 adcon1 bit adfm
+  6 adcon1 bit adcs2
+  5 adcon1 bit vcfg1
+  4 adcon1 bit vcfg0
+  
+( ccp1con bits )
+
+  5 ccp1con bit ccp1x
+  4 ccp1con bit ccp1y
+  3 ccp1con bit ccp1m3
+  2 ccp1con bit ccp1m2
+  1 ccp1con bit ccp1m1
+  0 ccp1con bit ccp1m0
+
+( pcon bits )
+
+  1 pcon bit /por
+  0 pcon bit /bor
+
+( osccon bits )
+
+  6 osccon bit ircf2
+  5 osccon bit ircf1
+  4 osccon bit ircf0
+  3 osccon bit osts
+  2 osccon bit iufs
+  1 osccon bit scs1
+  0 osccon bit scs0
+
+( osctune bits )
+
+  5 osctune bit tun5
+  4 osctune bit tun4
+  3 osctune bit tun3
+  2 osctune bit tun2
+  1 osctune bit tun1
+  0 osctune bit tun0
   
 \ ----------------------------------------------------------------------
 \ Data and variables
