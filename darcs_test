@@ -1,0 +1,4 @@
+#! /bin/sh -e
+
+make GFORTH=gforth-0.5.0
+make clean
