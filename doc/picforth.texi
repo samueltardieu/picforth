@@ -5,7 +5,7 @@
 
 @titlepage
 @title PicForth programmer manual
-@subtitle Using PicForth 0.32
+@subtitle Using PicForth 0.33
 @subtitle @today
 @author Samuel Tardieu
 
