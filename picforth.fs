@@ -989,7 +989,7 @@ variable last-word
     repeat
     nip ;
 : compute-depth ( -- )
-    0 last-addr @ last-addr t-length over + swap do
+    0 last-addr @ last-addr t-length over + swap ?do
 	i tcsdata@ 0= i tcs@ 3000 and 2000 = and if
 	    i tcslit@ >host ?dup if
 		t-depth
