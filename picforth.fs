@@ -742,6 +742,17 @@ target
   1 sspcon bit sspm1
   0 sspcon bit sspm0
 
+( sspcon2 bits )
+
+  7 sspcon2 bit gcen
+  6 sspcon2 bit ackstat
+  5 sspcon2 bit ackdt
+  4 sspcon2 bit acken
+  3 sspcon2 bit rcen
+  2 sspcon2 bit pen
+  1 sspcon2 bit rsen
+  0 sspcon2 bit sen
+
 ( sspstat bits )
 
   7 sspstat bit smp
