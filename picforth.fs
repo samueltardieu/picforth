@@ -1584,6 +1584,10 @@ meta
     no-note
 ;
 
+: 0<
+    80 (literal) meta> and 0<>
+;
+   
 : <
     meta> - carry-clr?
 ;
@@ -1592,10 +1596,6 @@ meta
     meta> - carry-set?
 ;
 
-: 0<
-    80 (literal) meta> and 0<>
-;
-   
 : >
     meta> swap <
 ;
