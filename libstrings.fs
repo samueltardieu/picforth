@@ -22,6 +22,9 @@ host
   if c@ 7 lshift csdata, else drop 0 csdata, then
 ;
 
+\ Install a jump over the string data (which is stored in the code) and
+\ store the packed data.
+
 : store-packed ( caddr u -- )
   2>r meta> ahead
   reachable
@@ -34,9 +37,16 @@ host
 
 meta
 
+\ Set up a counted string. At runtime, this sets up the eeadrh/eeadr
+\ registers so that they point to the beginning of the string.
+
 : c" [char] " parse store-packed ; \ " Keep VIM happy
 
 target
+
+\ This word returns the next character in a counted string (can be zero if
+\ the string end has just been reached). It is an iterator; successive calls
+\ will return successive characters.
 
 : str-char ( -- c )
   string-odd @ 1 and if 0 string-odd ! eedata @ $7f and exit then
