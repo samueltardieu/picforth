@@ -21,6 +21,8 @@ To understand the scope of these changes, please refer to the documentation.
 ** Miscellenaous
 
   + Add more comments to explain PicForth internals
+  + Add a note in the documentation about c" working in target mode only.
+    Problem reported by Alex Holden <alex@linuxhacker.org>.
 
 * New in version 1.0.1
 
