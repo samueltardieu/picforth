@@ -1099,7 +1099,7 @@ variable prev-cbank
 : l-goto ( addr -- ) adjust-cbank goto ;
 : l-call ( addr -- )
     adjust-cbank call
-    current-cbank @ if no-cbank then    \ A call in bank 0 holds 0 in PCLATH
+    current-cbank @ if no-cbank then    \ A call from bank 0 holds 0 in PCLATH
 ;
 
 \ Control of the word being currently defined
