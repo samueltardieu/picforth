@@ -1,6 +1,6 @@
 \ require.fs
 
-\ Copyright (C) 1995,1996,1997,1998,2000 Free Software Foundation, Inc.
+\ Copyright (C) 1995,1996,1997,1998,2000,2003 Free Software Foundation, Inc.
 
 \ This file is part of Gforth.
 
@@ -20,21 +20,6 @@
 
 \ Now: Kernel Module, Reloadable
 
-: sourcefilename ( -- c-addr u ) \ gforth
-    \G The name of the source file which is currently the input
-    \G source.  The result is valid only while the file is being
-    \G loaded.  If the current input source is no (stream) file, the
-    \G result is undefined.  In Gforth, the result is valid during the
-    \G whole seesion (but not across @code{savesystem} etc.).
-    loadfilename# @ loadfilename#>str ;
-
-: sourceline# ( -- u ) \ gforth		sourceline-number
-    \G The line number of the line that is currently being interpreted
-    \G from a (stream) file. The first line has the number 1. If the
-    \G current input source is not a (stream) file, the result is
-    \G undefined.
-    loadline @ ;
-
 : init-included-files ( -- ) \ gforth-internal
     image-included-files 2@ 2* cells save-mem drop ( addr )
     image-included-files 2@ nip included-files 2! ;
@@ -48,7 +33,7 @@
     \G @file{./foo.fs}
     included-files 2@ 0
     ?do ( c-addr u addr )
-	dup >r 2@ 2over compare 0=
+	dup >r 2@ 2over str=
 	if
 	    2drop rdrop unloop
 	    true EXIT
@@ -65,13 +50,9 @@
 
 : included1 ( i*x file-id c-addr u -- j*x ) \ gforth
     \G Include the file file-id with the name given by @var{c-addr u}.
-    loadfilename# @ >r
-    save-mem add-included-file ( file-id )
-    included-files 2@ nip 1- loadfilename# !
-    ['] include-file2 catch
-    r> loadfilename# !
-    throw ;
-    
+    save-mem 2dup add-included-file ( file-id )
+    ['] read-loop execute-parsing-named-file ;
+
 : included ( i*x c-addr u -- j*x ) \ file
     \G @code{include-file} the file whose name is given by the string
     \G @var{c-addr u}.
@@ -123,16 +104,6 @@
 \   REPEAT
 \   drop ;
 
-\ : loadfilename#>str ( n -- adr len )
-\ \ this converts the filenumber into the string
-\   loadfilenamecount @ swap -
-\   needs^ @
-\   swap 0 ?DO dup 0= IF LEAVE THEN @ LOOP 
-\   dup IF cell+ count ELSE drop s" NOT FOUND" THEN ;
-
-: loadfilename#>str ( n -- adr len )
-    included-files 2@ drop swap 2* cells + 2@ ;
-
 : .strings ( addr u -- ) \ gforth
     \G list the strings from an array of string descriptors at addr
     \G with u entries, one per line.
@@ -141,8 +112,4 @@
 
 : .included ( -- ) \ gforth
     \G list the names of the files that have been @code{included}
-    included-files 2@ .strings ;
-    
-\ contains tools/newrequire.fs
-\ \I $Id: require.fs,v 1.18 2000/09/23 15:47:12 anton Exp $
-
+    included-files 2@ 2 cells under+ 1- .strings ;

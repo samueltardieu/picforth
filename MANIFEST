@@ -25,6 +25,7 @@ taskexample.fs
 controller.fs
 i2cloader.fs
 spifcard.fs
+input.fs
 require.fs
 doc/picforth.html
 doc/picforth.pdf

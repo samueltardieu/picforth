@@ -11,7 +11,7 @@ LIBRARIES=	picisr.fs libfetch.fs libstore.fs picflash.fs piceeprom.fs \
 PROGS=		booster.hex dcc2.hex generator.hex silver.hex \
 		spifcard.hex taskexample.hex controller.hex i2cloader.hex
 
-GFORTH?=	gforth
+GFORTH?=	gforth-0.6.2
 
 DISASM=		${PROGS:.hex=.disasm}
 

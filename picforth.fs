@@ -409,8 +409,9 @@ e bofro: swapf
 
 \ Control operations
 : co: create 8 lshift , does> @ >prefix swap 7ff and or cs, ;
-20 co: call
+20 co: call 20 co: tgt-call \ Alias for call as it exists in gforth 0.6.x
 28 co: goto
+
 
 \ ----------------------------------------------------------------------
 \ Literals operations
@@ -971,8 +972,8 @@ variable prev-cbank
 
 : l-goto ( addr -- ) adjust-cbank goto ;
 : l-call ( addr -- )
-  adjust-cbank call
-  current-cbank @ if no-cbank then    \ A call in bank 0 holds 0 in PCLATH
+    adjust-cbank tgt-call
+    current-cbank @ if no-cbank then    \ A call in bank 0 holds 0 in PCLATH
 ;
 
 \ Control of the word being currently defined
@@ -2071,40 +2072,17 @@ host
     begin ?stack name dup while parser repeat
     2drop ;
 
-: pic'quit ( -- ) begin .status cr (query) interpret prompt again ;
+: (picquit) ( -- ) begin .status cr query interpret prompt again ;
 
-\ ----------------------------------------------------------------------
-\ The following fragment comes from or is strongly inspired by gforth 0.6.1
-\ ----------------------------------------------------------------------
-
-\ from int.fs
-
-: picquit ( ?? -- ?? )
-    \ Empty the return stack, make the user input device
-    \ the input source, enter interpret state and start
-    \ the text interpreter.
-    rp0 @ rp! handler off clear-tibstack
-    >tib @ >r
-    \ Enter PicForth target mode
-    target
-    begin
-	[compile] [
-        ['] pic'quit catch dup
-    while
-        <# \ reset hold area, or we may get another error
-	DoError
-	r@ >tib ! r@ tibstack !
-    repeat
-    drop
-    r> >tib ! ;
-
-\ end of gforth originated code
+' (picquit) is 'quit
 
 \ ----------------------------------------------------------------------
 \ Make use of the newly defined interpreter when including files
 \ ----------------------------------------------------------------------
 
-include kernel/files.fs
+: | ;
+
+include input.fs
 include require.fs
 
 meta
@@ -2341,3 +2319,4 @@ target
 
 \ Reserve space for jump to main (up to three bytes, because of pclath)
 3 org
+
