@@ -188,38 +188,66 @@ init-codedata
 : init-eeprom teeprom 100 cells bounds do -1 i ! 1 cells +loop ;
 init-eeprom
 
-\ Configuration word.
+\ Configuration words 
 
-variable configword
-3fff configword !
+variable configword-1
+3fff configword-1 !
 
-: config-mask invert configword @ and or configword ! ;
+: config-mask-1 invert configword-1 @ and or configword-1 ! ;
+
+variable configword-2
+3fff configword-2 !
+
+: config-mask-2 invert configword-2 @ and or configword-2 ! ;
 
 meta
 
-: set-fosc 3 config-mask ;
-0 constant fosc-lp
-1 constant fosc-xt
-2 constant fosc-hs
-3 constant fosc-rc
+: set-fosc 1f config-mask-1 ;
+00 constant fosc-lp
+01 constant fosc-xt
+02 constant fosc-hs
+03 constant fosc-extclk
+10 constant fosc-intrc-io
+11 constant fosc-intrc-clk
+12 constant fosc-extrc-io
+13 constant fosc-extrc-clk
 
-: config-switch
+: config-switch-1
     create ,
 does>
-    @ swap if dup else 0 swap then config-mask
+    @ swap if dup else 0 swap then config-mask-1
 ;
 
-004 config-switch set-wdte
-008 config-switch set-/pwrte
-040 config-switch set-boden
-080 config-switch set-lvp
-100 config-switch set-cpd
-200 config-switch set-wrt
-800 config-switch set-debug
+004 config-switch-1 set-wdte
+008 config-switch-1 set-/pwrte
+020 config-switch-1 set-mclre
+040 config-switch-1 set-boren
+080 config-switch-1 set-lvp
+100 config-switch-1 set-cpd
+200 config-switch-1 set-wrt
+800 config-switch-1 set-debug
 
 : set-cp 3030 config-mask ;
 3030 constant no-cp
 0000 constant full-cp
+
+: set-ccp1 1000 config-mask-1 ;
+0000 constant ccp1-rb3
+1000 constant ccp1-rb0
+
+: set-wrt 600 config-mask-1 ;
+200 constant page1-wrt
+400 constant page0-wrt
+600 constant no-wrt
+
+: config-switch-2
+    create ,
+does>
+    @ swap if dup else 0 swap then config-mask-2
+;
+
+1 config-switch-2 set-fcmen
+2 config-switch-2 set-ieso
 
 \ ----------------------------------------------------------------------
 \ Annotations
@@ -2020,7 +2048,7 @@ variable cks
     0 begin dup teehere < while dup eeline-dump 8 + repeat drop ;
 : end-dump s" :00000001FF" type-fd cr-fd ;
 : config-dump
-    start-line 2 hex8. 400E hex16. 0 hex8. configword @ le-hex16. end-line ;
+    start-line 4 hex8. 400E hex16. 0 hex8. configword-1 @ le-hex16. configword-2 @ le-hex16. end-line ;
 : dump hex code-dump config-dump eeprom-dump end-dump ;
 
 : dump-file ( caddr a -- )
