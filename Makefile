@@ -15,9 +15,9 @@ GFORTH?=	gforth-0.6.2
 
 DISASM=		${PROGS:.hex=.disasm}
 
-TESTS_PROGS=	tests/onesmaller.hex tests/minusonesmaller.hex \
-		tests/onegreaterequal.hex
-TESTS_DISASM=	${TESTS_PROGS:.hex=.disasm}
+TESTS_SOURCES!=	ls tests/*.fs
+TESTS_PROGS=	${TESTS_SOURCES:.fs=.hex}
+TESTS_DISASM=	${TESTS_SOURCES:.fs=.disasm}
 
 all:	${DISASM} CHANGES.html docs
 docs:
