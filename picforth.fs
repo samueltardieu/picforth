@@ -914,8 +914,13 @@ host
 variable current-cbank
 variable prev-cbank
 
+\ Compute code bank from an address
 : cbank ( addr -- bank ) $b rshift ;
+
+\ Mark current code bank as unknown
 : no-cbank ( -- ) current-cbank @ prev-cbank ! -1 current-cbank ! ;
+
+\ Mark current code bank as being current code location
 : cbank-ok ( -- ) tcshere cbank current-cbank ! ;
 
 : set-cbank-bit ( bank n -- )
@@ -1725,7 +1730,12 @@ meta
     meta> then
 ;
 
-: backref ( -- baddr ) tcshere no-opt ;
+\ In a backward reference, we cannot assume that the bank will be properly
+\ restored to its correct value. We could do that by remembering the
+\ value it should have, but this may be an underoptimization as we may
+\ need to explicitely call code in another bank just after the backward
+\ reference.
+: backref ( -- baddr ) tcshere no-opt no-cbank ;
 
 : begin ( -- 0 baddr ) 0 backref ;
 
