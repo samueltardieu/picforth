@@ -4,6 +4,11 @@ To understand the scope of these changes, please refer to the documentation.
 
 * New in version 1.2.4
 
+** New words
+
+  + Add the "flag" word from David McNab <david@rebirthing.co.nz> which
+    handles 1-bit variables.
+
 ** New library
 
   + Add libroll.fs from David McNab <david@rebirthing.co.nz>, which adds

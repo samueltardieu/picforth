@@ -70,6 +70,7 @@ Compiler documentation
 * Memory::                      
 * Warnings and errors::         
 * Variables::                   
+* Flags::                       
 * Tables::                      
 * Jump tables::                 
 * Main program::                
@@ -613,6 +614,7 @@ one regular exit point at the end of the word.
 * Memory::                      
 * Warnings and errors::         
 * Variables::                   
+* Flags::                       
 * Tables::                      
 * Jump tables::                 
 * Main program::                
@@ -800,7 +802,7 @@ This will let the old warnings state on the stack. This integer must be
 given back to @code{restore-warnings} to come back to the latest warnings
 state.
 
-@node Variables, Tables, Warnings and errors, Compiler documentation
+@node Variables, Flags, Warnings and errors, Compiler documentation
 @section Variables
 
 Variables are not automatically initialized to zero, as this would waste
@@ -811,7 +813,37 @@ initialized, use @code{create} and @code{,} such as in:
   create attempts 3 ,
 @end example
 
-@node Tables, Jump tables, Variables, Compiler documentation
+@node Flags, Tables, Variables, Compiler documentation
+@section Flags
+
+An easy habit to fall into is using a whole 8-bit variable for storing
+a simple binary flag, then using another variable for another flag and
+so on. This not only wastes data memory, but setting and testing such
+values requires more code.
+
+The @code{flag} word lets you define a 1-bit variable which can then
+be modified with @code{bit-set}, @code{bit-clr} and @code{bit-toggle}
+words, and tested with @code{bit-set?} and @code{bit-clr?}  words.
+
+The following example shows how to manipulate a @code{emergency}
+boolean value and exit a loop when it is set:
+
+@example
+  flag emergency
+
+  : xxx ... ;
+  : yyy ... ;
+
+  : do-futile-things ( -- )
+      emergency bit-clr
+      begin
+         xxx  ( complex program that can set emergency )
+         yyy  ( complex program that can set emergency )
+      emergency bit-set? until
+  ;
+@end example
+
+@node Tables, Jump tables, Flags, Compiler documentation
 @section Tables
 
 Tables can be created either in RAM (with run-time initialization, which

@@ -955,6 +955,24 @@ meta
     meta> create 1 allot
 ;
 
+\ Flags
+
+variable flag.curaddr
+
+8 value flag.nextbit \ set as 8, to force new var allocation on first usage
+
+: flag ( "name" -- )
+    flag.nextbit 8 >= if
+        \ run out of bits in current cached var, alloc another 8-bit var
+        data-here flag.curaddr ! meta> 1 allot
+        0 to flag.nextbit  \ and can start off again from bit 0
+    then
+    \ create word which allows us to manipulate this bit
+    flag.nextbit flag.curaddr @ bit
+    \ and update our counter to point to next available bit
+    flag.nextbit 1+ to flag.nextbit
+;
+
 \ EEPROM
 
 : eecreate
