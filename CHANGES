@@ -1,0 +1,411 @@
+-*- outline -*-
+
+To understand the scope of these changes, please refer to the documentation.
+
+* Changes since PicForth 0.29
+
+** License clarification
+
+  + The various libraries have been explicitely marked as being in the
+    public domain. Thanks to William Kitchen <vilvoy@pixeltile.com> for
+    reporting this.
+
+* Changes since PicForth 0.28
+
+** Bug fix
+
+  + Dumb code such as "7 9 < if ... then" (which would never occur in real
+    programs) is now properly handled. The optimizer was too enthusiastic
+    and did not set the carry flag properly.
+
+* Changes since PicForth 0.27
+
+** New words
+
+  + The "sleep" word is imported from assembler and can be used from Forth
+    code.
+
+** Bug fixes
+
+  + Various bug fixes related to high addresses.
+
+* Changes since PicForth 0.26
+
+** New library
+
+  + Library "libstrings.fs" allows the creation of 7 bits packed strings
+    in flash memory. Each program word holds two characters and strings
+    are zero terminated. An iterator allows the retrieval of one character
+    at a time.
+
+** Incompatible change
+
+  + Line-oriented literal strings now use CR/LF (two characters) instead of
+    CR alone. This makes more terminal software happy.
+
+* Changes since PicForth 0.25
+
+** New words
+
+  + "w-!" removes the content of W from a memory register.
+
+** New optimizations
+
+  + "-!" can handle more cases.
+
+* Changes since PicForth 0.24
+
+** New words
+  + "suspend-interrupts" and "restore-interrupts" allow interrupt bit saving
+  and restoring. Builtin words do use those internally. If "picisr.fs" is
+  not included, those words are noops.
+
+* Changes since PicForth 0.23
+
+** New words
+
+  + "rrf!" and "rlf!" allow for variable bit shifting without resorting to
+  assembler.
+
+  + "t," allows for a single byte to be added in a table.
+
+** New optimizations
+
+  + "lshift" and "rshift" have been further optimized.
+  + "goto" is used in place of "call" in more places when it is possible.
+
+* Changes since PicForth 0.22
+
+** Feature change
+
+  + "v-next" rememebers the variable used at "v-for" time. Therefore, "v-next"
+  no longer takes a variable address as parameter.
+
+** New words
+
+  + "table", "ftable", "eetable", "table>" and "end-table" allow to create
+    respectively RAM, flash or EEPROM tables.
+
+  + The library "picflash.fs" contains new words "fcreate", "f,", "fallot"
+    and "fhigh!".
+
+** New documentation
+
+  + Some documentation has been started. Look for "picforth.pdf",
+  "picforth.txt", "picforth.info" and "picforth.html" and use the one
+  which most suits your needs and tastes.
+
+* Changes since PicForth 0.21
+
+** New features
+
+  + It is now possible to use the whole PIC code space.
+
+** Removed words
+
+  + The words "table" and "tc:" have been removed as they were inefficient
+  and useless in their current form.
+
+* Changes since PicForth 0.20
+
+** New words
+
+  + The words "bank0", "bank1", "bank2" and "bank3" allow to choose the
+  memory bank in which next variables will be stored.
+
+  + "needs" works the usual way.
+
+  + "set-stack-size" allows to set the default stack size.
+
+* Changes since PicForth 0.19
+
+** New optimizations
+
+  + Obvious "cmove" cases are optimized.
+
+** Doc emphasis
+
+  + Make it clearer that there is an assembler included.
+
+* Changes since PicForth 0.18
+
+** Bug fix
+
+  + Some rare conditions could lead to bad code being generated, because
+    of missing optimization barriers (the only legit sequence with
+    problems was "bit-clr? until").
+
+* Changes since PicForth 0.17
+
+** Data area initialization
+
+  + Data area is now initialized if "," is used. Note however that variables
+    are not automatically initialized to 0 (see "README").
+
+* Changes since PicForth 0.16
+
+** New optimizations
+
+  + Expressions followed by a test (such as a "if") will not be normalized
+    if it is not needed.
+
+** New words
+
+  + Two new words, "bit-clr?" and "low?" have been added.
+
+** New libraries
+
+  + The library "libcmove.fs" implements ANS Forth "CMOVE".
+
+** New example
+
+  + A new real-life example "spifcard.fs" has been added.
+
+** Removed words
+
+  + The word "/if", "c-if", "c-/if", "/until", "/while" and "=if" have been
+    removed as the new optimizations makes them unnecessary.
+
+* Changes since PicForth 0.15
+
+** New optimizations
+
+  + More useless loads have been removed, generating even better code.
+
+  + Words "hex>nibble" and "nibble>hex" from "libnibble.fs" have been
+    optimized.
+
+  + "swap" and "drop" after a string literal word are optimized.
+
+** New words
+
+  + "=if" adds a new test.
+
+** Preparation for larger programs
+
+  + Jump to main program and interrupt handler properly handle PCLATH.
+
+** New example
+
+  + "i2cloader.fs" is a flash and eeprom programmer using I2C.
+
+* Changes since PicForth 0.14
+
+** New words
+
+  + "bit" builds a name representing a particular bit at a particular address.
+
+** Behaviour changes
+
+  + Named bits (such as "c", "z", "t0if", ...) do now push their address
+    as well, and must be used without any address. For example, to test
+    for timer 0 overflow, you must use "t0if bit-set? if ... then".
+
+** Parameters order changes
+
+  + Words "bit-set", "bit-clr", "bit-set?", "bit-toggle", "high", "low",
+   "high?" and "toggle" now use inverted parameters (push port first then
+    bit number). Symbols defined with "bit", "pin-a", "pin-b", "pin-c",
+    "pin-d" or "pin-e" can now be used in assembly code as the parameter
+    order is similar to the Forth one.
+
+** Renamed words
+
+  + String + carriage return manipulation word has been renamed.
+
+** Renamed example
+
+  + "checker.fs" has been renamed "controller.fs", as the previous name
+    was misleading.
+
+* Changes since PicForth 0.13
+
+** New words
+
+  + "/and" "invert" the top-of-stack then "and" the two top values.
+  + "swapf-tos" exchanges nibble of top-of-stack.
+  + Two words (see README) allow you to store strings in the EEPROM.
+
+** New optimizations
+
+  + "lshift" with a bit count greater than 3 will use a shorter code than
+    before.
+
+  + "and" and "/and" will use bit manipulation when this is more efficient.
+
+** New example
+
+  + A new complete example "checker.fs" is included.
+
+** New library
+
+  + The "libnibble.fs" library converts characters to nibbles and nibbles
+    to characters.
+
+** Bug fixes
+
+  + In one case, the code generated by a "-" followed by "if" could be
+    incorrect.
+
+  + In some cases, "lshift" and "rshift" could generate incorrect code.
+
+* Changes since PicForth 0.12
+
+** Bug fixes
+
+  + The basic multitasker has been fixed to work correctly when the "yield"
+    operation crosses a 256 bytes page limit.
+
+* Changes since PicForth 0.11
+
+** New multitasker
+
+  + A new multitasker (cooperative, priority-less, much simpler) has been
+    added. See README file for information on how to use both multitaskers.
+
+** New optimizations
+
+  + "incfsz" and "decfsz" will be used when it is possible.
+
+* Changes since PicForth 0.10
+
+** New features
+
+  + Tasks of equal priority will all run if one of them runs (and code is
+    more efficient).
+
+** New optimizations
+
+  + Regular tasks need only 1 bit of data each instead of 1 byte (bits are
+    aggregated, 8 tasks will need only 1 byte of RAM).
+
+  + Some redundant loads before tests have been suppressed.
+
+* Changes since PicForth 0.9
+
+** New features
+
+  + PicForth now includes a priority-based cooperative multitasker, see
+    README file for details.
+
+** New words
+
+  + "lshift", "rshift", "2*" and "2/" are implemented.
+
+* Changes since PicForth 0.8
+
+** New words
+
+  + "invert!" inverts the content of an address.
+  + "-!" is implemented.
+
+** New modes
+
+  + "macro" allows you to enter the macro definition mode, while "target"
+    gets you back to code generation.
+
+** New optimizations
+
+  + "drop" followed by an integer leads to very efficient code.
+  + "+" and "-" have been further optimized.
+
+* Changes since PicForth 0.7
+
+** New parameter passing convention
+
+  + A new defining word "::" allow efficient W register parameter passing.
+    ">w" and "w>" respectively pop the top-of-stack into w and push w on
+    the stack. They can be used to implement efficient return value handling.
+
+** New optimizations
+
+  + "or" now uses bit-set instructions when it makes sense, as well as "or!",
+    "and!" and "/and!".
+
+  + "negate" and "invert" have been optimized.
+
+** New words
+
+  + "recurse" is implemented the traditional way.
+
+  + ">input" and ">output" change a pin direction by working on the
+    corresponding tris register.
+
+* Changes since PicForth 0.6
+
+** New optimizations
+
+  + A load followed by a constant + or - will be even further optimized.
+
+** New check
+
+  + The compiler now checks that you do not run out of code space and out of
+    RAM space (see README for more explanations).
+
+** Bug fixes
+
+  + The Makefile was not ideal and could induce some bugs due to the
+    redefinition of "include".
+
+  + The previous definition of "over" was not interrupt-safe.
+
+  + Some opcodes were not properly displayed by the disassembler.
+
+* Changes since PicForth 0.5
+
+** New disassembler and interactive mode
+
+   + If you use "make interactive", you will be dropped into an interactive
+     mode where you can disassemble words using "see", "words", "map" and
+     "dis".
+
+* Changes since PicForth 0.4
+
+** New optimization
+
+   + If an operation targets the top of stack and this one is then
+     popped into w, the operation is modified to target w directly.
+
+** New example
+
+   + A new example, "silver.fs", contains some code that runs on a
+     smartcard.
+
+** New words
+
+   + "eecreate" and "ee," manipulate EEPROM content
+
+** New features
+
+   + The EEPROM content can be programmed and is now dumped (see smartcard
+     example).
+
+** Bug fixes
+
+   + "ee@" selected the flash instead of the EEPROM
+
+* Changes since PicForth 0.3
+
+** New words
+
+  + "high", "low", "high?" and "toggle" are aliases for "bit-set",
+    "bit-low", "bit-set?" and "bit-toggle" intended to work on ports
+
+* Changes since PicForth 0.2
+
+** New library files
+
+Add library files "libfetch.fs" and "libstore.fs" which were forgotten in
+previous versions and are used by "generator.fs".
+
+* Changes since PicForth 0.1
+
+** New words
+
+  + "until" and "/until" (control structures)
+  + "clrwdt" (accessible from Forth)
+  + "pin-a", "pin-b", "pin-c", "pin-d", "pin-e" (pin mapping)
+
+** Renamed words
+
+  + "bit-clear" is renamed to "bit-clr"

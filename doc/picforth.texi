@@ -1,0 +1,1543 @@
+\input texinfo
+
+@settitle PIC 16F87x Forth programmer manual
+@setfilename picforth.info
+
+@titlepage
+@title PIC 16F87x Forth programmer manual
+@c $Format: "@subtitle Using PicForth $ReleaseVersion$"$
+@subtitle Using PicForth 0.27
+@subtitle @today
+@author Samuel Tardieu
+
+@end titlepage
+
+@node Top, Preamble, (dir), (dir)
+
+@menu
+* Preamble::                    
+* Introduction::                
+* A very short Forth primer::   
+* Our first PicForth program::  
+* Compiler documentation::      
+* Optimizations::               
+* Examples::                    
+
+@detailmenu
+ --- The Detailed Node Listing ---
+
+Introduction
+
+* What is that?::               
+* Why this project?::           
+* State of the compiler::       
+* License::                     
+* Why not use Mary?::           
+* Credits::                     
+
+A very short Forth primer
+
+* Foreword::                    
+* Words::                       
+* Stack and arguments passing::  
+* Memory access::               
+* Constant and variables::      
+* Tests::                       
+* Loops::                       
+
+Our first PicForth program
+
+* The program itself::          
+* Line by line explanation::    
+* Generated assembly code::     
+* An alternate solution::       
+* Using inlined code::          
+
+Compiler documentation
+
+* Organisation::                
+* Compiling::                   
+* Code::                        
+* Interactive mode::            
+* Literals::                    
+* Default base::                
+* Stack size::                  
+* Shifting::                    
+* Looping::                     
+* Memory::                      
+* Variables::                   
+* Tables::                      
+* Main program::                
+* Macros::                      
+* Included files::              
+* Assembler::                   
+* Interrupts::                  
+* Argument passing::            
+* Bit manipulation::            
+* Decrementing and incrementing a memory register::  
+* Watchdog timer::              
+* Sleep mode::                  
+* Reading from or writing to EEPROM::  
+* Reading from or writing to flash memory::  
+* Map and disassembler code::   
+* Multitasking::                
+* Libraries::                   
+* Configuration word::          
+* Caveats and limitations::     
+
+Multitasking
+
+* Priority-based multitasker::  
+* Basic cooperative multitasker::  
+
+Optimizations
+
+* Tail recursion::              
+* Redundant pop/push are removed::  
+* Direct-access and literal variants::  
+* Load::                        
+* Condition inversions::        
+* Bank switch optimizations::   
+* Operation retarget::          
+* Bit test operations::         
+* Useless loads removed when testing::  
+* Increment/decrement and skip if zero used when possible::  
+* Values are not normalized when this is not necessary::  
+
+@end detailmenu
+@end menu
+
+@node Preamble, Introduction, Top, Top
+@chapter Preamble
+
+Microchip PIC 16F87x microcontrollers are very well suited for a number
+of tasks.  However, the programmer is left with several choices to
+program them:
+
+@itemize @bullet
+@item
+Use Microchip MPLab IDE running on Microsoft Windows with the assembly
+programming language.
+@item
+Buy a third-party C compiler running on Microsoft Windows.
+@item
+Use the @code{gputils} package on a Unix system and program the PIC
+using the assembly language.
+@item
+Use the @code{sdcc} C compiler on a Unix system and program the PIC in C.
+@item
+Use the @code{PicForth} Forth compiler on a Unix system and program the
+PIC in Forth.
+@end itemize
+
+We do believe that the latest is a very pleasant solution for PIC
+development, as Forth is particularily suited to embedded systems, and
+Unix is more user-friendly for the developper.
+
+@b{Warning:} this manual is a work-in-progress, and is in no way complete.
+
+@node Introduction, A very short Forth primer, Preamble, Top
+@chapter Introduction
+
+@menu
+* What is that?::               
+* Why this project?::           
+* State of the compiler::       
+* License::                     
+* Why not use Mary?::           
+* Credits::                     
+@end menu
+
+@node What is that?, Why this project?, Introduction, Introduction
+@section What is that?
+
+This program is a Forth compiler for the Microchip PIC 16F87x family.
+
+@node Why this project?, State of the compiler, What is that?, Introduction
+@section Why this project?
+
+I needed to write some code on a PIC to control a digital model railroad
+system using the DCC (Digital Control Command) protocol. However, writing
+it in assembly is error-prone and writing it in C is no fun as C compiled code
+typically needs a lot of space.
+
+So I wrote this compiler, not for the purpose of writing a compiler, but as
+a tool to write my DCC engine.
+
+@node State of the compiler, License, Why this project?, Introduction
+@section State of the compiler
+
+The compiler does not aim to be ANS Forth compliant. It has quite a few words
+already implemented, and I will implement more of them as needed. Of course,
+you are welcome to contribute some (see below for license information).
+
+At this time, many words are missing from standard Forth. For example, I have
+no multiply operation as I have no use for it at this time and won't spend
+time to implement things I don't need (remember, Forth is a tool before
+anything else).
+
+@node License, Why not use Mary?, State of the compiler, Introduction
+@section License
+
+The compiler is released at the moment under the GNU General Public
+License version 2 (I intend to use the less restrictive BSD license in
+the future, but as it is based on gforth, I have to sort out those
+issues with gforth copyright holders).
+
+However, the code produced by using this compiler is not tainted by the
+GPL license at all. You can do whatever you want with it, and I claim
+absolutely no right on the input or output of this compiler. I encourage
+to use it for whatever you want.
+
+Note that I would really like people to send me their modifications
+(be they bug fixes or new features) so that I can incorporate them in
+the next release.
+
+@node Why not use Mary?, Credits, License, Introduction
+@section Why not use Mary?
+
+Mary was a great inspiration source, I even kept some of the names from it.
+However, no code has been reused, as both Forth do not have the same goal.
+
+@node Credits,  , Why not use Mary?, Introduction
+@section Credits
+
+I would like to thank the following people, in no particular order:
+
+@itemize @bullet
+@item
+Keith Wootten for his precious examples of how he uses a forth-ish
+assembler for the PIC and his inspiration for some control structures
+
+@item
+Francisco Rodrigo Escobedo Robles for his Mary PIC Forth compiler
+
+@item
+Herman Tamas for his suggestions for some word names
+
+@item
+Daniel Serpell for his superoptimizer (a program looking for the
+shortest possible sequences doing a particular job)
+
+@item
+Wojciech Zabolotny for his helpful remarks on interrupts and context saving
+@end itemize
+
+@node A very short Forth primer, Our first PicForth program, Introduction, Top
+@chapter A very short Forth primer
+
+@menu
+* Foreword::                    
+* Words::                       
+* Stack and arguments passing::  
+* Memory access::               
+* Constant and variables::      
+* Tests::                       
+* Loops::                       
+@end menu
+
+@node Foreword, Words, A very short Forth primer, A very short Forth primer
+@section Foreword
+
+For a full introduction to the Forth programming language, please have a
+look at the appropriate section of the Open Directory (maintained by
+volunteers), at address
+@url{http://dmoz.org/Computers/Programming/Languages/Forth/}. Only a
+small subset of the language will be presented here, sometimes
+overlooking details.
+
+@node Words, Stack and arguments passing, Foreword, A very short Forth primer
+@section Words
+
+The Forth programming language may look unusual to people used to other
+languages. First of all, the actions to execute are spelled one after
+each other. The sentence @code{init mainloop cleanup} will call, in
+turn, the word @code{init}, the word @code{mainloop} then the word
+@code{cleanup}.
+
+To define a new word, the @code{:} defining word is used, while the
+@code{;} word ends the definition. The following code defines a new word
+@code{doit} which factors the three words used above:
+
+@example
+: doit init mainloop cleanup ;
+@end example
+
+After it has been defined, the word @code{doit} can be called as other
+words by using its name. A Forth program is a collection of
+application-specific words. Each word, made of other words, will be used
+in turn to define new words, until the whole solution is described.
+
+Words are similar to subprograms in more conventional programming
+languages. Any non-blank character can be part of a word name. For
+example, @code{\}, @code{^}, or @code{$} are legal characters in a word
+name, and can even be a word name by themselves.
+
+@node Stack and arguments passing, Memory access, Words, A very short Forth primer
+@section Stack and arguments passing
+
+In Forth, one does not use parenthesis to give arguments to called
+words. Instead, a stack is used, where the arguments can be pushed and
+where they can be popped from.
+
+The word @code{+} pops two arguments from the top of the
+stack and pushes their sum. To push an integer to the top of the stack,
+one writes its value. The sentence @code{3 5 +} will push
+@code{3} on the stack, then @code{5}, and calls the word @code{+} which
+removes @code{3} and @code{5} and pushes @code{8}.
+
+Some words do manipulate the stack explicitely. @code{dup} duplicates
+the element at the top of the stack, while @code{drop} removes
+it. @code{swap} exchanges the two top elements. The following word that
+we name @code{2*} (remember that this name is perfectly valid in Forth)
+does multiply the top of the stack by two, by adding it to itself:
+@example
+: 2* dup + ;
+@end example
+
+The stack effect of a word is often written as a comment between
+parenthesis; those comments are ignored by the Forth compiler. The
+previously defined word could have been written:
+@example
+: 2* ( n -- 2*n ) dup + ;
+@end example
+
+Elements on the stack are represented from left to right (top of the
+stack). For example, the @code{-} word which substract the top of the
+stack from the second element on the stack would have a stack comment
+looking like @code{( n1 n2 -- n1-n2 )}.
+
+Let's assume that you want to multiply the top of the stack by four. You
+can define the @code{4*} word as:
+@example
+: 4* ( n -- 4*n ) dup + dup + ;
+@end example
+
+But remember that you can define your own words from existing words. If you
+now need a word which multiplies the top of the stack by four, you can
+use your previously defined @code{2*} word:
+@example
+: 4* ( n -- 4*n) 2* 2* ;
+@end example
+
+Definitions in Forth tend to be very short. The grouping of common parts
+in words is called @b{factoring}, and leads to very concise machine code.
+
+@node Memory access, Constant and variables, Stack and arguments passing, A very short Forth primer
+@section Memory access
+
+Two useful words allow you to access memory. @code{@@} gets the
+content of the memory byte whose address is at the top of the stack and
+@code{!} stores, in the memory byte whose address is at the top of the
+stack, the following element.
+
+The code below defines a word @code{mirror} which mirrors the content of
+port A into port B (we will later see more practical ways of defining
+some of the words seen here):
+@example
+: porta 5 ;
+: portb 6 ;
+: mirror porta @@ portb ! ;
+@end example
+
+@node Constant and variables, Tests, Memory access, A very short Forth primer
+@section Constant and variables
+
+The defining word @code{constant} allows you to define named
+constants. Using this word, one can simplify the above example:
+@example
+5 constant porta
+6 constant portb
+: mirror porta @@ portb ! ;
+@end example
+
+The defining word @code{variable} reserves a byte in the PIC RAM and
+gives it a name:
+@example
+5 constant porta
+variable counter
+: increment-counter counter @@ 1 + counter ! ;
+: counter-to-porta counter @@ porta ! ;
+@end example
+
+@node Tests, Loops, Constant and variables, A very short Forth primer
+@section Tests
+
+Testing in Forth is done using a @code{if} construct, terminated by a
+@code{then}, with an optional @code{else}. Operators such as @code{<} or
+@code{=} can be used, and any non-null value is considered as true. The
+@code{abs} word changes the value on top of the stack to its absolute
+value (note that @code{abs} and @code{negate} are in fact already
+defined by PicForth):
+@example
+: negate 0 swap - ;
+: abs dup 0 < if negate then ;
+@end example
+
+The word @code{mirror }duplicates port A to port B or port C, depending on
+its argument; @code{0} for port B, anything else for port C
+(@code{porta}, @code{portb} and @code{portc} constant are already
+defined in PicForth):
+@example
+: mirror ( n -- ) porta @@ swap if portb ! else portc ! then ;
+@end example
+
+@node Loops,  , Tests, A very short Forth primer
+@section Loops
+
+Several looping constructs are used in PicForth. The first of them is
+built upon @code{begin} and @code{again}, which here calls
+@code{do-one-thing} indefinitely:
+@example
+: mainloop begin do-one-thing again ;
+@end example
+
+@code{while} and @code{repeat} can add a test in the loop and continue
+as long as the word @code{continue?} returns a non-null result:
+@example
+: mainloop begin do-one-thing continue? while repeat ;
+@end example
+
+Note that @code{while} can be present anywhere between @code{begin} and
+@code{repeat}, letting you build elaborate constructs. Also,
+@code{until} allows you to wait for a condition. The following word
+calls @code{do-one-thing} until @code{end?} returns a non-null value:
+@example
+: mainloop begin do-one-thing end? until ;
+@end example
+
+The last construct seen here is built around @code{v-for} and
+@code{v-next}. @code{v-for} takes a (non-included) high bound and a
+variable address on the stack. The following word @code{main} calls
+@code{do-one-thing} 10 times:
+@example
+variable count
+: main 10 count v-for do-one-thing count v-next ;
+@end example
+
+@node Our first PicForth program, Compiler documentation, A very short Forth primer, Top
+@chapter Our first PicForth program
+
+@menu
+* The program itself::          
+* Line by line explanation::    
+* Generated assembly code::     
+* An alternate solution::       
+* Using inlined code::          
+@end menu
+
+@node The program itself, Line by line explanation, Our first PicForth program, Our first PicForth program
+@section The program itself
+
+Our first PicForth program will generate a rectangle wave signal on port
+B0 as fast as possible:
+@example
+0 pin-b i/o
+: init i/o >output ;
+: pulse i/o high i/o low ;
+: mainloop begin pulse again ;
+main : program init mainloop ;
+@end example
+
+@node Line by line explanation, Generated assembly code, The program itself, Our first PicForth program
+@section Line by line explanation
+
+The first line @code{0 pin-b i/o} defines a new word @code{i/o} which,
+when executed, will push two integers @code{6} (corresponding to portb)
+and @code{0} on the stack. This way, instead of writing @code{portb 0}
+to manipulate bit 0 of port B you can write @code{i/o}, which is shorter
+and lets you change it at only one place should you want to change which
+port is used.
+
+The second line uses the PicForth word @code{>output} which sets the
+port whose address and bit are on the stack in output mode. This defines
+a new @code{init} word which initializes our port B0 as an output.
+
+The third line creates a new word @code{pulse} which uses the PicForth
+words @code{high} and @code{low} to set a pin high or low. As a result,
+executing the @code{pulse} word will set the B0 pin high then low, this
+generating a pulse.
+
+The fourth line defines a @code{mainloop} word which calls @code{pulse}
+endlessly, thus generating the rectangle wave signal we want.
+
+The last line uses the PicForth word @code{main}. This word indicates to
+PicForth that the next word to be defined will be the one to call on
+reset. The word, called @code{program} here, calls @code{init} then
+@code{mainloop}. As @code{mainloop} never returns, the program runs
+until the end of time (which is usually considered quite a long time).
+
+@node Generated assembly code, An alternate solution, Line by line explanation, Our first PicForth program
+@section Generated assembly code
+
+The generated code looks like:
+@example
+0x0000  018A    clrf    0x0A
+0x0001  280C    goto    0x00C   ; (init-picforth)
+0x0002  0000    nop     
+        ; name: init
+        ; max return-stack depth: 0
+0x0003  1683    bsf     0x03,5
+0x0004  1006    bcf     0x06,0
+0x0005  1283    bcf     0x03,5
+0x0006  0008    return  
+        ; name: pulse
+        ; max return-stack depth: 0
+0x0007  1406    bsf     0x06,0
+0x0008  1006    bcf     0x06,0
+0x0009  0008    return  
+        ; name: mainloop
+        ; max return-stack depth: 1
+0x000A  2007    call    0x007   ; pulse
+0x000B  280A    goto    0x00A   ; mainloop (rs depth: 1)
+        ; name: (init-picforth)
+        ; max return-stack depth: 0
+0x000C  3032    movlw   0x32
+0x000D  0084    movwf   0x04
+        ; name: program
+        ; max return-stack depth: 1
+0x000E  2003    call    0x003   ; init
+0x000F  280A    goto    0x00A   ; mainloop (rs depth: 1)
+@end example
+
+@node An alternate solution, Using inlined code, Generated assembly code, Our first PicForth program
+@section An alternate solution
+
+Of course, it is possible to write less factored code for such a
+simple task, and write instead:
+@example
+0 pin-b i/o
+main : program i/o >output begin i/o high i/o low repeat ;
+@end example
+
+In this case, it generates effectively a code which is a bit shorter:
+@example
+0x0000  018A    clrf    0x0A
+0x0001  2803    goto    0x003   ; (init-picforth)
+0x0002  0000    nop     
+        ; name: (init-picforth)
+        ; max return-stack depth: 0
+0x0003  3032    movlw   0x32
+0x0004  0084    movwf   0x04
+        ; name: program
+        ; max return-stack depth: 0
+0x0005  1683    bsf     0x03,5
+0x0006  1006    bcf     0x06,0
+0x0007  1283    bcf     0x03,5
+0x0008  1406    bsf     0x06,0
+0x0009  1006    bcf     0x06,0
+0x000A  2808    goto    0x008   ; program + 0x003
+@end example
+
+However, do not let this short example mislead you. While the code looks
+more efficient and shorter (and it is), this is generally not true for
+real-life programs. For example, in a bigger program it would be quite
+common to have to call @code{pulse} from other places.
+
+@node Using inlined code,  , An alternate solution, Our first PicForth program
+@section Using inlined code
+
+It is possible to use inlined code by surrounding the words you want to
+inline by the @code{macro} and @code{target} words:
+@example
+0 pin-b i/o
+macro
+: init i/o >output ;
+: pulse i/o high i/o low ;
+: mainloop begin pulse again ;
+target
+main : program init mainloop ;
+@end example
+
+While this code is highly factored and easily maintainable, it generates
+the very same code as the less-factored version above.
+
+@node Compiler documentation, Optimizations, Our first PicForth program, Top
+@chapter Compiler documentation
+
+@menu
+* Organisation::                
+* Compiling::                   
+* Code::                        
+* Interactive mode::            
+* Literals::                    
+* Default base::                
+* Stack size::                  
+* Shifting::                    
+* Looping::                     
+* Memory::                      
+* Variables::                   
+* Tables::                      
+* Main program::                
+* Macros::                      
+* Included files::              
+* Assembler::                   
+* Interrupts::                  
+* Argument passing::            
+* Bit manipulation::            
+* Decrementing and incrementing a memory register::  
+* Watchdog timer::              
+* Sleep mode::                  
+* Reading from or writing to EEPROM::  
+* Reading from or writing to flash memory::  
+* Map and disassembler code::   
+* Multitasking::                
+* Libraries::                   
+* Configuration word::          
+* Caveats and limitations::     
+@end menu
+
+@node Organisation, Compiling, Compiler documentation, Compiler documentation
+@section Organisation
+
+The stack is indexed by the only indirect register, fsr. The indf register
+automatically points to the top of stack.
+
+The w register is used as a scratch. Attempts to use it to cache the
+top of stack proved to be inefficient, as we often need a scratch register.
+
+@node Compiling, Code, Organisation, Compiler documentation
+@section Compiling
+
+The compiler is hosted on gforth, a free software compiler for Unix
+systems.  The command line to use to compile file @file{foo.fs} into
+@file{foo.hex}, and getting a usable map into foo.map is:
+
+@example
+  gforth picforth.fs -e 'include foo.fs file-dump foo.hex map bye' | \
+     sort -o foo.map
+@end example
+
+Of course, you should automate this in a Makefile, such as the one provided
+with the compiler.
+
+If you install the GNU PIC utils (from http://gputils.sourceforge.net/),
+then you can read the assembled code by using @code{gpdasm}.
+
+@node Code, Interactive mode, Compiling, Compiler documentation
+@section Code
+
+The whole code space can be used. However, code generated in the first
+2048 words is more efficient than the code generated in the following
+2048 words; both are more efficient than the code generated for the
+remaining words. This is due to the PIC architecture which does not
+allow to see the code space as a flat zone.
+
+@node Interactive mode, Literals, Code, Compiler documentation
+@section Interactive mode
+
+By executing
+
+@example
+  gforth picforth.fs -e 'host picquit'
+@end example
+
+(or @code{make interactive} from a Unix shell), you are dropped into an
+interactive mode, where you can use the following words to check your code:
+
+@example
+  see ( "name" -- )    Disassemble a word
+  map ( -- )           Print code memory map
+  dis ( -- )           Disassemble the whole code section
+@end example
+
+@node Literals, Default base, Interactive mode, Compiler documentation
+@section Literals
+
+Hexadecimal literals should be prefixed by a dollar sign @code{$} to avoid
+confusion with existing constants (such as @code{c} for carry bit). This is a
+strong advice.
+
+@node Default base, Stack size, Literals, Compiler documentation
+@section Default base
+
+The default base is hexadecimal. Do not change it before including libraries
+bundled with the compiler, as they do expect hexadecimal mode.
+
+@node Stack size, Shifting, Default base, Compiler documentation
+@section Stack size
+
+The default stack size is 16. If you use the multitasker included in
+@file{multitasker.fs} (see below), each task gets an additionnal 8 bytes of
+task-specific stack.
+
+You can change the default stack size by using
+
+@example
+  set-stack-size ( n -- )
+@end example
+
+in interpretation mode before using @code{main}.
+
+@node Shifting, Looping, Stack size, Compiler documentation
+@section Shifting
+
+@code{rlf-tos} and @code{rrf-tos} respectively shift the top-of-stack
+left and right, with the carry entering the byte and the outgoing bit
+entering the carry.
+
+@code{rlf!} and @code{rrf!} respectively shift the given variable left
+and right, with the carry entering the byte and the outgoing bit entering
+the carry.
+
+@code{lshift} and @code{rshift} used with a constant shift, and
+@code{2*} and @code{2/} do have the last exited bit in the carry.
+
+@code{swapf-tos} will swap the upper and lower nibble of the top-of-stack.
+
+@node Looping, Memory, Shifting, Compiler documentation
+@section Looping
+
+There exists a @code{v-for}/@code{v-next} structure (v stands for variable):
+
+@example
+  v-for ( n addr -- )
+    Initialize addr content with n.
+
+  v-next ( -- )
+    Decrement addr content. If content is not zero,
+    jump to v-for location.
+@end example
+
+The address has to be located in bank 0.
+
+Also, the words @code{begin}, @code{again}, @code{while}, @code{until}
+and @code{repeat} are implemented.
+
+@node Memory, Variables, Looping, Compiler documentation
+@section Memory
+
+You can choose the memory bank that will be used by the memory commands
+in interpretation mode by using the words @code{bank0}, @code{bank1},
+@code{bank2} and @code{bank3} (check that it applies to your device
+first).
+
+Those commands do affect the subsequent @code{create}, @code{variable},
+@code{allot}, @code{,} and @code{here} commands. However, note that you
+can only access indirectly variables located in bank 0 or in bank
+1. Locations in other banks must be accessed using their static
+addresses.
+
+You can define your own memory sections using the words @code{section},
+@code{idata} and @code{udata}. No check will be made to ensure that
+those sections do not overlap.
+
+@node Variables, Tables, Memory, Compiler documentation
+@section Variables
+
+Variables are not automatically initialized to zero, as this would waste
+too much code if it is not needed. If you want a variable explicitely
+initialized, use @code{create} and @code{,} such as in:
+
+@example
+  create attempts 3 ,
+@end example
+
+@node Tables, Main program, Variables, Compiler documentation
+@section Tables
+
+Tables can be created either in RAM (with run-time initialization, which
+is costly), in program flash memory or in the internal EEPROM.
+
+The following words allow you to create tables:
+
+@example
+  table      ( "name" -- )        Start a RAM table
+  ftable     ( "name" -- )        Start a program flash table
+  eetable    ( "name" -- )        Start an EEPROM flash table
+  t,         ( n -- )             Add one byte to the table
+  table>     ( "b1 .. bn" -- )    Add bytes b1 to bn to the table
+  end-table  ( -- )               End table declaration
+@end example
+
+The following code shows a table called @code{substitutions} and a
+@code{substitute} word which takes a byte in area @code{old-key} and
+sets it at the right place in area @code{new-key}, according to the
+@code{substitutions} table.
+
+@example
+ftable substitutions
+ table> 14 4 13 1 2 15 11 8 3 10 6 12 5 9 0 7
+ table> 0 15 7 4 14 2 13 1 12 6 12 11 9 5 3 8
+ table> 4 1 14 8 13 6 2 11 15 12 9 7 3 10 5 0
+ table> 15 12 8 2 4 9 1 7 5 11 3 14 10 0 6 13
+end-table
+
+: substitute ( n -- ) dup old-key + @@ swap substitutions new-key + ! ;
+@end example
+
+@node Main program, Macros, Tables, Compiler documentation
+@section Main program
+
+A @code{main} word indicates that the next address is the main program. Use for
+example:
+
+@example
+  main : main-program ( -- )
+    (do initialisations)
+    (call mainloop)
+  ;
+@end example
+
+@node Macros, Included files, Main program, Compiler documentation
+@section Macros
+
+You can switch to macro mode by using the @code{macro} word. You get back to
+target mode by using the @code{target} word.
+
+@node Included files, Assembler, Macros, Compiler documentation
+@section Included files
+
+You can include files using @code{include file} or @code{needs
+file} (which prevents from multiple inclusions to happen).
+
+@node Assembler, Interrupts, Included files, Compiler documentation
+@section Assembler
+
+There is a full prefix assembler included. Use @code{code} and
+@code{end-code} to define words written in assembler. @code{]asm} and
+@code{asm[} let you respectively switch to assembler mode and back
+during the compilation of a Forth word.
+
+The @code{label:} defining word can be used to define a label that will
+then be used with @code{goto}. See the @file{piceeprom.fs} file for an
+example.
+
+@node Interrupts, Argument passing, Assembler, Compiler documentation
+@section Interrupts
+
+If you want to use interrupts, use
+
+@example
+  include picisr.fs
+@end example
+
+Two words do respectively save and restore the context around interrupt
+handling code:
+
+@example
+  isr-save ( -- )
+  isr-restore-return ( -- )
+@end example
+
+Note that @code{isr-save} is called automatically, you do not need to
+call it explicitely.
+
+Also, the word @code{isr} is provided to notify that the next address is the
+isr handler.
+
+For example, you can write an interrupt handler with:
+
+@example
+  isr : interrupt-handler ( -- )
+    (interrupt handling code here)
+    isr-restore-return
+  ;
+@end example
+
+Do not forget that the return stack depth is only height. An interrupt can
+occur at any time unless you mask them or unset the GIE bit.
+
+Two facility words that manipulate GIE are also provided:
+
+@example
+  enable-interrupts ( -- )
+  disable-interrupts ( -- )
+@end example
+
+You have to dispatch the interrupts and clear the interrupt bits manually
+before you return from the handler.
+
+You can also use the following two words to save the status of the GIE
+bit and disable interrupts, and to restore the previous GIE status:
+
+@example
+  suspend-interrupts ( -- )
+  restore-interrupts ( -- )
+@end example
+
+Versions that do nothing are provided in the default compiler. Useful versions
+are redefined when using @file{picisr.fs}.
+
+Because of this, include @file{picisr.fs} as soon as possible,
+before other files and before using enable-interrupts and
+disable-interrupts. Other included files may fail to act properly if you
+don't.
+
+@node Argument passing, Bit manipulation, Interrupts, Compiler documentation
+@section Argument passing
+
+In Forth, argument passing is done on the stack. However, if you want to
+transmit the top-of-stack argument in the w register (for example if a word
+typically takes a constant which is put on the stack just before calling it),
+you can use the defining word @code{::} instead of @code{:}. All calls will
+automatically use this convention.
+
+If you want to return a value in the w register, you can use the word
+@code{>w} which loads the top-of-stack into the w register before every
+exit point.  After calling a word which returns its result in the w
+register, you can call @code{w>} to put the w register value onto the
+stack.
+
+@node Bit manipulation, Decrementing and incrementing a memory register, Argument passing, Compiler documentation
+@section Bit manipulation
+
+To ease bit manipulation, the following words are defined for port p:
+
+@example
+  and!       ( n p -- )    logical and with n
+  /and!      ( n p -- )    logical and with ~n
+  /and       ( a b -- c )  logical and of a and ~b
+  or!        ( n p -- )    logical or with n
+  xor!       ( n p -- )    logical xor with n
+  invert!    ( p -- )      invert content
+  bit-set    ( p b -- )    set bit b of p (both have to be constants)
+  bit-clr    ( p b -- )    clear bit b of p (both have to be constants)
+  bit-toggle ( p b -- )    toggle bit b of p (both have to be constants)
+  bit-mask   ( p b -- m )  put 1<<b on stack
+  bit-set?   ( p b -- m )  put bit-mask (non-zero) on stack if bit b of
+                           p is set, zero otherwise
+  bit-clr?   ( p b -- f )  true if bit b of p is clear
+@end example
+
+Six words help designate bit or port pins:
+
+@example
+  bit    ( n addr "name" -- )    ( Runtime: -- addr n )
+  pin-a  ( n "name" -- )         ( Runtime: -- porta n )
+  pin-b  ( n "name" -- )         ( Runtime: -- portb n )
+  pin-c  ( n "name" -- )         ( Runtime: -- portc n )
+  pin-d  ( n "name" -- )         ( Runtime: -- portd n )
+  pin-e  ( n "name" -- )         ( Runtime: -- porte n )
+@end example
+
+For example, you can create a pin designating an error LED and manipulate
+it using:
+
+@example
+  3 pin-b error-led                   \ Error LED is on port B3
+  : error error-led bit-set ;         \ Signal error
+  : no-error error-led bit-clr ;      \ Clear error
+@end example
+
+To ease reading, the words @code{high}, @code{low}, @code{high?},
+@code{low?} and @code{toggle} are aliases for, respectively,
+@code{bit-set}, @code{bit-low}, @code{bit-set?}, @code{bit-clr?} and
+@code{bit-toggle}.
+
+You can change the direction of a pin by using @code{>input} or
+@code{>output} after a pin defined with @code{pin-x}. For example, to
+set the error led port as an output, use:
+
+@example
+  error-led >output
+@end example
+
+@node Decrementing and incrementing a memory register, Watchdog timer, Bit manipulation, Compiler documentation
+@section Decrementing and incrementing a memory register
+
+A value in memory can be decremented using the @code{1 mem -!} 
+sequence. However, as this will be optimized to use the @code{decf mem,f}
+which does not position the @code{c} flag. Usually, this is fine,
+however, if you want to propagate a carry, you want this flag to be
+set. To that issue, you can use the @code{1 >w mem w-!} sequence, which
+generates @code{movlw 1; subwf mem,f} and position the carry.
+
+Note that propagating the carry while incrementing is easier: the
+@code{z} flag is set if needed by the @code{incf mem,f} instruction
+generated by the use of the @code{1 mem +!} sequence. If @code{z} is
+set, a carry has been generated.
+
+Here is an example to increment a 16 bits value held at location @code{bar}:
+
+@example
+  : inc-16 ( adder -- ) 1 bar 1+ +! z bit-set? if 1 bar +! then ;
+@end example
+
+This will generate the following code:
+
+@example
+  ; name: inc-16
+  incf    0x34,f
+  btfsc   0x03,2
+  incf    0x33,f
+  return  
+@end example
+
+@node Watchdog timer, Sleep mode, Decrementing and incrementing a memory register, Compiler documentation
+@section Watchdog timer
+
+The word @code{clrwdt} is available from Forth to clear the watchdog timer.
+
+@node Sleep mode, Reading from or writing to EEPROM, Watchdog timer, Compiler documentation
+@section Sleep mode
+
+The word @code{sleep} is available from Forth to enter sleep mode.
+
+@node Reading from or writing to EEPROM, Reading from or writing to flash memory, Sleep mode, Compiler documentation
+@section Reading from or writing to EEPROM
+
+By using
+
+@example
+  include piceeprom.fs
+@end example
+
+you have access to new words allowing you to access the PIC EEPROM:
+
+@example
+  ee@@          ( a -- b )     read the content of a and return it
+  ee!          ( b a -- )     write b into a
+@end example
+
+Also, in any case, you can store data in EEPROM using those words:
+
+@example
+  eecreate     ( "name" -- )            similar as create but in
+                                        EEPROM space
+  ee,          ( b -- )                 store byte in EEPROM
+  s"           ( <ccc>" -- eaddr n )    store string in EEPROM
+  l"           ( <ccc>" -- eaddr n )    strore string + character 13
+                                        in EEPROM
+@end example
+
+@node Reading from or writing to flash memory, Map and disassembler code, Reading from or writing to EEPROM, Compiler documentation
+@section Reading from or writing to flash memory
+
+Two words allow reading from and writing to the flash memory when the file
+@file{picflash.fs} is included with
+
+@example
+  include picflash.fs
+@end example
+
+Those words expect manipulate a 14 bits program memory cell whose 13 bits
+address is in EEADRH:EEADR. The data is read from or stored to EEDATH:EEDATA.
+
+@example
+  flash-read ( -- )
+  flash-write ( -- )
+@end example
+
+If @file{picisr.fs} has been included before this file, interrupts will
+be properly disabled around flash writes.
+
+The @file{libstrings.fs} library defines two words useful for working
+with strings stored in flash memory:
+
+@example
+  c" ( <ccc>" -- )     Define a packed 7-bits zero-terminated string
+  str-char             Get next char of previously encountered c"
+@end example
+
+The following example assumes that you have a @code{emit} word working,
+which outputs one character.
+
+@example
+: print ( -- ) begin str-char dup while emit repeat drop ;
+: greetings ( -- ) c" Welcome to this PicForth program" print ;
+@end example
+
+It is necessary to include @file{picflash.fs} before @file{libstrings.fs}.
+
+@node Map and disassembler code, Multitasking, Reading from or writing to flash memory, Compiler documentation
+@section Map and disassembler code
+
+A map can be generated in interactive mode using the @code{map} word.
+
+@node Multitasking, Libraries, Map and disassembler code, Compiler documentation
+@section Multitasking
+
+Two multitasker have been implemented.
+
+@menu
+* Priority-based multitasker::  
+* Basic cooperative multitasker::  
+@end menu
+
+@node Priority-based multitasker, Basic cooperative multitasker, Multitasking, Multitasking
+@subsection Priority-based multitasker
+
+A basic priority-based cooperative multitasker allows you to
+concurrently run several indenpendant tasks. Each task should execute
+in a short time and will be called again next time (the entry point
+does not change). This looks like a state machine.
+
+To use this multitasker, use @code{include priotasker.fs} in your program.
+
+The following words can be used to define tasks (the entry point for the
+task is the next defined word):
+
+@example
+  task ( prio "name" -- )
+                 Define a new task with priority prio. By default, this
+                 task will be active. You can use the @code{start} and
+                 @code{stop} words to control it. Those words can be
+                 used from an interrupt handler.
+
+  task-cond ( prio "name" -- )
+                 Define a new task with priority prio. By default, this
+                 task is inactive. You can enable it by using the
+                 @code{signal} word on it. If you use @code{signal} N
+                 times, then the task will be run exactly N
+                 times. @code{signal} can be used from an interrupt handler.
+
+  task-idle ( -- )
+                 Define a new task which will be executed
+                 inconditionnaly when there is nothing else to do. Such
+                 a task can not be stopped.
+
+  task-set ( bit port prio -- )
+                 Define a new task with priority prio that will be run
+                 when bit bit of port port is set.
+
+  task-clr ( bit port prio -- )
+                 Define a new task with priority prio that will be run
+                 when bit bit of port port is clear.
+@end example
+
+Priority 0 is the greatest one, while priority 255 corresponds to the lowest
+(idle) priority. You should use priority in the range 0-254 for your own
+tasks.
+
+The multitasker is run by using the word @code{multitasker}. This word takes care
+of scheduling the highest priority tasks first. It also clears the watchdog
+once per round.
+
+The multitasker looks for all tasks of priority 0 ready to execute. If it
+find some, it executes them and starts over. If it doesn't, it looks for
+priority 1 tasks ready to execute. If it find some, it executes them and
+starts over. If it doesn't, etc. It does this up to priority 255.
+
+Since each word is called each time from the beginning, there is no
+need to maintain task-specific stacks, as the stack has to be
+considered empty.
+
+@node Basic cooperative multitasker,  , Priority-based multitasker, Multitasking
+@subsection Basic cooperative multitasker
+
+The basic cooperative multitasker is much simpler. It allows you to
+relinguish the CPU whenever you want, provided that you are not in the
+middle of a call (context-switch only occurs during top-level calls).
+
+To use this multitasker, use @code{include multitasker.fs} at the top of
+your program. The following words are defined:
+
+@example
+  task ( -- )
+      Create a new task with its own data stack. The task entry point
+      will be the next defined word.
+
+  yield ( -- )
+      Relinguish control so that another task gets a chance to
+      execute.
+
+  multitasker ( -- )
+      Code for the multitasker program. This word never returns.
+@end example
+
+This multitasker makes no use of the return stack at all. However, each
+task takes four to six program words for initialization and five program
+words to resume the task, plus three or four program words per yield
+instruction. Context-switching takes at most 18 instruction cycles (3.6
+microseconds max on a 20MHz PIC, 18 microseconds on a 4MHz PIC), and
+typically 14. Also, the multitasker takes care of clearing the watchdog
+timer at each round.
+
+Each task needs 3 bytes in RAM to save its context and 8 bytes for its
+data stack.
+
+@node Libraries, Configuration word, Multitasking, Compiler documentation
+@section Libraries
+
+Some libraries can be used to enhance your application:
+
+@itemize @bullet
+@item @file{libnibble.fs}
+nibbles and characters conversion
+
+@item @file{libcmove.fs}
+implementation of ANS Forth @code{cmove} word
+@end itemize
+
+@node Configuration word, Caveats and limitations, Libraries, Compiler documentation
+@section Configuration word
+
+The configuration can be configured with the following words:
+
+@example
+  set-fosc   ( n -- )       Choose oscillator mode (default: fosc-rc)
+     fosc-lp   Low power
+     fosc-xt   External oscillator
+     fosc-hs   High-speed oscillator
+     fosc-rc   RC circuit
+  set-wdte   ( flag -- )    Watchdog timer enable (default: true)
+  set-/pwrte ( flag -- )    Power-on timer disable (default: true)
+  set-boden  ( flag -- )    Brown-out detect enable (default: true)
+  set-lvp    ( flag -- )    Low voltage programming (default: true)
+  set-cpd    ( flag -- )    EEPROM protection disable (default: true)
+  set-wrt    ( flag -- )    FLASH protection disable (default: true)
+  set-debug  ( flag -- )    In-circuit debugger disable (default: true)
+  set-cp     ( n -- )       Code protection (default: no-cp)
+     no-cp     No protection
+     full-cp   Full protection
+     xxxxx     Anything you want, with the right bits set
+               (see datasheet)
+@end example
+
+@node Caveats and limitations,  , Configuration word, Compiler documentation
+@section Caveats and limitations
+
+This compiler release suffers from the following known limitations. Note
+that most of them (if not all) will disappear in subsequent releases.
+
+@itemize @bullet
+@item No interactivity
+There is no link between the compiler and the target.
+@end itemize
+
+@node Optimizations, Examples, Compiler documentation, Top
+@chapter Optimizations
+
+The following optimizations are implemented:
+
+@menu
+* Tail recursion::              
+* Redundant pop/push are removed::  
+* Direct-access and literal variants::  
+* Load::                        
+* Condition inversions::        
+* Bank switch optimizations::   
+* Operation retarget::          
+* Bit test operations::         
+* Useless loads removed when testing::  
+* Increment/decrement and skip if zero used when possible::  
+* Values are not normalized when this is not necessary::  
+@end menu
+
+@node Tail recursion, Redundant pop/push are removed, Optimizations, Optimizations
+@section Tail recursion
+
+Tail recursion is implemented at @code{exit} and @code{;} points.
+
+@example
+  : x y z ;
+@end example
+
+generates the following code for word x:
+
+@example
+  call    y
+  goto    z
+@end example
+
+The sequence @code{recurse exit} also benefits from tail recursion.
+
+@node Redundant pop/push are removed, Direct-access and literal variants, Tail recursion, Optimizations
+@section Redundant pop/push are removed
+
+For example, the (particularily useless)
+
+@example
+  dup dup drop
+@end example
+
+sequence generates
+
+@example
+  movf     0x00,w
+  decf     0x04,f
+  movwf    0x00
+@end example
+
+which in fact corresponds to a single @code{dup}.
+
+Also, the following sequence
+
+@example
+  drop 3
+@end example
+
+generates
+
+@example
+  movlw    0x03
+  movwf    0x00
+@end example
+
+while
+
+@example
+  drop 0
+@end example
+
+gives
+
+@example
+ clrf      0x00
+@end example
+
+@node Direct-access and literal variants, Load, Redundant pop/push are removed, Optimizations
+@section Direct-access and literal variants
+
+Most operations use direct-access and literal variants when
+possible. The following sequence
+
+@example
+  9 and
+@end example
+
+generates
+
+@example
+  movlw    0x09
+  andwf    0x00,f
+@end example
+
+Also, combined with the redundant push/pop eliminations, the following code
+
+@example
+  dup 9 and if ...
+@end example
+
+generates
+
+@example
+  movf    0x00,w
+  andlw   0x09
+  btfsc   0x03,2
+@end example
+
+@node Load, Condition inversions, Direct-access and literal variants, Optimizations
+@section Load, store and operations are mixed
+
+The following sequence (with @code{current} and @code{next} being variables)
+
+@example
+  current @@ 1+ 7 and next !
+@end example
+
+generates
+
+@example
+  movf    0x3B,w
+  addlw   0x01
+  andlw   0x07
+  movwf   0x3C
+@end example
+
+@node Condition inversions, Bank switch optimizations, Load, Optimizations
+@section Condition inversions
+
+Short (one instruction) @code{if} actions are transformed into reversed
+conditions. For example, the following word:
+
+@example
+  \ This word clears port a0 if port c2 is high, and sets port b1
+  \ in any case.
+  : z portc 2 high? if porta 0 low then portb 0 high ;
+@end example
+
+generates the following code:
+
+@example
+  btfsc    0x07,2  ; skip next instruction if port c2 is low
+  bcf      0x05,0  ; set port a0 low
+  bsf      0x06,1  ; set port b1 high
+  return           ; return from word
+@end example
+
+@node Bank switch optimizations, Operation retarget, Condition inversions, Optimizations
+@section Bank switch optimizations
+
+The compiler tries to remove useless bank manipulations. The following word
+
+@example
+ :: ee@@ ( addr -- n ) eeadr ! eepgd bit-set rd bit-set eedata @@ ;
+@end example
+
+generates:
+
+@example
+  bsf      0x03,6     ; select bank 2
+  movwf    0x0d       ; write into eeadr (in bank 2)
+  bsf      0x03,5     ; select bank 3
+  bsf      0x0c,7     ; set bit eepgd of eecon1 (in bank 3)
+  bsf      0x0c,0     ; set bit rd of eecon1 (in bank 3)
+  bcf      0x03,5     ; select bank 2
+  movf     0x0c,w     ; read eedata (in bank 2)
+  bcf      0x03,6     ; select bank 0
+  decf     0x04,f     ; decrement stack pointer
+  movwf    0x00       ; place read value on top of stack
+  return
+@end example
+
+@node Operation retarget, Bit test operations, Bank switch optimizations, Optimizations
+@section Operation retarget
+
+If an operation result is stored on the stack then popped into w, the
+operation is modified to target w directly.
+
+For example, the following word:
+
+@example
+  : timer ( n -- ) invert tmr0 ! ;
+@end example
+
+generates
+
+@example
+  comf     0x00,w
+  incf     0x04,f
+  movwf    0x01
+  return
+@end example
+
+@node Bit test operations, Useless loads removed when testing, Operation retarget, Optimizations
+@section Bit test operations
+
+If a @code{and} operation before a test can be rewritten using a bit test
+operation, it will.
+
+For example, the code:
+
+@example
+  checksum @@ 1 and if parity-error exit then ...
+@end example
+
+will be compiled as:
+
+@example
+  btfsc    0x33,0
+  goto     0x037      ; parity-error
+  ...
+@end example
+
+Using an explicit bit-test holds the same result:
+
+@example
+  porta 3 high? if exit then
+@end example
+
+will be compiled as:
+
+@example
+  btfsc   0x05,3
+  return
+@end example
+
+@node Useless loads removed when testing, Increment/decrement and skip if zero used when possible, Bit test operations, Optimizations
+@section Useless loads removed when testing
+
+Before a test, if the z status bit already holds the right result, no extra
+test will be generated.
+
+@example
+  9 and dup if 1+ then
+@end example
+
+will be compiled as:
+
+@example
+  movlw    0x09
+  andwf    0x00,f
+  btfss    0x03,2
+  incf     0x00,f
+@end example
+
+Also, the compiler detects operation which do not modify neither w or the
+top of stack. For example,
+
+@example
+  dup checksum xor! dcc-high !
+@end example
+
+will be compiled as
+
+@example
+  movf    0x00,w
+  xorwf   0x6c,f
+  incf    0x04,f
+  movwf   0x5b
+@end example
+
+@node Increment/decrement and skip if zero used when possible, Values are not normalized when this is not necessary, Useless loads removed when testing, Optimizations
+@section Increment/decrement and skip if zero used when possible
+
+The following word:
+
+@example
+  : action-times ( n -- ) begin action 1- dup while repeat drop ;
+@end example
+
+will be compiled as:
+
+@example
+  call    0x022          ; call action
+  decfsz  0x00,f
+  goto    0x027          ; jump to @code{call action} above
+  incf    0x04,f
+  return
+@end example
+
+@node Values are not normalized when this is not necessary,  , Increment/decrement and skip if zero used when possible, Optimizations
+@section Values are not normalized when this is not necessary
+
+The word:
+
+@example
+  :: x ( n -- flag ) 3 < if a then ;
+@end example
+
+generates
+
+@example
+  addlw   0xFD
+  btfss   0x03,0
+  call    a
+  return
+@end example
+
+The @code{<} test did not cause the value to be normalized to 0 or -1, as it is
+not needed.
+
+@node Examples,  , Optimizations, Top
+@appendix Examples
+
+Some files are included as examples with a Makefile. E.g, to build
+@file{booster.hex}, run @code{make booster.fs}:
+
+@itemize @bullet
+@item @file{booster.fs}
+code for a booster which handles overload and overheat signals This also
+serves as an example for the priority-based multitasker.
+
+@item @file{generator.fs}
+code for a DCC signal generator based on serial commands (work in
+progress, not functional yet)
+
+@item @file{silver.fs}
+code that runs on a silver card (a smartcard with a 16f876 and a 24c64
+serial eeprom)
+
+@item @file{taskexample.fs}
+example of multitasking code using the basic multitasker
+
+@item @file{controller.fs}
+another multitasking example, used to control multiple peripherals and
+inputs using a serial link
+
+@item @file{i2cloader.fs}
+a flash and eeprom loader using an I2C bus to reprogram the PIC
+
+@item @file{spifcard.fs}
+production code used in the Ambience European project; includes i2c
+code, dialog with a bq2010 chip, interface with a smartcard reader using
+a TDA8004, interrupt code for implementing an in-house watchdog, working
+around I2C bugs and blinking a led, and analog to digital conversion
+
+@end itemize
+
+@contents
+
+@bye

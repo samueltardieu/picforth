@@ -1,0 +1,6 @@
+\
+\ PicForth library file
+\
+\ This library file has been written by Samuel Tardieu <sam@rfc1149.net>.
+\ It belongs to the public domain. Do whatever you want with it.
+\

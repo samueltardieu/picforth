@@ -1,0 +1,7 @@
+Problem:
+  The "1 < if ..." test gives bogus result, as will probably "-1 < if ...",
+  because "incf" and "decf" don't set the carry bit.
+Solution:
+  An explicit carry test should be conducted in "<" if the minus instruction
+  gave "incf" or "decf", or an explicit "movlw sublw" instruction should be
+  used.

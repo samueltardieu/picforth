@@ -1,0 +1,31 @@
+The serial monitor can be located at any location. The default is $E00.
+
+By default, it uses a 9600 bps serial line on a 4MHz quartz. You can
+easily change those values, to use for example 115200 bps with a 20MHz
+oscillator.
+
+Each time the serial monitor is ready to get a command, it prints ">".
+Commands are one character, and acked by "!" when all the paramters have
+been read or "?" if the command is unknown.
+
+8 bits values are transmitted as two hexa digits.
+16 bits values are transmitted as four hexa digits. Case is insensitive.
+
+Protocol: (spaces do not belong to the protocol, -> indicates the answer)
+  f NNNN -> XXXX     Read content of flash memory word NNNN
+  F NNNN XXXX        Write content of flash memory word NNNN (14 bits)
+  e NN -> XX         Read content of eeprom memory byte NN
+  E NN XX            Write content of eeprom memory byte NN
+  m NN -> XX         Read content of memory (low bank) byte NN
+  M NN XX            Write content of memory (low bank) byte NN
+  X NNNN             Jump to an arbitrary address
+  O                  Jump to firmware (see below)
+  o -> NNNN          Get offset for firmware installation
+
+If you want to keep your bootloader running when you start your device,
+you should have your loader read the offset returned by the "o" command
+and add this to all the flash addresses between 0 and 2.
+
+For example, if the boot loader is installed at address $E00, the offset
+return by the "o" command will be $E03. The firmware command "O" will
+jump to this address.

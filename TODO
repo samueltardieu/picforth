@@ -1,0 +1,4 @@
+-*- outline -*-
+
+* Reserve room for a more distant main and isr (PCLATH loading)
+* Priority-based multitasker is inconsistent with different priorities

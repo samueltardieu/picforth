@@ -1,0 +1,18 @@
+The PIC 16F873 is connected this way:
+
+                 +--+---------\/---------+--+
+                 | 1|             portb7 |28| <--- Short circuit 2
+ LCD data 4 <--> | 2| porta0      portb6 |27| <--- Short circuit 1
+ LCD data 5 <--> | 3| porta1      portb5 |26| ---> Enable 2
+ LCD data 6 <--> | 4| porta2      portb4 |25| ---> Enable 1
+ LCD data 7 <--> | 5| porta3      portb3 |24| ---> DCC signal 2
+     LCD RS ---> | 6| porta4      portb2 |23| ---> LED inv 2
+    LCD R/W ---> | 7| porta5      portb1 |22| ---> DCC signal 1
+                 | 8|             portb0 |21| ---> LED inv 1
+                 | 9|                    |20|
+                 |10|                    |19|
+        Ack ---> |11| portc0      portc7 |18| <--- RS232 RX
+ LED misc 1 <--- |12| portc1      portc6 |17| ---> RS232 TX
+ LED misc 2 <--- |13| portc2      portc5 |16| ---> LCD E
+    I2C SCL <--> |14| portc3      portc4 |15| <---> I2C SDA
+                 +--+--------------------+--+
