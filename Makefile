@@ -83,7 +83,7 @@ test::
 	rm -rf testresults
 	${MAKE} release all
 	mkdir testresults
-	cp ${DISASM} testresults
+	cp ${DISASM} ${PROGS} testresults
 	diff --recursive testresults tests/expected
 	rm -rf testresults
 
