@@ -50,8 +50,11 @@ create isr-origin tcshere ,
     retfie unreachable
 ;
 
+\ Redefine those two PicForth words
+forth> warnings off
 : enable-interrupts ( -- ) gie bsf ;
 : disable-interrupts ( -- ) gie bcf ;
+forth> warnings on
 
 : isr ( -- ) isr-origin @ set-vector ;
 
