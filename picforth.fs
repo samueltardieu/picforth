@@ -1482,6 +1482,8 @@ import: adjust-bank   import: restore-bank
     indf ,f incf
 ;
 
+: abs s" dup 0< if negate then" evaluate ;
+
 : invert
     const? if kill-const invert (literal) exit then
     pushw? if popw ff xorlw pushw exit then
