@@ -14,6 +14,9 @@ To understand the scope of these changes, please refer to the documentation.
   + Import "return-in-w" into target vocabulary and document it. Suggested
     by David McNab <david@rebirthing.co.nz>.
 
+  + Document the effect of "exit" in inlined words. Thanks to
+    Alex Holden <alex@linuxhacker.org> for asking for clarification.
+
 ** Bug fix
 
   + Flash tables generated an error due to new nesting checks introduced in
