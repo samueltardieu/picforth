@@ -1783,7 +1783,7 @@ meta
     
 : then ( faddr -- )
     dup cbank tcshere cbank <> abort" Bank switch over test"
-    short-if? if
+    short-if? opt-allowed? and if
 	drop reachable l-cs-unwind cs-rewind cs-unwind 0400 xor cs,
 	check-incdectos-btfsz
 	l-cs, reachable
