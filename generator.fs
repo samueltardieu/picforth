@@ -1,8 +1,6 @@
 \
 \ Code for the DCC command station.
 \
-\ $ProjectVersion: 0.332 $
-\
 \ This program is in charge of:
 \    * generating a valid DCC signal from commands given on the serial line
 \    * do some reporting on the serial line
@@ -513,7 +511,6 @@ target
   c" elp on configuration" v-print
   ack configuration-help ;
 
-\ $Format: ": version c\" DCC PIC $ProjectVersion$\" ;"$
 : version c" DCC PIC 0.332" ;
 
 : cmd-factory-reset ( -- )

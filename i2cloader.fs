@@ -1,6 +1,4 @@
 \
-\ $ProjectVersion: 0.332 $
-\
 \ Code for a I2C loader, to reprogram the PIC in software
 \
 \ Hardware: 16F873SO 26MHz

@@ -1,8 +1,6 @@
 \
 \ Code for the DCC command station.
 \
-\ $ProjectVersion: 0.332 $
-\
 \ Serial monitor
 \
 \ An appropriate origin is $1e00 for PIC 16f876 and $e00 for PIC 16f873.

@@ -1,6 +1,4 @@
 \
-\ $ProjectVersion: 0.332 $
-\
 \ Code for the SPIF smartcard controller, programmable baud rate generator
 \ and bq2010 interface.
 \
@@ -161,7 +159,6 @@ variable vsn-dst
 ;
 
 : i2c-get-vsn ( -- )
-  \ $Format: "  s\" SPIF-PIC $ProjectVersion$ (PicForth $ReleaseVersion$)  \""$
   s" SPIF-PIC 0.332 (PicForth 0.27)  "
   drop i2c-buffer-copy ;
 

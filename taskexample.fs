@@ -1,7 +1,3 @@
-\
-\ $ProjectVersion: 0.332 $
-\
-
 \ Simple multitasker example with two tasks running concurrently.
 
 include multitasker.fs

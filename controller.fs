@@ -1,6 +1,4 @@
 \
-\ $ProjectVersion: 0.332 $
-\
 \ This code controls 6 inputs and 8 outputs using a serial port. The
 \ device accepts commands at 9600bps with the format !xy where x and y
 \ are hexadecimal digits (case does not matter). The device sends the

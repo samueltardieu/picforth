@@ -1,8 +1,6 @@
 \
 \ Code for the DCC generator.
 \
-\ $ProjectVersion: 0.332 $
-\
 \ This program is in charge of:
 \    * generating a valid DCC signal from commands given on the serial line
 \    * do some reporting on the serial line

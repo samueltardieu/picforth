@@ -1,7 +1,5 @@
 \
-\ PicForth $ReleaseVersion: 0.27 $ ($ProjectVersion: 0.332 $)
-\
-\ Forth compiler for Microchip PIC 16F873 / 16F876
+\ PicForth: Forth compiler for Microchip PIC 16F873 / 16F876
 \
 \ Copyright (c) 2002 Samuel Tardieu <sam@rfc1149.net>
 \

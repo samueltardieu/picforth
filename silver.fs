@@ -1,6 +1,4 @@
 \
-\ $ProjectVersion: 0.332 $
-\
 \ Code to drive a silver smartcard (16f876+24lc64)
 \
 \ This demonstration program does nothing but send the ATR (Answer To Reset)

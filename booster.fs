@@ -1,8 +1,6 @@
 \
 \ Code for the DCC booster.
 \
-\ $ProjectVersion: 0.332 $
-\
 \ The DCC booster is in charge of driving a H bridge, which amplifies a
 \ DCC signal so that it can power a model railroad circuit.
 \
