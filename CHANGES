@@ -32,6 +32,9 @@ To understand the scope of these changes, please refer to the documentation.
     when "picisr.fs" is included) was seen as the first definition in
     macros. Reported by Alex Holden <alex@linuxhacker.org>. 
 
+  + Fix bug in multitasker when multiple code banks were involved.
+    Reported by Alex Holden <alex@linuxhacker.org>.
+
 * New in version 1.2.3
 
 ** Bug fix

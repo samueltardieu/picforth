@@ -32,6 +32,12 @@ variable l-task
 : resume-task ( host-tcb -- )
     @ dup ,w movf fsr movwf dup 2 + ,w movf pclath movwf 1+ ,w movf pcl movwf ;
 
+target
+
+variable multitasker-pclath
+
+meta
+
 : init-tasks ( -- )
     l-task @ begin
 	dup while
@@ -46,8 +52,9 @@ variable l-task
 ;
 
 ' init-tasks add-to-init-chain
-    
+
 : multitasker ( -- )
+    tcshere cbank (literal) multitasker-pclath (literal) meta> !
     tcshere clrwdt l-task @ begin
 	dup while
 	dup resume-task tcshere over patch-addr
@@ -58,6 +65,8 @@ variable l-task
 
 : yield ( -- )
     tcshere 4 + 8 rshift (literal) l-task @ @ 2 + (literal) meta> !
+    multitasker-pclath (literal) meta> @
+    pclath (literal) meta> !
     tcshere 2 + movlw
     tcshere 0 goto chain-yield
 ;
