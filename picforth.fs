@@ -993,14 +993,17 @@ does>
 host
 
 \ In host memory, a word contains:
-\    - address in target memory (1 cell)
-\    - length in target memory (1 cell)
-\    - address of previous word
-\    - pointer to the name (counted string)
-\    - depth of the code
-\    - is W-TOS convention used (1 cell)
-\    - is W-TOS return convention used (1 cell)
+\    0 - address in target memory (1 cell)
+\    1 - length in target memory (1 cell)
+\    2 - address of previous word
+\    3 - pointer to the name (counted string)
+\    4 - depth of the code
+\    5 - is W-TOS convention used (1 cell)
+\    6 - is W-TOS return convention used (1 cell)
+\    7 - address of next word (null if this is the last word)
 \ -1 means that length has not been computed
+\ We use a doubly linked list so it's possible to iterate through it in both
+\ directions.
 
 \ Store string as a counted string in here
 : s, ( caddr n -- addr ) here >r dup c, 0 ?do dup c@ c, char+ loop drop r> ;
@@ -1009,6 +1012,7 @@ host
 : store-name ( "name" -- addr ) >in @ name s, swap >in ! ;
 
 \ Accessors
+: t-next ( addr -- addr' ) 7 cells + @ ;
 : t-depth ( addr -- ) 4 cells + @ ;
 : t-name ( addr -- ) 3 cells + @ count ;
 : t-previous ( addr -- addr' ) 2 cells + @ ;
@@ -1076,6 +1080,11 @@ variable prev-cbank
 
 variable last-word
 : last-addr ( -- ) last-word @ ;
+: first-addr ( -- p )
+    last-addr dup if else exit then
+    begin dup t-previous dup while nip repeat
+    drop
+;
 : start-word ( -- ) here last-word ! ;
 : compute-length ( -- ) tcshere last-addr @ - last-addr cell+ ! ;
 : >host ( addr -- addr'|0 )
@@ -1121,7 +1130,20 @@ variable last-word
 ;
 
 : t-dict ( w? addr -- )
-    create last-addr start-word tcshere , -1 , , , -1 , , 0 ,
+    create last-addr start-word
+    tcshere , \ address in target memory
+    -1 ,      \ length in target memory
+    ,         \ address of previous word
+    ,         \ pointer to the name (counted string)
+    -1 ,      \ depth of the code
+    ,         \ is W-TOS convention used?
+    0 ,       \ is W-TOS return convention used?
+    0 ,       \ address of next word
+
+    \ Link the previous word to this one:
+    last-addr t-previous if
+        last-addr dup t-previous 7 cells + !
+    then
 ;
 
 : t-header ( w? -- DEFINITIONMARK )
@@ -2279,20 +2301,19 @@ import: [ifdef]   import: [ifundef]
 
 host
 
--1 value fd
-: fd? fd -1 <> ;
-: emit-fd fd? if fd emit-file throw else emit then ;
-: type-fd fd? if fd write-file throw else type then ;
-: cr-fd fd? if a emit-fd else cr then ;
+\ The following mechanism is used for redirecting the output from commands
+\ like map and dis to a file instead of to stdout.
+: create-output-file w/o create-file throw to outfile-id ;
+: close-output-file outfile-id close-file throw stdout to outfile-id ;
 
 variable cks
 : +cks cks +! ;
-: hex8. dup +cks s>d <# # # #> type-fd ;
+: hex8. dup +cks s>d <# # # #> type ;
 : hex16. dup 8 rshift hex8. ff and hex8. ;
 : le-hex16. dup ff and hex8. 8 rshift hex8. ;
 : mem-dump tcs@ le-hex16. ;
-: start-line [char] : emit-fd 0 cks ! ;
-: end-line cks @ ff and negate hex8. cr-fd ;
+: start-line [char] : emit 0 cks ! ;
+: end-line cks @ ff and negate hex8. cr ;
 : line-dump ( addr -- )
     start-line 10 hex8. dup 2* hex16. 0 hex8.
     7 for dup mem-dump 1+ next drop end-line ;
@@ -2304,13 +2325,12 @@ variable cks
     7 for dup ee-dump 1+ next drop end-line ;
 : eeprom-dump
     0 begin dup teehere < while dup eeline-dump 8 + repeat drop ;
-: end-dump s" :00000001FF" type-fd cr-fd ;
+: end-dump ." :00000001FF" cr ;
 : config-dump
     start-line 4 hex8. 400E hex16. 0 hex8. configword-1 @ le-hex16. configword-2 @ le-hex16. end-line ;
 : dump hex code-dump config-dump eeprom-dump end-dump ;
 
-: dump-file ( caddr a -- )
-    w/o create-file throw to fd dump fd close-file throw ;
+: dump-file ( caddr a -- ) create-output-file dump close-output-file ;
 
 : file-dump ( "name" -- ) name dump-file ;
 
@@ -2327,19 +2347,20 @@ forth
 
 \ Printable output
 
+: .0x ." 0x" ;
 : .tab 9 emit ;
 : (.op) ( caddr n -- ) .tab type .tab ;
 : .op" postpone s" postpone (.op) ; immediate \ "
-: .lit ." 0x" ff and s>d <# # # #> type ;
+: .lit .0x ff and s>d <# # # #> type ;
 : .comment .tab ." ; " ;
 : .char
   dup .lit space
   dup $20 < if 3 spaces else [char] [ emit emit [char] ] emit then ;
-: .file ." 0x" 7f and s>d <# # # #> type ;
+: .file .0x 7f and s>d <# # # #> type ;
 : .4const s>d <# # # # # #> type ;
-: .4hexconst ." 0x" .4const ;
+: .4hexconst .0x .4const ;
 : .3const s>d <# # # # #> type ;
-: .3hexconst ." 0x" .3const ;
+: .3hexconst .0x .3const ;
 : .addr dup 1000 >= if .4hexconst else .3hexconst then ;
 : .bconst [char] 0 + emit ;
 : .filewf dup .file ." ," 80 and if ." f" else ." w" then ;
@@ -2467,23 +2488,29 @@ meta
 : see ( "name" -- ) cr ' >body 2@ over 0 do dup dis-a 1+ loop drop ;
 
 : words ( -- )
-    cr last-addr
-    begin dup while dup t-name type space t-previous repeat
-    cr ;
+    cr first-addr
+    begin dup while dup t-name type space t-next repeat
+    cr drop ;
 
 : map ( -- )
-    last-addr
+    first-addr
     begin
 	dup while
 	dup @ .addr .tab dup t-depth .bconst .tab dup t-name type .tab 
-	t-previous cr
+	t-next cr
     repeat
+    drop
 ;
 
+: map>file ( caddr a -- ) create-output-file map close-output-file ;
+: write-map ( "name" -- ) name map>file ;
+
 : dis ( -- ) tcshere 0 ?do i used? if i dis-a then loop ;
+: dis>file ( caddr a -- ) create-output-file dis close-output-file ;
+: write-dis ( "name" -- ) name dis>file ;
 
 : unsupported create
-  does> drop ." Error: nsupported directive for this architecture" cr quit ;
+  does> drop ." Error: unsupported directive for this architecture" cr quit ;
 : unsupported2 unsupported unsupported ;
 : unsupported3 unsupported2 unsupported ;
 

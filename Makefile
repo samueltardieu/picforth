@@ -30,12 +30,12 @@ interactive:
 	${GFORTH} picforth.fs -e 'host picquit'
 
 .fs.hex: ${COMPILER} ${LIBRARIES}
-	${GFORTH} picforth.fs -e 'include $< file-dump $@ map bye' | \
-		sort -o ${<:fs=map}
+	${GFORTH} picforth.fs -e 'include $< file-dump $@ write-map \
+		${<:fs=map} bye'
 
 .fs.disasm: ${COMPILER} ${LIBRARIES}
 	${MAKE} ${<:fs=hex}
-	${GFORTH} picforth.fs -e 'include $< dis bye' > $@
+	${GFORTH} picforth.fs -e 'include $< write-dis $@ bye'
 
 .hex.asm:
 	gpdasm $< > $@
