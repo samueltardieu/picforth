@@ -35,7 +35,9 @@ code wait-for-eeprom ( -- )
     eecon1 adjust-bank forth> drop
 label: wait-for-eeprom0
     wr btfsc
+    suspend-warnings  \ We know that we are doing ok with banks
     wait-for-eeprom0 goto
+    restore-warnings
     restore-bank
     return
 end-code

@@ -62,6 +62,36 @@ vocabulary macrowords
     >in @ bl parse sfind drop swap >in ! create , does> @ execute ;
     
 \ ----------------------------------------------------------------------
+\ Errors and warnings
+\ ----------------------------------------------------------------------
+
+create crlf a c, d c,
+
+variable warnings-are-errors
+variable no-warnings
+
+: fatal-warnings ( -- ) 1 warnings-are-errors ! ;
+: non-fatal-warnings ( -- ) 0 warnings-are-errors ! ;
+
+fatal-warnings
+
+: print-stderr ( caddr u -- ) stderr write-file throw ;
+: crlf-stderr ( -- ) crlf 2 print-stderr ;
+: printnl-stderr ( caddr u -- ) print-stderr crlf-stderr ;
+: warning ( caddr u -- )
+    no-warnings @ if 2drop exit then
+    crlf-stderr
+    crlf-stderr
+    s" *** Warning: " print-stderr printnl-stderr
+    warnings-are-errors @ abort" Aborting" ;
+: suspend-warnings ( -- old ) no-warnings @ 1 no-warnings ! ;
+: restore-warnings ( old -- ) no-warnings ! ;
+
+meta
+
+import: fatal-warnings    import: non-fatal-warnings
+
+\ ----------------------------------------------------------------------
 \ Memory allocation
 \ ----------------------------------------------------------------------
 
@@ -137,6 +167,29 @@ idata
 bank0
 
 host
+
+\ tcompile is the equivalent of state for the cross-compiler
+
+: set true swap ! ;
+: unset false swap ! ;
+
+variable tcompile
+: +tcompile tcompile set ;
+: -tcompile tcompile unset ;
+: tcompile? tcompile @ ;
+
+\ Current data bank as seen from the code generator
+
+variable current-bank
+
+: bank ( a -- n ) 180 and ;
+
+: check-bank ( a -- a )
+\    ." Checking bank for " dup . cr
+    tcompile? if exit then   \ The compiler takes care of banks
+    dup bank current-bank @ <> if
+	s" wrong bank may be selected" warning
+    then ;
 
 \ We are not being strict here. At this time, we assume that all the
 \ code fits in 2kwords (11 bits addressing) and that main data fits in one
@@ -282,9 +335,6 @@ variable note
 
 host
 
-: set true swap ! ;
-: unset false swap ! ;
-
 \ deadcode? indicates whether the current code point is reachable (false)
 \ or not (true)
 
@@ -331,13 +381,6 @@ variable code-depth
 : opt? opt-allowed? 0 code-depth @ < and ;
 : opt2? 1 code-depth @ < ;
 : opt3? 2 code-depth @ < ;
-
-\ tcompile is the equivalent of state for the cross-compiler
-
-variable tcompile
-: +tcompile tcompile set ;
-: -tcompile tcompile unset ;
-: tcompile? tcompile @ ;
 
 \ Incorporate immediate words from forth so that we can use them
 \ while in target mode
@@ -398,14 +441,19 @@ variable prefix?
 : clrwdt 064 cs, ;
 : nop    000 cs, ;
 : retfie 009 cs, ;
-: return 008 cs, ;
+: check-default-bank ( -- )
+    current-bank @ if
+	s" call, goto or return with possible non-0 bank selected" warning
+    then ;
+: return check-default-bank 008 cs, ;
 : sleep  063 cs, ;
 
 \ Byte oriented file register operations
 0 value f?
 : ,f [ 1 7 lshift ] literal to f? ;
 : ,w 0 to f? ;
-: bofro: create 8 lshift , does> @ >prefix swap 7f and or f? or cs, ;
+: bofro:
+    create 8 lshift , does> @ >prefix swap check-bank 7f and or f? or cs, ;
 7 bofro: addwf
 5 bofro: andwf
 9 bofro: comf
@@ -420,12 +468,12 @@ c bofro: rrf
 2 bofro: subwf
 e bofro: swapf
 6 bofro: xorwf
-: clrf  >prefix 7f and 180 or cs, ;
-: movwf >prefix 7f and 080 or cs, ;
+: clrf  >prefix check-bank 7f and 180 or cs, ;
+: movwf >prefix check-bank 7f and 080 or cs, ;
 
 \ Bit oriented file register operations
 : bfro: create 4 or A lshift ,
-        does> @ >prefix swap 7 lshift or swap 7f and or cs, ;
+        does> @ >prefix swap 7 lshift or swap check-bank 7f and or cs, ;
 0 bfro: bcf
 1 bfro: bsf
 2 bfro: btfsc
@@ -442,7 +490,9 @@ e bofro: swapf
 3a lo: xorlw
 
 \ Control operations
-: co: create 8 lshift , does> @ >prefix swap 7ff and or cs, ;
+: co:
+    create 8 lshift ,
+  does> @ >prefix check-default-bank swap 7ff and or cs, ;
 20 co: call
 28 co: goto
 
@@ -1063,7 +1113,9 @@ variable last-word
     create last-addr start-word tcshere , -1 , , , -1 , , 0 ,
 ;
 
-: t-header ( w? -- ) store-name t-dict reachable cbank-ok does> (t-act) ;
+: t-header ( w? -- )
+    0 current-bank !
+    store-name t-dict reachable cbank-ok does> (t-act) ;
 
 : return-in-w ( -- ) 1 last-addr 6 cells + ! ;
 
@@ -1231,8 +1283,6 @@ variable (cmove)-loaded
     1 abort" Please include libcmove.fs in your application"
 ;
 
-variable current-bank
-
 : rp0bsf ( -- )
     opt? if lastcs 1283 = if cs-rewind exit then then
     opt2? if lastcs ff00 and 3000 = prevlastcs 1283 = and if
@@ -1256,24 +1306,28 @@ variable current-bank
 ;
 
 : adjust-bank ( a -- a' )
-    case dup 180 and dup current-bank !
+    suspend-warnings >r
+    case dup bank dup current-bank !
 	80  of rp0bsf endof
 	100 of rp1bsf endof
 	180 of rp0bsf rp1bsf endof
     endcase
     7f and
+    r> restore-warnings
 ;
 
 : rp0bcf ( -- ) reg-rp0 bcf ;
 : rp1bcf ( -- ) reg-rp1 bcf ;
 
 : restore-bank ( -- )
+    suspend-warnings >r
     case current-bank @
 	80  of rp0bcf endof
 	100 of rp1bcf endof
 	180 of rp1bcf rp0bcf endof
     endcase
     0 current-bank !
+    r> restore-warnings
 ;
 
 : const-! ( addr -- )
@@ -2184,7 +2238,6 @@ host
 : fd? fd -1 <> ;
 : emit-fd fd? if fd emit-file throw else emit then ;
 : type-fd fd? if fd write-file throw else type then ;
-create crlf a c, d c,
 : cr-fd fd? if a emit-fd else cr then ;
 
 variable cks

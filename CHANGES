@@ -17,10 +17,18 @@ To understand the scope of these changes, please refer to the documentation.
     this requires one more byte of memory (problem signaled by
     Alex Holden <alex@linuxhacker.org>).
 
+  + PicForth will issue warnings (which by default are fatal) when a
+    bank mismatch has been detected.
+
 ** Cleanups
 
   + Remove extra definition of "set-wrt". Reported by Jamie Lawson
     <jlawson@ces.uoguelph.ca>.
+
+** Bug fixes
+
+  + Interrupts were not properly suspended during an EEPROM write. This
+    has been found by the new bank mismatch detection code.
 
 * New in version 1.1
 

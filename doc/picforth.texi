@@ -68,6 +68,7 @@ Compiler documentation
 * Shifting::                    
 * Looping::                     
 * Memory::                      
+* Warnings and errors::         
 * Variables::                   
 * Tables::                      
 * Jump tables::                 
@@ -602,6 +603,7 @@ the very same code as the less-factored version above.
 * Shifting::                    
 * Looping::                     
 * Memory::                      
+* Warnings and errors::         
 * Variables::                   
 * Tables::                      
 * Jump tables::                 
@@ -751,7 +753,7 @@ The address has to be located in bank 0.
 Also, the words @code{begin}, @code{again}, @code{while}, @code{until}
 and @code{repeat} are implemented.
 
-@node Memory, Variables, Looping, Compiler documentation
+@node Memory, Warnings and errors, Looping, Compiler documentation
 @section Memory
 
 You can choose the memory bank that will be used by the memory commands
@@ -769,7 +771,28 @@ You can define your own memory sections using the words @code{section},
 @code{idata} and @code{udata}. No check will be made to ensure that
 those sections do not overlap.
 
-@node Variables, Tables, Memory, Compiler documentation
+In @code{code} words, you can adjust the current bank by inserting
+@code{adjust-bank} after a variable name. This will adjust the current
+bank and alter the variable address so that it fits between 00 and
+7f. When a @code{call}, @code{goto} or @code{return} statement is
+encountered, the bank must have been restored to 0 using
+@code{restore-bank}).  If the compiler detects a possible bank
+mismatch at variable access or call or return time, it will issue a
+warning (see below).
+
+@node Warnings and errors, Variables, Memory, Compiler documentation
+@section Warnings and errors
+
+By default, warnings are fatal. If you want them to be non-fatal, use
+the word @code{non-fatal-warnings}. The word @code{fatal-warnings} will
+restore the default situation.
+
+You can suspend the warnings temporarily by using @code{suspend-warnings}.
+This will let the old warnings state on the stack. This integer must be
+given back to @code{restore-warnings} to come back to the latest warnings
+state.
+
+@node Variables, Tables, Warnings and errors, Compiler documentation
 @section Variables
 
 Variables are not automatically initialized to zero, as this would waste
