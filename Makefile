@@ -45,7 +45,7 @@ interactive:
 #	${GFORTH} picforth.fs -e 'include $< include serial.fs serprog firmware bye'
 
 RELEASEVERSION = 0.33
-DEVELOPMENTBRANCH = picforth-1
+DEVELOPMENTBRANCH = picforth-0
 
 release:
 	${MAKE} all
