@@ -1,0 +1,20 @@
+This kit was taken from
+http://www.freenet.org.nz/pic/picforth/bootloader.html
+
+Steps to using this bootloading setup
+
+1) edit pfd.py and sermon.fs, set up your chosen baudrates,
+   device settings etc - comments tell you what to edit
+
+2) compile sermon.fs
+
+3) flash your generated sermon.hex into your PIC
+
+4) compile example.fs
+
+5) type 'python pfd.py example.hex' ('./pfd.py example.hex should be ok)
+
+6) power-up or reset your PIC
+
+7) program should download and start up
+

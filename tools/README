@@ -1,1 +1,2 @@
-fdasm:    gpdasm (from gputils) Python wrapper (see fdasm.txt)
+fdasm:       gpdasm (from gputils) Python wrapper (see fdasm.txt)
+bootloading: Python interface to the serial monitor (see bootloading/README)

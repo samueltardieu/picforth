@@ -1,23 +1,55 @@
+\ PIC Serial monitor
 \
-\ Code for the DCC command station.
+\ Written by Samuel Tardieu (PicForth author)
 \
-\ Serial monitor
-\
-\ An appropriate origin is $1e00 for PIC 16f876 and $e00 for PIC 16f873.
-\ Caution: the method for writing flash on 16f87xA devices is different
-\ and is not covered by this monitor.
-\
+\ Slight mods by David McNab (david@freenet.org.nz):
+\  - tidy-ups
+\  - added $30 to suggested ORGs (48 bytes on PIC are precious!)
+\  - changed vector allocations to 4 words each (to suit 16F87xA
+\    processors, which can only flash-write in blocks of 4)
 
-$1e00 constant origin
+\ -----------------------------------------
+\ START USER-CONFIGURATION SETTINGS
+
+\ uncomment one of these according to your processor
+
+$e30 constant origin     \ suits PIC 16F873[A] and 16F88
+\ $1e30 constant origin    \ suits PIC 16F876/7[A]
+
+\ uncomment one of these to choose a baudrate
+\ (for more options, refer to the Datasheet, chapter 10, USART, table 10-4)
+
+\ $81 constant baudrate  \ 9600 baud with 20MHz oscillator
+\ $40 constant baudrate  \ 19200 baud with 20MhZ oscillator
+\ $4a constant baudrate  \ 28800 baud with 20MHz oscillator
+\ $24 constant baudrate  \ 33600 baud with 20MHz oscillator
+$14 constant baudrate  \ 57600 baud with 20MhZ oscillator
+\ $19 constant baudrate  \ 9600 baud with 4MHz oscillator
+\ $0c constant baudrate  \ 19200 baud with 4MHz oscillator
+
+\ comment one or both of these out depending on your processor
+
+pic16f87x
+\ pic16f88
+
+\ chip configs - comment out any you don't want
+
+fosc-hs set-fosc    \ High-speed oscillator
+false set-/pwrte    \ Power-up reset timer
+false set-lvp       \ No need for low voltage programming
+false set-wdte
+
+\ END USER-CONFIGURATION SETTINGS
+\ ----------------------------------------------
 
 \ Version
 
-4 constant version
+5 constant version
 
-\ We let three bytes at origin for jumping to the main program, and 3 bytes
+\ We let 4 bytes at origin for jumping to the main program, and 4 bytes
 \ for jumping to the firmware.
 
-forth> origin 6 + org
+forth> origin 8 + org
 
 include piceeprom.fs
 include libnibble.fs
@@ -58,8 +90,7 @@ target
     led-green >output led-red >output
     \ Serial port transmit (Microchip DS30292C page 100)
     portc 6 >output              \ Port C6 is TX
-    $14 spbrg !                  \ 57600 bauds with BGRH high at 20MhZ
-    \ $19 spbrg !                  \ 9600 bauds with BGRH high at 4MhZ
+    baudrate spbrg !             \ set baudrate (see above)
     $24 txsta !                  \ Asynchronous transmit high-speed generator
     \ Serial port receive (Microchip DS30292C page 102)
     $90 rcsta !                  \ Serial-enable 8bits-rx continuous-receive
@@ -73,9 +104,12 @@ target
 : prompt ( -- ) [char] > emit ;
 : ack ( -- ) [char] ! emit ;
 : nack ( -- ) [char] ? emit ;
+: emit= [char] = emit ;
+: emit: [char] : emit ;
 
 : flash-addr ( -- ) get8 eeadrh ! get8 eeadr ! ;
 : mon-fread ( -- ) flash-addr ack flash-read eedath @ emit8 eedata @ emit8 ;
+
 : mon-fwrite ( -- ) flash-addr get8 eedath ! get8 eedata ! ack flash-write ;
 
 : mon-eread ( -- ) get8 ack ee@ emit8 ;
@@ -90,7 +124,7 @@ target
 
 macro
 : high-offset ( -- b ) origin 8 rshift ;
-: low-offset ( -- b ) origin $ff and 3 + ;
+: low-offset ( -- b ) origin $ff and 4 + ;
 target
 
 : firmware-startup ( -- )
@@ -141,14 +175,7 @@ target
 
 : start-monitor ( -- ) 4s firmware-startup ;
   
-forth> $1e00 set-vector
+forth> origin set-vector
 
 main : main ( -- ) gie bit-clr clrwdt init start-monitor ;
 
-\ ----------------------------------------------------------------------
-\ Configuration word
-\ ----------------------------------------------------------------------
-
-fosc-hs set-fosc    \ High-speed oscillator
-false set-/pwrte    \ Power-up reset timer
-false set-lvp       \ No need for low voltage programming

@@ -21,9 +21,10 @@ To understand the scope of these changes, please refer to the documentation.
   + Document trisa/trisb/trisc. Omission noted by David McNab
     <david@rebirthing.co.nz>.
 
-** Contributions
+** Tools
 
-  + Add tool tools/fdasm from David McNab <david@rebirthing.co.nz>.
+  + Add tools/fdasm from David McNab <david@rebirthing.co.nz>.
+  + Add tools/bootloading from David McNab <david@rebirthing.co.nz>.
 
 * Changes since PicForth 0.30
 

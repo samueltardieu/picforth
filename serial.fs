@@ -48,7 +48,7 @@ variable serbuf
 
 true value translate
 : no-translation ( -- ) false to translate ;
-: fix-address ( addr -- addr' ) translate if dup 3 < if cmd-offset + then then ;
+: fix-address ( addr -- addr' ) translate if dup 4 < if cmd-offset + then then ;
 : copy-flash ( addr -- ) dup tcs@ swap fix-address program-flash ;
 
 : copy-all-eeprom ( -- ) teehere 0 ?do i tee-used? if i copy-eeprom then loop ;
