@@ -2105,7 +2105,7 @@ host
 \ ----------------------------------------------------------------------
 
 include kernel/files.fs
-include kernel/require.fs
+include require.fs
 
 meta
 

@@ -21,6 +21,9 @@ To understand the scope of these changes, please refer to the documentation.
     J.C. Wren <jcwren@jcwren.com>.
   + PCLATH could be wrong in a loop located in upper banks. Bug found and
     fixed by David McNab <david@rebirthing.co.nz>.
+  + Work around problem with GForth 0.5.0 kernel/require.fs file by including
+    a slightly modified version info PicForth. Bug reported by
+    David McNab <david@rebirthing.co.nz>.
 
 ** Doc fixes
 
