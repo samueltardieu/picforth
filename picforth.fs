@@ -141,7 +141,7 @@ bank0
 host
 
 \ We are not being strict here. At this time, we assume that all the
-\ code fits in 2kwords (11 bits addressing) and that main data fits in one
+\ code fits in 8kwords (13 bits addressing) and that main data fits in one
 \ bank (except special registers).
 
 2000 constant code-size
