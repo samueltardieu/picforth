@@ -373,7 +373,8 @@ variable code-depth
 : prevprevlastcs tcshere 3 - tcs@ ;
 : lastcs tcshere 1- tcs@ ;
 : kill-note 0 tcshere tnotes! ;
-: cs-rewind tcshere 1- org kill-note dec-depth ;
+: cs-erase 0 tcshere tcs! ;
+: cs-rewind tcshere 1- org cs-erase kill-note dec-depth ;
 : cs-rewind2 cs-rewind cs-rewind ;
 : cs-rewind3 cs-rewind2 cs-rewind ;
 : cs-unwind lastcs cs-rewind ;
