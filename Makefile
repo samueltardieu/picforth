@@ -12,7 +12,9 @@ PROGS=		booster.hex dcc2.hex generator.hex silver.hex \
 
 GFORTH?=	gforth
 
-all:	${PROGS:.hex=.disasm} CHANGES.html docs
+DISASM=		${PROGS:.hex=.disasm}
+
+all:	${DISASM} CHANGES.html docs
 docs:
 	cd doc && ${MAKE}
 .PHONY:	all docs
@@ -74,3 +76,11 @@ taskexample.disasm: multitasker.fs
 clean::
 	rm -f *.hex *.map *.disasm CHANGES.html *~
 	cd doc && ${MAKE} clean
+
+test::
+	${MAKE} all
+	rm -rf testresults
+	mkdir testresults
+	cp ${DISASM} testresults
+	diff --recursive testresults tests/expected
+	rm -rf testresults
