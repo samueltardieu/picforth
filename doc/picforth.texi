@@ -1011,6 +1011,11 @@ exit point.  After calling a word which returns its result in the w
 register, you can call @code{w>} to put the w register value onto the
 stack.
 
+Alternatively, you can use the @code{return-in-w} word after the word
+definition to indicate that the last-defined word returns its argument
+in the w register. In this case, all the callers will automatically
+append @code{w>} when needed.
+
 @node Bit manipulation, Decrementing and incrementing a memory register, Argument passing, Compiler documentation
 @section Bit manipulation
 

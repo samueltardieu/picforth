@@ -11,12 +11,13 @@
 4 constant 5key.STARTSTOP
 5 constant 5key.NONE
 
-   : 5key.getc-raw
-       forth> return-in-w
-       5key.pin-MENU      high? if 5key.MENU      >w exit then
-       5key.pin-UP        high? if 5key.UP        >w exit then
-       5key.pin-DOWN      high? if 5key.DOWN      >w exit then
-       5key.pin-OK        high? if 5key.OK        >w exit then
-       5key.pin-STARTSTOP high? if 5key.STARTSTOP >w exit then
-       5key.NONE >w
-   ;
+: 5key.getc-raw
+    5key.pin-MENU      high? if 5key.MENU      >w exit then
+    5key.pin-UP        high? if 5key.UP        >w exit then
+    5key.pin-DOWN      high? if 5key.DOWN      >w exit then
+    5key.pin-OK        high? if 5key.OK        >w exit then
+    5key.pin-STARTSTOP high? if 5key.STARTSTOP >w exit then
+    5key.NONE >w
+; return-in-w
+
+: x 5key.getc-raw ;
