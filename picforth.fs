@@ -1,7 +1,7 @@
 \
 \ PicForth: Forth compiler for Microchip PIC 16F873 / 16F876
 \
-\ Copyright (c) 2002 Samuel Tardieu <sam@rfc1149.net>
+\ Copyright (c) 2002-2004 Samuel Tardieu <sam@rfc1149.net>
 \
 \ This compiler is released under the GNU General Public License version 2,
 \ see the COPYING file in the same directory, as well as the README.
