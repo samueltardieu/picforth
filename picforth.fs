@@ -1305,7 +1305,7 @@ import: adjust-bank   import: restore-bank
 
 : 2dup
   s" suspend-interrupts" evaluate
-  popw w>tmp2 loadw w>tmp1 pushw tmp2>w pushw tmp1>w pushw tmp2>w pushw
+  popw w>tmp2 loadw w>tmp1 tmp2>w pushw tmp1>w pushw tmp2>w pushw
   s" restore-interrupts" evaluate
 ;
 
