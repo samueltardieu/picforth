@@ -9,7 +9,6 @@ To understand the scope of these changes, please refer to the documentation.
   + Import conditional compilation words "[IF]", "[ELSE]", "[THEN]",
     "[IFDEF]" and "[IFUNDEF]" from gforth. Suggested by David McNab
     <david@rebirthing.co.nz>.
-
   + "disallow-optimizations" and "allow-optimizations" allow a finer
     control on PicForth optimizations.
 
