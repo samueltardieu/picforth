@@ -108,6 +108,7 @@ Optimizations
 * Useless loads removed when testing::  
 * Increment/decrement and skip if zero used when possible::  
 * Values are not normalized when this is not necessary::  
+* Optimize words ending with constants pushing::  
 
 @end detailmenu
 @end menu
@@ -1402,6 +1403,7 @@ The following optimizations are implemented:
 * Useless loads removed when testing::  
 * Increment/decrement and skip if zero used when possible::  
 * Values are not normalized when this is not necessary::  
+* Optimize words ending with constants pushing::  
 @end menu
 
 @node Tail recursion, Redundant pop/push are removed, Optimizations, Optimizations
@@ -1669,7 +1671,7 @@ will be compiled as:
   return
 @end example
 
-@node Values are not normalized when this is not necessary,  , Increment/decrement and skip if zero used when possible, Optimizations
+@node Values are not normalized when this is not necessary, Optimize words ending with constants pushing, Increment/decrement and skip if zero used when possible, Optimizations
 @section Values are not normalized when this is not necessary
 
 The word:
@@ -1690,6 +1692,32 @@ generates
 The @code{<} test did not cause the value to be normalized to 0 or -1, as it is
 not needed.
 
+@node Optimize words ending with constants pushing,  , Values are not normalized when this is not necessary, Optimizations
+@section Optimize words ending with constants pushing
+
+If a word is marked as returning the top of stack in w using
+@code{return-in-w} and the last instruction before returning is a constant
+push, @code{retlw} will be used.
+
+For example,
+
+@example
+: check-portd ( -- n/w )
+  portd 3 high? if 3 >w exit then
+  portd 4 high? if 4 >w exit then
+  0 >w ; return-in-w
+@end example
+
+will be compiled as
+
+@example
+  btfsc   0x08,3
+  retlw   0x03
+  btfsc   0x08,4
+  retlw   0x04
+  retlw   0x00
+@end example
+
 @node Examples,  , Optimizations, Top
 @appendix Examples
 
@@ -1698,12 +1726,11 @@ Some files are included as examples with a Makefile. E.g, to build
 
 @itemize @bullet
 @item @file{booster.fs}
-code for a booster which handles overload and overheat signals This also
-serves as an example for the priority-based multitasker.
+code for a booster which handles overload and overheat signals; this also
+serves as an example for the priority-based multitasker
 
 @item @file{generator.fs}
-code for a DCC signal generator based on serial commands (work in
-progress, not functional yet)
+code for a DCC signal generator based on serial commands
 
 @item @file{silver.fs}
 code that runs on a silver card (a smartcard with a 16f876 and a 24c64
