@@ -11,9 +11,6 @@ false set-lvp
 \ processor selection
 pic16f87x
 
-\ you need this file if you want to run the prog from a bootloader
-needs fix-for-bootloader.fs
-
 variable cntr
 variable cntr1
 variable cntr2
