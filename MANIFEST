@@ -109,6 +109,8 @@ tests/expected/smaller.disasm
 tests/expected/abs.disasm
 tests/expected/dup0ne.hex
 tests/expected/dup0ne.disasm
+tests/expected/ftable.hex
+tests/expected/ftable.disasm
 tests/expected/retlw.hex
 tests/expected/retlw.disasm
 tests/minusonesmaller.fs
@@ -117,6 +119,7 @@ tests/abs.fs
 tests/condcomp.fs
 tests/libi2c.fs
 tests/multiplewhile.fs
+tests/ftable.fs
 tests/retlw.fs
 tests/onegreaterequal.fs
 tests/opt-tail.fs
