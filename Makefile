@@ -56,8 +56,8 @@ release:
 	rm -rf picforth-${RELEASEVERSION}
 	chmod a+r picforth-${RELEASEVERSION}.tar.gz
 
-CHANGES.html: CHANGES makedoc.pl
-	perl makedoc.pl < CHANGES > CHANGES.html
+CHANGES.html: CHANGES support/makedoc.pl
+	perl support/makedoc.pl < CHANGES > CHANGES.html
 
 WWWDIR=/home/sam/build/rfc1149--zengarden/devel
 

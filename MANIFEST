@@ -9,7 +9,6 @@ Makefile
 COPYING
 CHANGES
 CHANGES.html
-makedoc.pl
 libfetch.fs
 libjtable.fs
 libstore.fs
@@ -42,6 +41,7 @@ tools/README
 tools/bootloading/pfd.py
 tools/bootloading/example.fs
 tools/bootloading/README
+support/makedoc.pl
 support/runtests.sh
 tests/expected/taskexample.disasm
 tests/expected/spifcard.disasm
