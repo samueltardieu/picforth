@@ -2,6 +2,18 @@
 
 To understand the scope of these changes, please refer to the documentation.
 
+* New in version 0.34
+
+** Distribution glitches in 0.33
+
+  (reported by David McNab <david@rebirthing.co.nz>)
+  + Missing tools/bootloading directory
+  + Missing dcc2.fs
+
+** New files
+
+  + Regression tests
+
 * Changes since PicForth 0.32
 
 ** Enhancements
