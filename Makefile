@@ -26,7 +26,7 @@ docs:
 .SUFFIXES: .fs .hex .asm .disasm .dump .serprog
 
 interactive:
-	${GFORTH} picforth.fs -e 'host picquit'
+	${GFORTH} picforth.fs
 
 .fs.hex: ${COMPILER} ${LIBRARIES}
 	${GFORTH} picforth.fs -e 'include $< file-dump ${<:.fs=.hex} \
