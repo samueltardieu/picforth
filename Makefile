@@ -96,6 +96,7 @@ mirror::
 	rm -rf mirror-dist
 
 update-tests::
+	$(MAKE) clean
 	grep -v '^tests/' MANIFEST > MANIFEST.tmp
 	find tests -name '*.fs' -o -name '*.disasm' -o -name '*.hex' >> MANIFEST.tmp
 	mv MANIFEST.tmp MANIFEST
