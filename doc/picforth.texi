@@ -1135,6 +1135,9 @@ with strings stored in flash memory:
   str-char             Get next char of previously encountered c"
 @end example
 
+Note that @code{c"} must be used in target mode only and will not work
+properly in macro mode.
+
 The following example assumes that you have a @code{emit} word working,
 which outputs one character.
 
