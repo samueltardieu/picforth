@@ -67,6 +67,7 @@ Compiler documentation
 * Memory::                      
 * Variables::                   
 * Tables::                      
+* Jump tables::                 
 * Main program::                
 * Macros::                      
 * Included files::              
@@ -570,6 +571,7 @@ the very same code as the less-factored version above.
 * Memory::                      
 * Variables::                   
 * Tables::                      
+* Jump tables::                 
 * Main program::                
 * Macros::                      
 * Included files::              
@@ -745,7 +747,7 @@ initialized, use @code{create} and @code{,} such as in:
   create attempts 3 ,
 @end example
 
-@node Tables, Main program, Variables, Compiler documentation
+@node Tables, Jump tables, Variables, Compiler documentation
 @section Tables
 
 Tables can be created either in RAM (with run-time initialization, which
@@ -778,7 +780,60 @@ end-table
 : substitute ( n -- ) dup old-key + @@ swap substitutions new-key + ! ;
 @end example
 
-@node Main program, Macros, Tables, Compiler documentation
+@node Jump tables, Main program, Tables, Compiler documentation
+@section Jump tables
+
+Jump tables can be created by including the @file{libjtable.fs} and
+using the following words:
+
+@example
+  jtable      ( "name" -- )       Create a jump table
+  t,          ( word -- )         Add an element to the jump table
+  end-table   ( -- )              End table declaration
+@end example
+
+Here is an example of jump tables usage:
+
+@example
+  needs libjtable.fs
+
+  : print ( -- ) ... ;
+
+  : word1  ... ;
+  : word2  ... ;
+  : word3  ... ;
+
+  jtable myjump
+      word1 t,
+      word2 t,
+      word3 t,
+  end-table
+
+  main : main
+    c" About to invoke jumptable" print
+    1 myjump
+    c" Back from jumptable" print
+  ;
+@end example
+
+You can also define constants for simpler access and emulation of the
+sorely-missed @code{'} and @code{execute} words:
+
+@example
+  jtable execute
+      word1 t,   0 constant 'word1
+      word2 t,   1 constant 'word2
+      word3 t,   2 constant 'word3
+  end-table
+
+  main : main
+    c" About to invoke jumptable" print
+    'word1 execute
+    c" Back from jumptable" print
+  ;
+@end example
+
+@node Main program, Macros, Jump tables, Compiler documentation
 @section Main program
 
 A @code{main} word indicates that the next address is the main program. Use for

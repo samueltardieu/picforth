@@ -11,6 +11,7 @@ CHANGES
 CHANGES.html
 makedoc.pl
 libfetch.fs
+libjtable.fs
 libstore.fs
 librshift.fs
 liblshift.fs
