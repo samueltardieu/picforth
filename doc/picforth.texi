@@ -1315,6 +1315,10 @@ There is no link between the compiler and the target.
 @node Optimizations, Examples, Compiler documentation, Top
 @chapter Optimizations
 
+PicForth tries very hard to generate efficient code. The optimizer,
+which is on by default, can be turned off by using
+@code{disallow-optimizations} and back on by using @code{allow-optimizations}.
+
 The following optimizations are implemented:
 
 @menu

@@ -1,0 +1,24 @@
+	; name: r
+	; max return-stack depth: 0
+0x0004	0008	return	
+	; name: r1
+	; max return-stack depth: 0
+0x0005	190B	btfsc	0x0B,2
+0x0006	2804	goto	0x004	; r
+0x0007	0008	return	
+	; name: r2
+	; max return-stack depth: 0
+0x0008	080B	movf	0x0B,w
+0x0009	3904	andlw	0x04
+0x000A	0384	decf	0x04,f
+0x000B	0000	nop	
+0x000C	0A84	incf	0x04,f
+0x000D	3800	iorlw	0x00
+0x000E	1D03	btfss	0x03,2
+0x000F	2804	goto	0x004	; r
+0x0010	0008	return	
+	; name: r3
+	; max return-stack depth: 0
+0x0011	190B	btfsc	0x0B,2
+0x0012	2804	goto	0x004	; r
+0x0013	0008	return	

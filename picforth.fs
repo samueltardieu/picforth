@@ -291,6 +291,17 @@ host
 
 variable deadcode?
 
+\ optimization control
+create opt-allowed 1 ,
+: opt-allowed? opt-allowed @ ;
+
+meta
+
+: allow-optimizations 1 opt-allowed ! ;
+: disallow-optimizations 0 opt-allowed ! ;
+
+host
+
 \ code-depth represents the number of code words which constitute a single
 \ block: no jump starts from within this block and no jump can arrive in
 \ the middle of this block.
@@ -318,7 +329,7 @@ variable code-depth
 : cs-unwind2 cs-unwind cs-unwind ;
 : cs-unwind3 cs-unwind2 cs-unwind ;
 : no-opt 0 code-depth ! ;
-: opt? 0 code-depth @ < ;
+: opt? opt-allowed? 0 code-depth @ < and ;
 : opt2? 1 code-depth @ < ;
 : opt3? 2 code-depth @ < ;
 
