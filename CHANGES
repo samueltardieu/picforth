@@ -9,6 +9,10 @@ To understand the scope of these changes, please refer to the documentation.
   + "case"/"of"/"endof"/"endcase". Requested by David McNab
     <david@rebirthing.co.nz>.
 
+** Bug fixes
+
+  + Allow empty (but useless) code words
+
 * New in version 1.2.1
 
 ** Bug fixes
