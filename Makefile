@@ -90,7 +90,7 @@ test::
 	${MAKE} release all ${TESTS_DISASM}
 	mkdir testresults
 	cp ${DISASM} ${PROGS} ${TESTS_DISASM} ${TESTS_PROGS} testresults
-	diff --recursive tests/expected testresults
+	diff --unified --recursive tests/expected testresults
 	rm -rf testresults
 
 mirror::
