@@ -4,6 +4,15 @@ To understand the scope of these changes, please refer to the documentation.
 
 * Changes since PicForth 0.32
 
+** Port to GForth 0.6.2
+
+  + PicForth now works with GForth 0.6.x line
+
+** Enhancements
+
+  + Include new loader from David McNab <david@rebirthing.co.nz> in
+    tools/bootloading.
+
 * Changes since PicForth 0.31
 
 ** Enhancements
