@@ -591,6 +591,10 @@ main : program init mainloop ;
 While this code is highly factored and easily maintainable, it generates
 the very same code as the less-factored version above.
 
+The only exception is @code{exit}: if this word is present in an inlined word,
+it will exit from the caller. As a rule, inlined word should only have
+one regular exit point at the end of the word.
+
 @node Compiler documentation, Optimizations, Our first PicForth program, Top
 @chapter Compiler documentation
 
