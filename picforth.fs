@@ -317,6 +317,7 @@ variable code-depth
 : l-cs-unwind lastcs tcshere 1- tcslit@ cs-rewind ;
 : cs-unwind2 cs-unwind cs-unwind ;
 : cs-unwind3 cs-unwind2 cs-unwind ;
+: no-opt 0 code-depth ! ;
 : opt? 0 code-depth @ < ;
 : opt2? 1 code-depth @ < ;
 : opt3? 2 code-depth @ < ;
@@ -926,8 +927,6 @@ does>
 \ ----------------------------------------------------------------------
 
 host
-
-: no-opt 0 code-depth ! ;
 
 \ In host memory, a word contains:
 \    - address in target memory (1 cell)
