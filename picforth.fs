@@ -185,7 +185,6 @@ variable current-bank
 : bank ( a -- n ) 180 and ;
 
 : check-bank ( a -- a )
-\    ." Checking bank for " dup . cr
     tcompile? if exit then   \ The compiler takes care of banks
     dup bank current-bank @ <> if
 	s" wrong bank may be selected" warning
