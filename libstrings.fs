@@ -7,8 +7,10 @@
 \ Counted strings library: write strings in flash, as 7 bits null-terminated
 \ strings.
 \
-\ The picflash.fs file must be included before this one.
+\ The picflash.fs file will be included if it has not
 \
+
+needs picflash.fs
 
 variable string-odd
 
