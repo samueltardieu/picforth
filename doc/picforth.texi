@@ -33,6 +33,7 @@ Introduction
 * License::                     
 * Why not use Mary?::           
 * Credits::                     
+* Resources::                   
 
 A very short Forth primer
 
@@ -147,6 +148,7 @@ Unix is more user-friendly for the developper.
 * License::                     
 * Why not use Mary?::           
 * Credits::                     
+* Resources::                   
 @end menu
 
 @node What is that?, Why this project?, Introduction, Introduction
@@ -201,7 +203,7 @@ the next release.
 Mary was a great inspiration source, I even kept some of the names from it.
 However, no code has been reused, as both Forth do not have the same goal.
 
-@node Credits,  , Why not use Mary?, Introduction
+@node Credits, Resources, Why not use Mary?, Introduction
 @section Credits
 
 I would like to thank the following people, in no particular order:
@@ -234,6 +236,21 @@ John C. Wren for his code contributions
 
 @item
 Wojciech Zabolotny for his helpful remarks on interrupts and context saving
+@end itemize
+
+@node Resources,  , Credits, Introduction
+@section Resources
+
+PicForth is supported through the following channels:
+@itemize @bullet
+@item
+A mailing-list available at
+@url{http://lists.rfc1149.net/mailman/listinfo/picforth} and gatewayed
+to a newsgroup at
+@url{http://dir.gmane.org/gmane.comp.lang.forth.picforth}.
+
+@item
+A wiki server at @url{http://wiki.enst.fr/bin/view/Picforth}
 @end itemize
 
 @node A very short Forth primer, Our first PicForth program, Introduction, Top
