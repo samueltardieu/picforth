@@ -1304,16 +1304,22 @@ variable (cmove)-loaded
     reg-rp1 bsf
 ;
 
-: adjust-bank ( a -- a' )
+\ Adjust the current bank so that it can appropriately select the right
+\ address in memory
+
+: adjust-bank ( a -- a )
     suspend-warnings >r
     case dup bank dup current-bank !
 	80  of rp0bsf endof
 	100 of rp1bsf endof
 	180 of rp0bsf rp1bsf endof
     endcase
-    7f and
     r> restore-warnings
 ;
+
+\ Select the right bank and returned a trimmed address in the page
+
+: select-bank ( a -- a' ) adjust-bank 7f and ;
 
 : rp0bcf ( -- ) reg-rp0 bcf ;
 : rp1bcf ( -- ) reg-rp1 bcf ;
@@ -1332,12 +1338,12 @@ variable (cmove)-loaded
 : const-! ( addr -- )
     const? if
 	kill-const dup 0= if
-	    drop adjust-bank clrf restore-bank
+	    drop select-bank clrf restore-bank
 	else
-	    movlw adjust-bank movwf restore-bank
+	    movlw select-bank movwf restore-bank
 	then
     else
-	meta> popw adjust-bank movwf restore-bank
+	meta> popw select-bank movwf restore-bank
     then
 ;
 
@@ -1355,7 +1361,7 @@ import: adjust-bank   import: restore-bank
 
 : @
     const? if
-	kill-const ,w adjust-bank movf restore-bank meta> pushw
+	kill-const ,w select-bank movf restore-bank meta> pushw
     else
 	(@)
     then
@@ -1421,14 +1427,14 @@ import: adjust-bank   import: restore-bank
 	const? if                       \ Number is constant
 	    kill-const
 	    dup 1 = if                  \ Number is 1
-		drop adjust-bank ,f incf restore-bank
+		drop select-bank ,f incf restore-bank
 	    else dup ff and ff = if     \ Number is -1
-		drop adjust-bank ,f decf restore-bank
+		drop select-bank ,f decf restore-bank
 	    else
-		movlw adjust-bank ,f addwf restore-bank
+		movlw select-bank ,f addwf restore-bank
 	    then then
 	else
-	    popw adjust-bank addwf restore-bank
+	    popw select-bank addwf restore-bank
 	then
     else
 	meta> tuck @ + swap !
@@ -1507,8 +1513,8 @@ meta
 
 : w-! get-const ,f subwf ;
 
-: rrf! get-const adjust-bank ,f rrf restore-bank ;
-: rlf! get-const adjust-bank ,f rlf restore-bank ;
+: rrf! get-const select-bank ,f rrf restore-bank ;
+: rlf! get-const select-bank ,f rlf restore-bank ;
 
 : log2 ( n -- n' )
     7 for 1 lshift dup 100 = if drop i unloop exit then next drop -1 ;
@@ -1537,12 +1543,12 @@ meta
     const? if
 	kill-const const? if
 	    kill-const dup invert ff and log2 dup -1 <> if
-		nip >r adjust-bank r> bcf restore-bank
+		nip >r select-bank r> bcf restore-bank
 	    else
-		drop movlw ,f adjust-bank andwf restore-bank
+		drop movlw ,f select-bank andwf restore-bank
 	    then
 	else
-	    pop-value-w ,f adjust-bank andwf restore-bank
+	    pop-value-w ,f select-bank andwf restore-bank
 	then
     else
 	meta> tuck @ and swap !
@@ -1576,7 +1582,7 @@ meta
 
 : xor!
     const? if
-	kill-const pop-value-w ,f adjust-bank xorwf restore-bank
+	kill-const pop-value-w ,f select-bank xorwf restore-bank
     else
 	meta> tuck @ xor swap !
     then
@@ -1607,12 +1613,12 @@ meta
     const? if
 	kill-const const? if
 	    kill-const dup log2 dup -1 <> if
-		nip >r adjust-bank r> bsf restore-bank
+		nip >r select-bank r> bsf restore-bank
 	    else
-		drop movlw ,f adjust-bank iorwf restore-bank
+		drop movlw ,f select-bank iorwf restore-bank
 	    then
 	else
-	    pop-value-w ,f adjust-bank iorwf restore-bank
+	    pop-value-w ,f select-bank iorwf restore-bank
 	then
     else
 	meta> tuck @ or swap !
@@ -1912,10 +1918,10 @@ meta
     reachable
 ;
 
-: bit-set get-const get-const adjust-bank swap bsf restore-bank ;
-: bit-clr get-const get-const adjust-bank swap bcf restore-bank ;
+: bit-set get-const get-const select-bank swap bsf restore-bank ;
+: bit-clr get-const get-const select-bank swap bcf restore-bank ;
 : bit-toggle
-    1 get-const lshift get-const swap movlw ,f adjust-bank xorwf restore-bank ;
+    1 get-const lshift get-const swap movlw ,f select-bank xorwf restore-bank ;
 : bit-set? 1 get-const lshift get-const meta> (literal) @ (literal) and ;
 : bit-clr?
     meta> bit-set? 0=
@@ -2054,7 +2060,7 @@ variable init-chain-last
     init-chain-last @ begin dup while dup @ execute cell+ @ repeat drop ;
 
 : init-tdata-slot ( n f a -- n f' )
-    adjust-bank
+    select-bank
     >r over if
 	if dup (literal) popw then r> movwf false
     else
