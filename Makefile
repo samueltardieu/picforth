@@ -52,6 +52,7 @@ DEVELOPMENTBRANCH = picforth-1
 
 release:
 	${MAKE} all
+	rm -rf picforth-${RELEASEVERSION}
 	mkdir picforth-${RELEASEVERSION}
 	tar cf - `cat MANIFEST` | (cd picforth-${RELEASEVERSION} && tar xvf -)
 	chmod -R og=u-w picforth-${RELEASEVERSION}
