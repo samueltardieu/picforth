@@ -15,6 +15,7 @@ libstore.fs
 librshift.fs
 liblshift.fs
 libnibble.fs
+libroll.fs
 libcmove.fs
 libstrings.fs
 libextra.fs
