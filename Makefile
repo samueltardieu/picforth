@@ -41,7 +41,7 @@ interactive:
 	${GFORTH} picforth.fs -e 'include $< include serial.fs serprog bye'
 #	${GFORTH} picforth.fs -e 'include $< include serial.fs serprog firmware bye'
 
-RELEASEVERSION = 0.31
+RELEASEVERSION = 0.32
 
 release:
 	${MAKE} all
