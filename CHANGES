@@ -2,6 +2,12 @@
 
 To understand the scope of these changes, please refer to the documentation.
 
+* Changes since PicForth 0.30
+
+** Glitch fixes
+
+  + Make the release ready for PIC16F88.
+
 * Changes since PicForth 0.29
 
 ** Port for PIC16F88 architecture
