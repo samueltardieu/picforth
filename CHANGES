@@ -7,8 +7,8 @@ To understand the scope of these changes, please refer to the documentation.
 ** Enhancements
 
   + Added jump tables, thanks to David McNab <david@rebirthing.co.nz>.
-  + Added note in serial-monitor.fs indicating that it cannot handle
-    16f87xA devices, whose flash is organized in blocks.
+  + The "::code" word was added, thanks to
+    David McNab <david@rebirthing.co.nz>.
 
 ** Bug fixes
 

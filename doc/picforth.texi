@@ -935,10 +935,12 @@ don't.
 @section Argument passing
 
 In Forth, argument passing is done on the stack. However, if you want to
-transmit the top-of-stack argument in the w register (for example if a word
+transmit the top-of-stack value in the w register (for example if a word
 typically takes a constant which is put on the stack just before calling it),
 you can use the defining word @code{::} instead of @code{:}. All calls will
-automatically use this convention.
+automatically use this convention. Similarly, you can use the
+defining word @code{::code} instead of @code{code} to force the caller to
+load the top-of-stack value into the w register.
 
 If you want to return a value in the w register, you can use the word
 @code{>w} which loads the top-of-stack into the w register before every

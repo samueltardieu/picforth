@@ -1025,6 +1025,7 @@ meta
 : asm[ +tcompile previous previous previous reachable ;
 
 : code false t-header ]asm ;
+: ::code true t-header ]asm ;
 
 : nip meta> popw storew ;
 
