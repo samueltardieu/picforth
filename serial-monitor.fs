@@ -4,6 +4,8 @@
 \ Serial monitor
 \
 \ An appropriate origin is $1e00 for PIC 16f876 and $e00 for PIC 16f873.
+\ Caution: the method for writing flash on 16f87xA devices is different
+\ and is not covered by this monitor.
 \
 
 $1e00 constant origin
