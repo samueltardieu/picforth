@@ -1733,7 +1733,11 @@ meta
    
 : <
     const? if
-	kill-const negate popw addlw pushw carry-clr?
+	kill-const ?dup if
+	    negate popw addlw pushw carry-clr?
+	else
+	    meta> 0<
+	then
     else
 	meta> - carry-clr?
     then

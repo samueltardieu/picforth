@@ -2,6 +2,14 @@
 
 To understand the scope of these changes, please refer to the documentation.
 
+* New in version 1.2.3
+
+** Bug fix
+
+  + The "0 <" phrase (not "0<") could lead to incorrect result when
+    not followed by a conditional construct. Reported by
+    Alex Holden <alex@linuxhacker.org>.
+
 * New in version 1.2.2
 
 ** New words
