@@ -1,0 +1,12 @@
+	; name: x
+	; max return-stack depth: 0
+0x0004	0008	return	
+	; name: t2
+	; max return-stack depth: 0
+0x0005	2804	goto	0x004	; x
+	; name: t4
+	; max return-stack depth: 0
+0x0006	2804	goto	0x004	; x
+	; name: t5
+	; max return-stack depth: 0
+0x0007	2804	goto	0x004	; x

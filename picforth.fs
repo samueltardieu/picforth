@@ -2151,6 +2151,15 @@ import: require     import: required
 : needs require ;
 
 \ ----------------------------------------------------------------------
+\ Import conditional compilation definitions
+\ ----------------------------------------------------------------------
+
+meta
+
+import: [if]      import: [else]        import: [then]
+import: [ifdef]   import: [ifundef]
+
+\ ----------------------------------------------------------------------
 \ Dump of hexadecimal data
 \ ----------------------------------------------------------------------
 
