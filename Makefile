@@ -45,6 +45,7 @@ interactive:
 #	${GFORTH} picforth.fs -e 'include $< include serial.fs serprog firmware bye'
 
 RELEASEVERSION = 0.33
+DEVELOPMENTBRANCH = picforth-1
 
 release:
 	${MAKE} all
@@ -84,3 +85,8 @@ test::
 	cp ${DISASM} testresults
 	diff --recursive testresults tests/expected
 	rm -rf testresults
+
+mirror::
+	rm -rf mirror-dist
+	darcs get . mirror-dist
+	rsync -av --delete mirror-dist/ www.rfc1149.net:rfc1149.net/data/download/picforth-repository/${DEVELOPMENTBRANCH}/
