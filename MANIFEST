@@ -107,14 +107,14 @@ tests/expected/case.disasm
 tests/expected/case.hex
 tests/expected/smaller.disasm
 tests/expected/abs.disasm
+tests/expected/dup0ne.hex
+tests/expected/dup0ne.disasm
 tests/minusonesmaller.fs
 tests/onesmaller.fs
-tests/abs.hex
 tests/abs.fs
 tests/condcomp.fs
 tests/libi2c.fs
 tests/multiplewhile.fs
-tests/abs.disasm
 tests/onegreaterequal.fs
 tests/opt-tail.fs
 tests/emptyif.fs
@@ -134,3 +134,4 @@ tests/bankloop.fs
 tests/opt-dupif.fs
 tests/banks.fs
 tests/smaller.fs
+tests/dup0ne.fs
