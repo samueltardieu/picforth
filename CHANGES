@@ -9,6 +9,9 @@ To understand the scope of these changes, please refer to the documentation.
   + "case"/"of"/"endof"/"endcase". Suggested by David McNab
     <david@rebirthing.co.nz>.
 
+  + "write-map"/"write-dis". Implemented by
+    Alex Holden <alex@linuxhacker.org>.
+
 ** Enhancements
 
   + Check nesting of loops and conditional constructs as well as
@@ -18,9 +21,15 @@ To understand the scope of these changes, please refer to the documentation.
   + Do not warn about words redefined in PicForth. Suggested by
     Alex Holden <alex@linuxhacker.org>.
 
+  + Output from "map" and "words" is now in low->high order not high->low.
+    Implemented by Alex Holden <alex@linuxhacker.org>.
+
 ** Bug fixes
 
   + Allow empty (but useless) code words
+  + Fixed a slight stack leak in "words" and "map". Fix by
+    Alex Holden <alex@linuxhacker.org>.
+  + Fixed a typo in "unsupported". Fix by Alex Holden <alex@linuxhacker.org>
 
 * New in version 1.2.1
 
