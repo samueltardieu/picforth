@@ -4,6 +4,9 @@
 \ This library file has been written by Samuel Tardieu <sam@rfc1149.net>.
 \ It belongs to the public domain. Do whatever you want with it.
 \
+\ If you get an error saying that the multitasker code spans over multiple
+\ banks, you should add some "nop" before the multitasker so that it
+\ doesn't cross a code bank.
 
 meta
 
@@ -60,7 +63,9 @@ meta
 	dup resume-task tcshere over patch-addr
 	dup @ 1+ movwf fsr ,w movf l-task @ @ movwf
 	cell+ @
-    repeat drop goto unreachable
+    repeat drop
+    dup cbank tcshere cbank <> abort" multitasker code spans over multiple code banks, please reorganize"
+    goto unreachable
 ;
 
 : yield ( -- )
