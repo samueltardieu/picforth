@@ -5,6 +5,8 @@
 \ Hardware: 16F873SO 26MHz (overclocked, should be 20MHz)
 \
 
+pic16f87x
+
 include picisr.fs
 include libstore.fs
 include libfetch.fs

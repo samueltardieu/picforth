@@ -1,5 +1,7 @@
 \ Simple multitasker example with two tasks running concurrently.
 
+pic16f87x
+
 include multitasker.fs
 
 1 pin-b led1

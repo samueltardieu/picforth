@@ -1,5 +1,7 @@
 \ dcc2.fs $Id: dcc2.fs 1.1.1.8 Mon, 28 Oct 2002 13:40:58 +0100 sam $
 
+pic16f87x
+
 include libfetch.fs
 include libstore.fs
 

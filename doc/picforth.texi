@@ -1,12 +1,12 @@
 \input texinfo
 
-@settitle PIC 16F87x Forth programmer manual
+@settitle PIC 16F87x and 16F88 Forth programmer manual
 @setfilename picforth.info
 
 @titlepage
-@title PIC 16F87x Forth programmer manual
+@title PIC 16F87x and 16F88 Forth programmer manual
 @c $Format: "@subtitle Using PicForth $ReleaseVersion$"$
-@subtitle Using PicForth 0.27
+@subtitle Using PicForth 0.30
 @subtitle @today
 @author Samuel Tardieu
 
@@ -59,6 +59,7 @@ Compiler documentation
 * Compiling::                   
 * Code::                        
 * Interactive mode::            
+* Specifying the architecture::  
 * Literals::                    
 * Default base::                
 * Stack size::                  
@@ -560,6 +561,7 @@ the very same code as the less-factored version above.
 * Compiling::                   
 * Code::                        
 * Interactive mode::            
+* Specifying the architecture::  
 * Literals::                    
 * Default base::                
 * Stack size::                  
@@ -623,7 +625,7 @@ The whole code space can be used. However, code generated in the first
 remaining words. This is due to the PIC architecture which does not
 allow to see the code space as a flat zone.
 
-@node Interactive mode, Literals, Code, Compiler documentation
+@node Interactive mode, Specifying the architecture, Code, Compiler documentation
 @section Interactive mode
 
 By executing
@@ -641,7 +643,17 @@ interactive mode, where you can use the following words to check your code:
   dis ( -- )           Disassemble the whole code section
 @end example
 
-@node Literals, Default base, Interactive mode, Compiler documentation
+@node Specifying the architecture, Literals, Interactive mode, Compiler documentation
+@section Specifying the architecture
+
+You can choose the architecture you want to compile for by using:
+
+@example
+  pic16f87x ( -- )     Generate code for a PIC16F87x target
+  pic16f88  ( -- )     Generate code for a PIC16F88 target
+@end example
+
+@node Literals, Default base, Specifying the architecture, Compiler documentation
 @section Literals
 
 Hexadecimal literals should be prefixed by a dollar sign @code{$} to avoid
@@ -1163,7 +1175,7 @@ implementation of ANS Forth @code{cmove} word
 @node Configuration word, Caveats and limitations, Libraries, Compiler documentation
 @section Configuration word
 
-The configuration can be configured with the following words:
+On PIC1687x, he configuration can be configured with the following words:
 
 @example
   set-fosc   ( n -- )       Choose oscillator mode (default: fosc-rc)
@@ -1183,6 +1195,22 @@ The configuration can be configured with the following words:
      full-cp   Full protection
      xxxxx     Anything you want, with the right bits set
                (see datasheet)
+@end example
+
+If you use a PIC16F8x, you can give the following extra
+parameter to @code{set-fosc}:
+@example
+     fosc-extclk
+     fosc-intrc-io
+     fosc-intrc-clk
+     fosc-extrc-io
+     fosc-extrc-clk
+@end example
+
+Also, the following words can be used:
+@example
+  set-fcmen ( -- )
+  set-ieso  ( -- )
 @end example
 
 @node Caveats and limitations,  , Configuration word, Compiler documentation

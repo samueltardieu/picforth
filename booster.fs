@@ -12,6 +12,8 @@
 \ signal will stay reversed until a new short-circuit occurs.
 \
 
+pic16f87x
+
 \ Port mapping
 
 5 pin-a jumper               \ Inversion allowed jumper (in)

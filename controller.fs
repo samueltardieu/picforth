@@ -9,6 +9,8 @@
 \ seconds so that humans trust that the system is running.
 \
 
+pic16f87x
+
 include multitasker.fs
 include libnibble.fs
 

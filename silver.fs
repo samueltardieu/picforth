@@ -5,6 +5,8 @@
 \ which identifies the card. It has been written to test the EEPROM read
 \ routine.
 
+pic16f87x
+
 include libstore.fs
 include piceeprom.fs
 include picflash.fs

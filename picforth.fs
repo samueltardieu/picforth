@@ -210,11 +210,6 @@ meta
 00 constant fosc-lp
 01 constant fosc-xt
 02 constant fosc-hs
-03 constant fosc-extclk
-10 constant fosc-intrc-io
-11 constant fosc-intrc-clk
-12 constant fosc-extrc-io
-13 constant fosc-extrc-clk
 
 : config-switch-1
     create ,
@@ -231,7 +226,7 @@ does>
 200 config-switch-1 set-wrt
 800 config-switch-1 set-debug
 
-: set-cp 3030 config-mask ;
+: set-cp 3030 config-mask-1 ;
 3030 constant no-cp
 0000 constant full-cp
 
@@ -249,9 +244,6 @@ does>
 does>
     @ swap if dup else 0 swap then config-mask-2
 ;
-
-1 config-switch-2 set-fcmen
-2 config-switch-2 set-ieso
 
 \ ----------------------------------------------------------------------
 \ Annotations
@@ -2299,6 +2291,16 @@ meta
 ;
 
 : dis ( -- ) tcshere 0 ?do i used? if i dis-a then loop ;
+
+: unsupported create
+  does> drop ." Error: nsupported directive for this architecture" cr quit ;
+: unsupported2 unsupported unsupported ;
+: unsupported3 unsupported2 unsupported ;
+
+meta
+
+: pic16f88 s" include pic16f88.inc" evaluate ;
+: pic16f87x s" include pic16f87x.inc" evaluate ;
 
 \ ----------------------------------------------------------------------
 \ Switch into picforth parser mode from now on

@@ -12,6 +12,8 @@
 \ Otherwise, the firmware will be executed by jumping at 0x602.
 \
 
+pic16f87x
+
 \ 600 is the origin, 602 is the original jump code for the program
 
 602 org

@@ -9,6 +9,8 @@
 \    * NMRA DCC Standards and Recommended Practices:
 \      http://www.tttrains.com/nmradcc/
 
+pic16f87x
+
 include picisr.fs
 include piceeprom.fs
 include libnibble.fs

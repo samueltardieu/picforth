@@ -30,3 +30,5 @@ doc/picforth.txt
 serial.fs
 serial-monitor.fs
 serial-monitor.txt
+pic16f88.inc
+pic16f87x.inc
