@@ -50,8 +50,9 @@ DEVELOPMENTBRANCH = picforth-1
 release:
 	${MAKE} all
 	mkdir picforth-${RELEASEVERSION}
-	install -m 644 `cat MANIFEST` picforth-${RELEASEVERSION}
-	tar zcvf picforth-${RELEASEVERSION}.tar.gz picforth-${RELEASEVERSION}
+	tar cf - `cat MANIFEST` | (cd picforth-${RELEASEVERSION} && tar xvf -)
+	chmod -R og=u-w picforth-${RELEASEVERSION}
+	tar zcf picforth-${RELEASEVERSION}.tar.gz picforth-${RELEASEVERSION}
 	rm -rf picforth-${RELEASEVERSION}
 	chmod a+r picforth-${RELEASEVERSION}.tar.gz
 
