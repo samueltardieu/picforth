@@ -29,8 +29,8 @@ doc/picforth.pdf
 doc/picforth.info
 doc/picforth.txt
 serial.fs
-serial-monitor.fs
-serial-monitor.txt
+sermon.fs
+sermon.txt
 pic16f88.inc
 pic16f87x.inc
 contrib/fdasm
