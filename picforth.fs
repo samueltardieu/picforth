@@ -223,7 +223,6 @@ does>
 040 config-switch-1 set-boden
 080 config-switch-1 set-lvp
 100 config-switch-1 set-cpd
-200 config-switch-1 set-wrt
 800 config-switch-1 set-debug
 
 \ It looks like boden/boren may be interchanged
