@@ -558,13 +558,23 @@ forth-wordlist set-current also picassembler : call call ; definitions previous
 : pushw push 0 movwf ;
 : popw loadw pop ;
 
+\ Ensure that W gets the top of stack value and that Z is set accordingly
+
+: loadw-z
+    loadw
+    lastcs 80 and 80 = if
+	\ We have a movwf, we do not know whether the Z bit is accurate, so
+	\ reload the top of stack
+	0 ,w movf
+    then ;
+
 meta
 
 \ Import those in the meta vocabulary
 
 import: push     import: pop       import: loadw
 import: storew   import: pushw     import: popw
-import: nop
+import: nop      import: loadw-z
 
 : >w popw ;
 : w> pushw ;
@@ -1687,7 +1697,7 @@ meta
 
 : 0<>
     note-/z >note
-    loadw
+    loadw-z
     z btfss
     ff xorlw
     indf ,f iorwf
