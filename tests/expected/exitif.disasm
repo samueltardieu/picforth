@@ -1,0 +1,15 @@
+	; name: sometest
+	; max return-stack depth: 0
+0x0004	3001	movlw	0x01
+0x0005	0384	decf	0x04,f
+0x0006	0080	movwf	0x00
+0x0007	0008	return	
+	; name: dosomething
+	; max return-stack depth: 0
+0x0008	0008	return	
+	; name: unreachable
+	; max return-stack depth: 0
+0x0009	0008	return	
+	; name: test
+	; max return-stack depth: 0
+0x000A	0008	return	

@@ -1844,9 +1844,13 @@ meta
 ;
 
 : test-structure ( -- faddr )
-    cs-unwind tcshere manipulate-cbank cbank-ok cs,
-    meta> ahead
-    reachable
+    deadcode? @ if
+        meta> ahead
+    else
+        cs-unwind tcshere manipulate-cbank cbank-ok cs,
+        meta> ahead
+        reachable
+    then
 ;
 
 \ Is that equivalent to a bit-test sequence?

@@ -15,6 +15,7 @@ PROGS=		booster.hex generator.hex silver.hex \
 		libstrings.hex libextra.hex
 
 GFORTH?=	gforth-0.6.2
+PAGER?=		less
 
 DISASM=		${PROGS:.hex=.disasm}
 
@@ -39,8 +40,9 @@ interactive:
 .hex.asm:
 	gpdasm $< > $@
 
-.disasm.dump:
-	less $<
+.fs.dump:
+	${MAKE} ${<:.fs=.disasm}
+	${PAGER} ${<:.fs=.disasm}
 
 .fs.serprog: ${COMPILER} ${LIBRARIES} serial.fs
 	${MAKE} ${<:fs=hex}
