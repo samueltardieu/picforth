@@ -1,11 +1,13 @@
 \input texinfo
 
-@settitle PicForth programmer manual
 @setfilename picforth.info
+@settitle PicForth programmer manual
+
+@include version.texi
 
 @titlepage
 @title PicForth programmer manual
-@subtitle Using PicForth 0.33
+@subtitle Using PicForth @version{}
 @subtitle @today
 @author Samuel Tardieu
 
@@ -155,7 +157,7 @@ Unix is more user-friendly for the developper.
 @section What is that?
 
 This program is a Forth compiler for the Microchip PIC 16F87x and 16F88
-family.
+family. The version described in this manual is PicForth @version{}.
 
 @node Why this project?, State of the compiler, What is that?, Introduction
 @section Why this project?

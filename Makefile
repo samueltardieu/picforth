@@ -17,7 +17,7 @@ DISASM=		${PROGS:.hex=.disasm}
 
 all:	${DISASM} CHANGES.html docs
 docs:
-	cd doc && ${MAKE}
+	cd doc && ${MAKE} RELEASEVERSION=${RELEASEVERSION}
 .PHONY:	all docs
 
 .SUFFIXES: .fs .hex .asm .disasm .dump .serprog

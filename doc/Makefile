@@ -4,10 +4,15 @@ OTHERS=		picforth.aux picforth.cp picforth.fn picforth.ky \
 		picforth.log picforth.pg picforth.toc picforth.tp \
 		picforth.vr
 
-all:: ${DOCUMENTS}
+all:: version.texi ${DOCUMENTS}
+
+version.texi:
+	echo "@macro version {}" > version.texi
+	echo "${RELEASEVERSION}" >> version.texi
+	echo "@end macro" >> version.texi
 
 clean::
-	rm -f ${DOCUMENTS} ${OTHERS}
+	rm -f ${DOCUMENTS} ${OTHERS} version.texi
 
 .SUFFIXES:	.texi .html .pdf .info .txt
 
