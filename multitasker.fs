@@ -54,7 +54,7 @@ meta
 ' init-tasks add-to-init-chain
 
 : multitasker ( -- )
-    tcshere cbank (literal) multitasker-pclath (literal) meta> !
+    tcshere 8 rshift (literal) multitasker-pclath (literal) meta> !
     tcshere clrwdt l-task @ begin
 	dup while
 	dup resume-task tcshere over patch-addr
