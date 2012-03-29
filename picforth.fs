@@ -64,7 +64,7 @@ vocabulary macrowords
 
 : import: ( "name" -- )
     >in @ bl parse sfind drop swap >in ! create , does> @ execute ;
-    
+
 \ ----------------------------------------------------------------------
 \ Errors and warnings
 \ ----------------------------------------------------------------------
@@ -153,7 +153,7 @@ meta
 
 : section ( low high "name" -- )
     swap 2dup
-    create here >r dup , , , current-mode @ dup , @ , - 1+ 0 do 10000 , loop 
+    create here >r dup , , , current-mode @ dup , @ , - 1+ 0 do 10000 , loop
     r> current-mode @ !
 does> current-area ! data-mode current-mode ! ;
 
@@ -246,7 +246,7 @@ init-codedata
 : init-eeprom teeprom 100 cells bounds do -1 i ! 1 cells +loop ;
 init-eeprom
 
-\ Configuration words 
+\ Configuration words
 
 variable configword-1
 3fff configword-1 !
@@ -477,7 +477,7 @@ e bofro: swapf
 
 \ Bit oriented file register operations
 : bfro: create 4 or A lshift ,
-        does> @ >prefix swap 7 lshift or swap check-bank 7f and or cs, ;
+	does> @ >prefix swap 7 lshift or swap check-bank 7f and or cs, ;
 0 bfro: bcf
 1 bfro: bsf
 2 bfro: btfsc
@@ -598,7 +598,7 @@ meta
 : literal (literal) ;
 
 \ ----------------------------------------------------------------------
-\ Macro words    
+\ Macro words
 \ ----------------------------------------------------------------------
 
 host
@@ -813,7 +813,7 @@ target
   2 pie1 bit ccp1ie
   1 pie1 bit tmr2ie
   0 pie1 bit tmr1ie
-  
+
 ( pie2 bits )
 
   7 pie2 bit osfie
@@ -839,7 +839,7 @@ target
   2 t2con bit tmr2on
   1 t2con bit t2ckps1
   0 t2con bit t2ckps0
-  
+
 ( sspcon bits )
 
   7 sspcon bit wcol
@@ -882,7 +882,7 @@ target
   2 ansel bit ans2
   1 ansel bit ans1
   0 ansel bit ans0
-  
+
 ( adcon0 bits )
 
   7 adcon0 bit adcs1
@@ -892,14 +892,14 @@ target
   3 adcon0 bit chs0
   2 adcon0 bit go//done
   0 adcon0 bit adon
-  
+
 ( adcon1 bits )
 
   7 adcon1 bit adfm
   6 adcon1 bit adcs2
   5 adcon1 bit vcfg1
   4 adcon1 bit vcfg0
-  
+
 ( ccp1con bits )
 
   5 ccp1con bit ccp1x
@@ -963,9 +963,9 @@ variable flag.curaddr
 
 : flag ( "name" -- )
     flag.nextbit 8 >= if
-        \ run out of bits in current cached var, alloc another 8-bit var
-        data-here flag.curaddr ! meta> 1 allot
-        0 to flag.nextbit  \ and can start off again from bit 0
+	\ run out of bits in current cached var, alloc another 8-bit var
+	data-here flag.curaddr ! meta> 1 allot
+	0 to flag.nextbit  \ and can start off again from bit 0
     then
     \ create word which allows us to manipulate this bit
     flag.nextbit flag.curaddr @ bit
@@ -1146,7 +1146,7 @@ variable last-word
     DEFINITIONMARK <> abort" Unbalanced nested statements"
     compute-length compute-depth ;
 
-: (t-act) 
+: (t-act)
     tcompile? if
 	dup 5 cells + @ if popw then
 	dup @ l-call
@@ -1171,7 +1171,7 @@ variable last-word
 
     \ Link the previous word to this one:
     last-addr t-previous if
-        last-addr dup t-previous 7 cells + !
+	last-addr dup t-previous 7 cells + !
     then
 ;
 
@@ -1445,10 +1445,10 @@ import: adjust-bank   import: restore-bank
 : swap
     const? if
       kill-const const? if
-        \ Swap two literals on the host (such as s" or l" results)
-        kill-const swap (literal) (literal) exit
+	\ Swap two literals on the host (such as s" or l" results)
+	kill-const swap (literal) (literal) exit
       else
-        (literal)
+	(literal)
       then
     then
     popw
@@ -1567,9 +1567,9 @@ forth
     swap FORWARDMARK <> abort" Unbalanced nested statements"
     dup cbank current-cbank !
     dup -1 = if
-        drop
+	drop
     else
-        tcshere swap org reachable dup l-goto org reachable
+	tcshere swap org reachable dup l-goto org reachable
     then ;
 
 meta
@@ -1781,7 +1781,7 @@ meta
 : 0<
     80 (literal) meta> and 0<>
 ;
-   
+
 : <
     const? if
 	kill-const ?dup if
@@ -1831,7 +1831,7 @@ meta
     0600 complastcs-f if true exit then          \ xorwf
     0800 complastcs-f if true exit then          \ movf
     false ;
- 
+
 : test-z-bit ( -- )
     zbit? 0= if 0 iorlw exit then
     \ If the last operation is a movf 0,w and the previous one sets the z bit
@@ -1845,11 +1845,11 @@ meta
 
 : test-structure ( -- faddr )
     deadcode? @ if
-        meta> ahead
+	meta> ahead
     else
-        cs-unwind tcshere manipulate-cbank cbank-ok cs,
-        meta> ahead
-        reachable
+	cs-unwind tcshere manipulate-cbank cbank-ok cs,
+	meta> ahead
+	reachable
     then
 ;
 
@@ -2031,10 +2031,10 @@ meta
     meta> bit-set? 0=
 ;
 : bit-mask 1 get-const get-const drop lshift (literal) ;
-    
+
 : >input get-const get-const 80 or (literal) (literal) bit-set ;
 : >output get-const get-const 80 or (literal) (literal) bit-clr ;
-    
+
 \ Aliases, more readable for port manipulation
 
 : high
@@ -2059,7 +2059,7 @@ meta
 : pin-c ( n -- ) portc bit ;
 : pin-d ( n -- ) portd bit ;
 : pin-e ( n -- ) porte bit ;
-    
+
 : rlf-tos indf ,f rlf ;
 : rrf-tos indf ,f rrf ;
 : swapf-tos indf ,f swapf ;
@@ -2564,7 +2564,7 @@ meta
     first-addr
     begin
 	dup while
-	dup @ .addr .tab dup t-depth .bconst .tab dup t-name type .tab 
+	dup @ .addr .tab dup t-depth .bconst .tab dup t-name type .tab
 	t-next cr
     repeat
     drop
