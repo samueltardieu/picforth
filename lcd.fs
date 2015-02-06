@@ -11,8 +11,8 @@ include libstrings.fs
 \ Basic timing routines at 20MHz
 
 variable timing1 variable timing2
-: 80µs $64 timing1 v-for clrwdt v-next ;
-\ : 80µs $86 timing1 v-for v-next ;
+: 80Âµs $64 timing1 v-for clrwdt v-next ;
+\ : 80Âµs $86 timing1 v-for v-next ;
 : 1.6ms $a timing1 v-for $c8 timing2 v-for clrwdt v-next v-next ;
 \ : 1.6ms $e timing1 v-for $c8 timing2 v-for clrwdt v-next v-next ;
 : 30ms $bc timing1 v-for $c8 timing2 v-for clrwdt v-next v-next ;
@@ -51,7 +51,7 @@ variable timing1 variable timing2
   drop lcd-pulse
 ;
 
-: lcd-send8 dup 4 rshift lcd-send4lsb nop nop lcd-send4lsb 80µs ;
+: lcd-send8 dup 4 rshift lcd-send4lsb nop nop lcd-send4lsb 80Âµs ;
 : lcd-emit lcd-rs high lcd-send8 lcd-rs low ;
 : lcd-print begin str-char dup while lcd-emit repeat ;
 
@@ -60,9 +60,9 @@ variable timing1 variable timing2
 : lcd-setup
   lcd-ports-init 30ms
   $3 lcd-send4lsb 30ms
-  $3 lcd-send4lsb 80µs
-  $3 lcd-send4lsb 80µs
-  $2 lcd-send4lsb 80µs
+  $3 lcd-send4lsb 80Âµs
+  $3 lcd-send4lsb 80Âµs
+  $2 lcd-send4lsb 80Âµs
   $28 lcd-send8 $08 lcd-send8 lcd-clear $06 lcd-send8 $0f lcd-send8 ;
 
 : lcd-test c" Bisou ma Doub" lcd-print ;

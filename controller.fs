@@ -57,7 +57,7 @@ task : timer ( -- )
     begin
 	\ Toggle led and send data
 	led toggle 1 send? +!
-	\ Wait for 152*256*128µs
+	\ Wait for 152*256*128Âµs
 	98 post-count v-for
 	    begin yield t0if bit-set? until
 	    t0if bit-clr

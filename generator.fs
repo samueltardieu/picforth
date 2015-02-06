@@ -64,7 +64,7 @@ target
 \ Basic timing routines at 20MHz
 
 variable timing1 variable timing2 variable timing3
-: 80µs $86 timing1 v-for v-next ;
+: 80Âµs $86 timing1 v-for v-next ;
 : 1.6ms $e timing1 v-for $c8 timing2 v-for v-next v-next ;
 : 30ms $c8 timing1 v-for $fa timing2 v-for v-next v-next ;
 
@@ -86,7 +86,7 @@ variable lcd-nibble
 ;
 
 variable lcd-last-col
-: lcd-send8 ( b -- ) dup 4 rshift lcd-send4lsb nop nop lcd-send4lsb 80µs ;
+: lcd-send8 ( b -- ) dup 4 rshift lcd-send4lsb nop nop lcd-send4lsb 80Âµs ;
 : lcd-emit ( b -- ) 1 lcd-last-col +! lcd-rs high lcd-send8 lcd-rs low ;
 : lcd-print ( -- ) begin str-char dup while lcd-emit repeat drop ;
 : lcd-clear ( -- ) 0 lcd-last-col ! $01 lcd-send8 1.6ms ;
@@ -114,8 +114,8 @@ target
 
 : lcd-setup ( -- )
   30ms
-  $3 lcd-send4lsb 30ms $3 lcd-send4lsb 80µs $3 lcd-send4lsb 80µs
-  $2 lcd-send4lsb 80µs
+  $3 lcd-send4lsb 30ms $3 lcd-send4lsb 80Âµs $3 lcd-send4lsb 80Âµs
+  $2 lcd-send4lsb 80Âµs
   $28 lcd-send8 $08 lcd-send8 lcd-clear $06 lcd-send8 $0f lcd-send8
 ;
 
@@ -193,9 +193,9 @@ variable previous-alerts
 : sense1-alert ( -- )
   alert-sense1 alerts or! disable-dcc-output ;
 
-\ set-timer will wait for 3.2*(256-n)-0.2 µs for a 20MHz oscillator and a
-\ 16 prescaler. For ones, use n=238 (57.4µs => 1.03% error). For zero, use
-\ values between n=0 (819.0µs) and n=224 (102.2µs).
+\ set-timer will wait for 3.2*(256-n)-0.2 Âµs for a 20MHz oscillator and a
+\ 16 prescaler. For ones, use n=238 (57.4Âµs => 1.03% error). For zero, use
+\ values between n=0 (819.0Âµs) and n=224 (102.2Âµs).
 
 macro
 : set-timer ( n -- ) tmr0 +! ;
@@ -209,10 +209,10 @@ variable delay
 \ pulse and half-pulse work the reverse way around: they set the timer
 \ to the proper value, then call the idle-loop to do other tasks, then
 \ wait for the timer to expire and immediately change the DCC output
-\ state.  This way, it is permitted to take some time (up to 40µs,
+\ state.  This way, it is permitted to take some time (up to 40Âµs,
 \ i.e. around 200 instructions) to handle secondary tasks. More
 \ complex tasks can be handled if the zero flag is true (in which case
-\ we have up to 80µs, i.e. around 400 instructions).
+\ we have up to 80Âµs, i.e. around 400 instructions).
 
 macro
 : half-pulse ( -- ) delay @ set-timer ;          \ Set timer to pulse value

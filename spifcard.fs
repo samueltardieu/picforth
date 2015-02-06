@@ -61,15 +61,15 @@ variable sc-fromcard
 \ Timer routines
 \ ----------------------------------------------------------------------
 
-\ With a prescaler of 8, each tick takes 1.231µs
+\ With a prescaler of 8, each tick takes 1.231Âµs
 
 :: timer-wait ( n -- )
     tmr0 ! t0if bit-clr                                     \ Setup timer 0
     begin t0if bit-set? until ;                             \ Wait for overflow
 
-:: timer-loop ( n -- ) tmp1 v-for 0 timer-wait v-next ;     \ 315.14µs
+:: timer-loop ( n -- ) tmp1 v-for 0 timer-wait v-next ;     \ 315.14Âµs
 
-: 140µs ( -- ) -72 timer-wait ;
+: 140Âµs ( -- ) -72 timer-wait ;
 : 80ms ( -- ) 100 timer-loop ;
 
 \ ----------------------------------------------------------------------
@@ -245,7 +245,7 @@ target
 : sc-addr!++ ( b -- ) sc-addr @ ! sc-addr++ ;
 
 \ The card reader frequency is 3.25MHz (26MHz/8). Each bit takes 372 clock
-\ pulses, which means 114.46µs, i.e. around 93 times 1.231µs.
+\ pulses, which means 114.46Âµs, i.e. around 93 times 1.231Âµs.
 
 : delay-bit ( -- ) -5d timer-wait ;
 : delay-half-bit ( -- ) -2e timer-wait ;
@@ -411,7 +411,7 @@ target
     \ Use direct mode to read first ATR byte
     0 sc-inverse !
     \ Startup sequence (see TDA8004 datasheet)
-    /cmdvcc low 140µs rstin high
+    /cmdvcc low 140Âµs rstin high
     \ Get first byte and check convention
     get-byte? 0= if rstin low led-blink-fast exit then
     dup $03 = if drop $3f 1 sc-inverse +! then atr !

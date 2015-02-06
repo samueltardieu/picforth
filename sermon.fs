@@ -155,7 +155,7 @@ target
 : mainloop ( -- ) led-green low led-red high begin prompt key handle-cmd again ;
 
 \ Timer routines. At 20MhZ, with a prescaler of 64, each tick corresponds
-\ to 12.8µs. Call ticks with a "negate"d value. The minimum watchdog time is
+\ to 12.8Âµs. Call ticks with a "negate"d value. The minimum watchdog time is
 \ 7ms; it needs to be cleared within the loop.
 
 :: ticks ( -n -- )

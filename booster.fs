@@ -7,7 +7,7 @@
 \ This device is in charge of checking for high current (short-circuit)
 \ and thermal warning problems. Note that short-circuit may happen if the
 \ circuit does have a reverse loop. In this case, if a jumper on the
-\ board allows it, the signal phase will be reversed and a few µs later
+\ board allows it, the signal phase will be reversed and a few Âµs later
 \ we will recheck for the short-circuit. If it has disappeared, the DCC
 \ signal will stay reversed until a new short-circuit occurs.
 \
@@ -33,7 +33,7 @@ pic16f87x
 : disable-output ( -- ) brake high pwm low disconnection high ;
 
 \ Timer routines. At 4MhZ, with a prescaler of 64, each tick corresponds
-\ to 64µs. Call ticks with a "negate"d value. The minimum watchdog time is
+\ to 64Âµs. Call ticks with a "negate"d value. The minimum watchdog time is
 \ 7ms; it needs to be cleared within the loop.
 
 :: ticks ( -n -- )
@@ -42,7 +42,7 @@ pic16f87x
     begin clrwdt t0if bit-set? until         \ Wait for overflow to occur
 ;
 
-: 64µs ( -- ) -1 ticks ;
+: 64Âµs ( -- ) -1 ticks ;
 : 10ms ( -- ) -$9d ticks ;
 
 variable scount
@@ -53,8 +53,8 @@ variable scount
 : handle-shortcut ( -- )
     \ Toggle inversion if inversion is allowed (jumper high)
     jumper high? if inversion toggle then
-    \ If shortcut is gone after 64µs, exit
-    64µs short-detected low? if exit then
+    \ If shortcut is gone after 64Âµs, exit
+    64Âµs short-detected low? if exit then
     \ We are still in shortcut condition, disable output for 10ms
     disable-output 10ms enable-output
 ;

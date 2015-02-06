@@ -101,9 +101,9 @@ label: cmd-start
 \ Interrupt driven DCC pulse generator
 \ ----------------------------------------------------------------------
 
-\ set-timer will wait for 3.2*(256-n)-0.2 µs for a 20MHz oscillator and a
-\ 16 prescaler. For ones, use n=238 (57.4µs => 1.03% error). For zero, use
-\ values between n=0 (819.0µs) and n=224 (102.2µs).
+\ set-timer will wait for 3.2*(256-n)-0.2 Âµs for a 20MHz oscillator and a
+\ 16 prescaler. For ones, use n=238 (57.4Âµs => 1.03% error). For zero, use
+\ values between n=0 (819.0Âµs) and n=224 (102.2Âµs).
 
 macro
 : set-timer ( n -- ) tmr0 +! ;
@@ -119,10 +119,10 @@ variable delay
 \ pulse and half-pulse work the reverse way around: they set the timer
 \ to the proper value, then call the idle-loop to do other tasks, then
 \ wait for the timer to expire and immediately change the DCC output
-\ state.  This way, it is permitted to take some time (up to 40µs,
+\ state.  This way, it is permitted to take some time (up to 40Âµs,
 \ i.e. around 200 instructions) to handle secondary tasks. More
 \ complex tasks can be handled if the zero flag is true (in which case
-\ we have up to 80µs, i.e. around 400 instructions).
+\ we have up to 80Âµs, i.e. around 400 instructions).
 
 macro
 : half-pulse ( -- ) delay @ set-timer ;          \ Set timer to pulse value
