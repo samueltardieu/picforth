@@ -1,12 +1,12 @@
 \ require.fs
 
-\ Copyright (C) 1995,1996,1997,1998,2000,2003 Free Software Foundation, Inc.
+\ Copyright (C) 1995,1996,1997,1998,2000,2003,2006,2007 Free Software Foundation, Inc.
 
 \ This file is part of Gforth.
 
 \ Gforth is free software; you can redistribute it and/or
 \ modify it under the terms of the GNU General Public License
-\ as published by the Free Software Foundation; either version 2
+\ as published by the Free Software Foundation, either version 3
 \ of the License, or (at your option) any later version.
 
 \ This program is distributed in the hope that it will be useful,
@@ -15,10 +15,33 @@
 \ GNU General Public License for more details.
 
 \ You should have received a copy of the GNU General Public License
-\ along with this program; if not, write to the Free Software
-\ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111, USA.
+\ along with this program. If not, see http://www.gnu.org/licenses/.
 
 \ Now: Kernel Module, Reloadable
+
+create included-files 0 , 0 , ( pointer to and count of included files )
+\ note: these names must not contain a "/" or "\"; otherwise a part of
+\ that name might be used when expanding "./" (see expandtopic).
+here ," *somewhere*" dup c@ swap 1 + swap
+, A, here 2 cells -
+create image-included-files 1 , A, ( pointer to and count of included files )
+\ included-files points to ALLOCATEd space, while image-included-files
+\ points to ALLOTed objects, so it survives a save-system
+
+: sourcefilename ( -- c-addr u ) \ gforth
+    \G The name of the source file which is currently the input
+    \G source.  The result is valid only while the file is being
+    \G loaded.  If the current input source is no (stream) file, the
+    \G result is undefined.  In Gforth, the result is valid during the
+    \G whole seesion (but not across @code{savesystem} etc.).
+    loadfilename 2@ ;
+
+: sourceline# ( -- u ) \ gforth		sourceline-number
+    \G The line number of the line that is currently being interpreted
+    \G from a (stream) file. The first line has the number 1. If the
+    \G current input source is not a (stream) file, the result is
+    \G undefined.
+    loadline @ ;
 
 : init-included-files ( -- ) \ gforth-internal
     image-included-files 2@ 2* cells save-mem drop ( addr )
@@ -49,16 +72,18 @@
     2! ;
 
 : included1 ( i*x file-id c-addr u -- j*x ) \ gforth
-    \G Include the file file-id with the name given by @var{c-addr u}.
-    save-mem 2dup add-included-file ( file-id )
-    ['] read-loop execute-parsing-named-file ;
+\G Include the file file-id with the name given by @var{c-addr u}.
+    save-mem 2dup add-included-file
+    includefilename 2@ 2>r 2dup includefilename 2!
+    ['] read-loop execute-parsing-named-file
+    2r> includefilename 2! ;
 
 : included ( i*x c-addr u -- j*x ) \ file
     \G @code{include-file} the file whose name is given by the string
     \G @var{c-addr u}.
     open-fpath-file throw included1 ;
 
-: required ( i*x addr u -- j*x ) \ gforth
+: required ( i*x addr u -- i*x ) \ gforth
     \G @code{include-file} the file with the name given by @var{addr
     \G u}, if it is not @code{included} (or @code{required})
     \G already. Currently this works by comparing the name of the file

@@ -2,6 +2,14 @@
 
 To understand the scope of these changes, please refer to the documentation.
 
+* New in version 1.3
+
+** Various
+
+  + Use gforth 0.7.3 instead of gforth 0.6.x.
+
+  + Use GPL v3 to follow gforth move.
+
 * New in version 1.2.5
 
 ** New features

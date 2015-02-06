@@ -14,7 +14,7 @@ PROGS=		booster.hex generator.hex silver.hex \
 		librshift.hex liblshift.hex libnibble.hex libcmove.hex \
 		libstrings.hex libextra.hex
 
-GFORTH?=	gforth-0.6.2
+GFORTH?=	gforth-0.7.3
 PAGER?=		less
 
 DISASM=		${PROGS:.hex=.disasm}
@@ -30,12 +30,10 @@ interactive:
 	${GFORTH} picforth.fs
 
 .fs.hex: ${COMPILER} ${LIBRARIES}
-	${GFORTH} picforth.fs -e 'include $< file-dump ${<:.fs=.hex} \
-		write-map ${<:.fs=.map} bye'
+	${GFORTH} picforth.fs -e 'include $< file-dump ${<:.fs=.hex} write-map ${<:.fs=.map} bye'
 
 .fs.disasm: ${COMPILER} ${LIBRARIES}
-	${GFORTH} picforth.fs -e 'include $< file-dump ${<:.fs=.hex} \
-		write-map ${<:.fs=.map} write-dis ${<:.fs=.disasm} bye'
+	${GFORTH} picforth.fs -e 'include $< file-dump ${<:.fs=.hex} write-map ${<:.fs=.map} write-dis ${<:.fs=.disasm} bye'
 
 .hex.asm:
 	gpdasm $< > $@
@@ -49,7 +47,7 @@ interactive:
 	${GFORTH} picforth.fs -e 'include $< include serial.fs serprog bye'
 #	${GFORTH} picforth.fs -e 'include $< include serial.fs serprog firmware bye'
 
-RELEASEVERSION = 1.2.5
+RELEASEVERSION = 1.3
 DEVELOPMENTBRANCH = picforth-1
 
 release:

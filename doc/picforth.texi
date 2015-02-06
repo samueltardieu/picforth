@@ -190,7 +190,7 @@ anything else).
 @section License
 
 The compiler is released at the moment under the GNU General Public
-License version 2 (I intend to use the less restrictive BSD license in
+License version 3 (I intend to use the less restrictive BSD license in
 the future, but as it is based on gforth, I have to sort out those
 issues with gforth copyright holders).
 

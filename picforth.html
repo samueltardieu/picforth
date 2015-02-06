@@ -1,123 +1,167 @@
 <html lang="en">
 <head>
-<title>Untitled</title>
+<title>PicForth programmer manual</title>
 <meta http-equiv="Content-Type" content="text/html">
-<meta name=description content="Untitled">
-<meta name=generator content="makeinfo 4.2">
-<link href="http://www.gnu.org/software/texinfo/" rel=generator-home>
+<meta name="description" content="PicForth programmer manual">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="top" href="#Top">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
 </head>
 <body>
+<h1 class="settitle">PicForth programmer manual</h1>
+<div class="node">
+<a name="Top"></a>
 <p><hr>
-Node:<a name="Top">Top</a>,
-Next:<a rel=next accesskey=n href="#Preamble">Preamble</a>,
-Previous:<a rel=previous accesskey=p href="#dir">(dir)</a>,
-Up:<a rel=up accesskey=u href="#dir">(dir)</a>
-<br>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Preamble">Preamble</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#dir">(dir)</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#dir">(dir)</a>
 
-<ul>
-<li><a accesskey=1 href="#Preamble">Preamble</a>: 
-<li><a accesskey=2 href="#Introduction">Introduction</a>: 
-<li><a accesskey=3 href="#A%20very%20short%20Forth%20primer">A very short Forth primer</a>: 
-<li><a accesskey=4 href="#Our%20first%20PicForth%20program">Our first PicForth program</a>: 
-<li><a accesskey=5 href="#Compiler%20documentation">Compiler documentation</a>: 
-<li><a accesskey=6 href="#Optimizations">Optimizations</a>: 
-<li><a accesskey=7 href="#Examples">Examples</a>:
+</div>
 
+<ul class="menu">
+<li><a accesskey="1" href="#Preamble">Preamble</a>
+<li><a accesskey="2" href="#Introduction">Introduction</a>
+<li><a accesskey="3" href="#A-very-short-Forth-primer">A very short Forth primer</a>
+<li><a accesskey="4" href="#Our-first-PicForth-program">Our first PicForth program</a>
+<li><a accesskey="5" href="#Compiler-documentation">Compiler documentation</a>
+<li><a accesskey="6" href="#Optimizations">Optimizations</a>
+<li><a accesskey="7" href="#Examples">Examples</a>
+
+</li></ul>
 <p>--- The Detailed Node Listing ---
 
 <p>Introduction
 
-</p><li><a accesskey=8 href="#What%20is%20that%3f">What is that?</a>: 
-<li><a accesskey=9 href="#Why%20this%20project%3f">Why this project?</a>: 
-<li><a href="#State%20of%20the%20compiler">State of the compiler</a>: 
-<li><a href="#License">License</a>: 
-<li><a href="#Why%20not%20use%20Mary%3f">Why not use Mary?</a>: 
-<li><a href="#Credits">Credits</a>:
+</p>
+<ul class="menu">
+<li><a accesskey="8" href="#What-is-that_003f">What is that?</a>
+<li><a accesskey="9" href="#Why-this-project_003f">Why this project?</a>
+<li><a href="#State-of-the-compiler">State of the compiler</a>
+<li><a href="#License">License</a>
+<li><a href="#Why-not-use-Mary_003f">Why not use Mary?</a>
+<li><a href="#Credits">Credits</a>
+<li><a href="#Resources">Resources</a>
 
+</li></ul>
 <p>A very short Forth primer
 
-</p><li><a href="#Foreword">Foreword</a>: 
-<li><a href="#Words">Words</a>: 
-<li><a href="#Stack%20and%20arguments%20passing">Stack and arguments passing</a>: 
-<li><a href="#Memory%20access">Memory access</a>: 
-<li><a href="#Constant%20and%20variables">Constant and variables</a>: 
-<li><a href="#Tests">Tests</a>: 
-<li><a href="#Loops">Loops</a>:
+</p>
+<ul class="menu">
+<li><a href="#Foreword">Foreword</a>
+<li><a href="#Words">Words</a>
+<li><a href="#Stack-and-arguments-passing">Stack and arguments passing</a>
+<li><a href="#Memory-access">Memory access</a>
+<li><a href="#Constant-and-variables">Constant and variables</a>
+<li><a href="#Tests">Tests</a>
+<li><a href="#Loops">Loops</a>
 
+</li></ul>
 <p>Our first PicForth program
 
-</p><li><a href="#The%20program%20itself">The program itself</a>: 
-<li><a href="#Line%20by%20line%20explanation">Line by line explanation</a>: 
-<li><a href="#Generated%20assembly%20code">Generated assembly code</a>: 
-<li><a href="#An%20alternate%20solution">An alternate solution</a>: 
-<li><a href="#Using%20inlined%20code">Using inlined code</a>:
+</p>
+<ul class="menu">
+<li><a href="#The-program-itself">The program itself</a>
+<li><a href="#Line-by-line-explanation">Line by line explanation</a>
+<li><a href="#Generated-assembly-code">Generated assembly code</a>
+<li><a href="#An-alternate-solution">An alternate solution</a>
+<li><a href="#Using-inlined-code">Using inlined code</a>
 
+</li></ul>
 <p>Compiler documentation
 
-</p><li><a href="#Organisation">Organisation</a>: 
-<li><a href="#Compiling">Compiling</a>: 
-<li><a href="#Code">Code</a>: 
-<li><a href="#Interactive%20mode">Interactive mode</a>: 
-<li><a href="#Literals">Literals</a>: 
-<li><a href="#Default%20base">Default base</a>: 
-<li><a href="#Stack%20size">Stack size</a>: 
-<li><a href="#Shifting">Shifting</a>: 
-<li><a href="#Looping">Looping</a>: 
-<li><a href="#Memory">Memory</a>: 
-<li><a href="#Variables">Variables</a>: 
-<li><a href="#Tables">Tables</a>: 
-<li><a href="#Main%20program">Main program</a>: 
-<li><a href="#Macros">Macros</a>: 
-<li><a href="#Included%20files">Included files</a>: 
-<li><a href="#Assembler">Assembler</a>: 
-<li><a href="#Interrupts">Interrupts</a>: 
-<li><a href="#Argument%20passing">Argument passing</a>: 
-<li><a href="#Bit%20manipulation">Bit manipulation</a>: 
-<li><a href="#Decrementing%20and%20incrementing%20a%20memory%20register">Decrementing and incrementing a memory register</a>: 
-<li><a href="#Watchdog%20timer">Watchdog timer</a>: 
-<li><a href="#Reading%20from%20or%20writing%20to%20EEPROM">Reading from or writing to EEPROM</a>: 
-<li><a href="#Reading%20from%20or%20writing%20to%20flash%20memory">Reading from or writing to flash memory</a>: 
-<li><a href="#Map%20and%20disassembler%20code">Map and disassembler code</a>: 
-<li><a href="#Multitasking">Multitasking</a>: 
-<li><a href="#Libraries">Libraries</a>: 
-<li><a href="#Configuration%20word">Configuration word</a>: 
-<li><a href="#Caveats%20and%20limitations">Caveats and limitations</a>:
+</p>
+<ul class="menu">
+<li><a href="#Organisation">Organisation</a>
+<li><a href="#Compiling">Compiling</a>
+<li><a href="#Code">Code</a>
+<li><a href="#Interactive-mode">Interactive mode</a>
+<li><a href="#Specifying-the-architecture">Specifying the architecture</a>
+<li><a href="#Literals">Literals</a>
+<li><a href="#Default-base">Default base</a>
+<li><a href="#Stack-size">Stack size</a>
+<li><a href="#Shifting">Shifting</a>
+<li><a href="#Looping">Looping</a>
+<li><a href="#Memory">Memory</a>
+<li><a href="#Warnings-and-errors">Warnings and errors</a>
+<li><a href="#Variables">Variables</a>
+<li><a href="#Flags">Flags</a>
+<li><a href="#Tables">Tables</a>
+<li><a href="#Jump-tables">Jump tables</a>
+<li><a href="#Main-program">Main program</a>
+<li><a href="#Macros">Macros</a>
+<li><a href="#Included-files">Included files</a>
+<li><a href="#Assembler">Assembler</a>
+<li><a href="#Interrupts">Interrupts</a>
+<li><a href="#Argument-passing">Argument passing</a>
+<li><a href="#Bit-manipulation">Bit manipulation</a>
+<li><a href="#Decrementing-and-incrementing-a-memory-register">Decrementing and incrementing a memory register</a>
+<li><a href="#Watchdog-timer">Watchdog timer</a>
+<li><a href="#Sleep-mode">Sleep mode</a>
+<li><a href="#Reading-from-or-writing-to-EEPROM">Reading from or writing to EEPROM</a>
+<li><a href="#Reading-from-or-writing-to-flash-memory">Reading from or writing to flash memory</a>
+<li><a href="#Map-and-disassembler-code">Map and disassembler code</a>
+<li><a href="#Multitasking">Multitasking</a>
+<li><a href="#Libraries">Libraries</a>
+<li><a href="#Configuration-word">Configuration word</a>
+<li><a href="#Caveats-and-limitations">Caveats and limitations</a>
 
+</li></ul>
 <p>Multitasking
 
-</p><li><a href="#Priority-based%20multitasker">Priority-based multitasker</a>: 
-<li><a href="#Basic%20cooperative%20multitasker">Basic cooperative multitasker</a>:
+</p>
+<ul class="menu">
+<li><a href="#Priority_002dbased-multitasker">Priority-based multitasker</a>
+<li><a href="#Basic-cooperative-multitasker">Basic cooperative multitasker</a>
 
+</li></ul>
 <p>Optimizations
 
-</p><li><a href="#Tail%20recursion">Tail recursion</a>: 
-<li><a href="#Redundant%20pop%2fpush%20are%20removed">Redundant pop/push are removed</a>: 
-<li><a href="#Direct-access%20and%20literal%20variants">Direct-access and literal variants</a>: 
-<li><a href="#Load">Load</a>: 
-<li><a href="#Condition%20inversions">Condition inversions</a>: 
-<li><a href="#Bank%20switch%20optimizations">Bank switch optimizations</a>: 
-<li><a href="#Operation%20retarget">Operation retarget</a>: 
-<li><a href="#Bit%20test%20operations">Bit test operations</a>: 
-<li><a href="#Useless%20loads%20removed%20when%20testing">Useless loads removed when testing</a>: 
-<li><a href="#Increment%2fdecrement%20and%20skip%20if%20zero%20used%20when%20possible">Increment/decrement and skip if zero used when possible</a>: 
-<li><a href="#Values%20are%20not%20normalized%20when%20this%20is%20not%20necessary">Values are not normalized when this is not necessary</a>:
+</p>
+<ul class="menu">
+<li><a href="#Tail-recursion">Tail recursion</a>
+<li><a href="#Redundant-pop_002fpush-are-removed">Redundant pop/push are removed</a>
+<li><a href="#Direct_002daccess-and-literal-variants">Direct-access and literal variants</a>
+<li><a href="#Load">Load</a>
+<li><a href="#Condition-inversions">Condition inversions</a>
+<li><a href="#Bank-switch-optimizations">Bank switch optimizations</a>
+<li><a href="#Operation-retarget">Operation retarget</a>
+<li><a href="#Bit-test-operations">Bit test operations</a>
+<li><a href="#Useless-loads-removed-when-testing">Useless loads removed when testing</a>
+<li><a href="#Increment_002fdecrement-and-skip-if-zero-used-when-possible">Increment/decrement and skip if zero used when possible</a>
+<li><a href="#Values-are-not-normalized-when-this-is-not-necessary">Values are not normalized when this is not necessary</a>
+<li><a href="#Optimize-words-ending-with-constants-pushing">Optimize words ending with constants pushing</a>
+<li><a href="#Use-subwf-when-possible">Use subwf when possible</a>
 
-</ul>
+   </ul>
 
+<div class="node">
+<a name="Preamble"></a>
 <p><hr>
-Node:<a name="Preamble">Preamble</a>,
-Next:<a rel=next accesskey=n href="#Introduction">Introduction</a>,
-Previous:<a rel=previous accesskey=p href="#Top">Top</a>,
-Up:<a rel=up accesskey=u href="#Top">Top</a>
-<br>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Introduction">Introduction</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Top">Top</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
 
-<h2>1 Preamble</h2>
+</div>
 
-<p>Microchip PIC 16F87x microcontrollers are very well suited for a number
+<h2 class="chapter">1 Preamble</h2>
+
+<p>Microchip PIC 16Fx microcontrollers are very well suited for a number
 of tasks.  However, the programmer is left with several choices to
 program them:
 
-<ul>
+     <ul>
 <li>Use Microchip MPLab IDE running on Microsoft Windows with the assembly
 programming language. 
 <li>Buy a third-party C compiler running on Microsoft Windows. 
@@ -128,178 +172,233 @@ using the assembly language.
 PIC in Forth. 
 </ul>
 
-<p>We do believe that the latest is a very pleasant solution for PIC
+   <p>We do believe that the latest is a very pleasant solution for PIC
 development, as Forth is particularily suited to embedded systems, and
 Unix is more user-friendly for the developper.
 
-<p><b>Warning:</b> this manual is a work-in-progress, and is in no way complete.
+   <p><b>Warning:</b> this manual is a work-in-progress, and is in no way complete.
 
+<div class="node">
+<a name="Introduction"></a>
 <p><hr>
-Node:<a name="Introduction">Introduction</a>,
-Next:<a rel=next accesskey=n href="#A%20very%20short%20Forth%20primer">A very short Forth primer</a>,
-Previous:<a rel=previous accesskey=p href="#Preamble">Preamble</a>,
-Up:<a rel=up accesskey=u href="#Top">Top</a>
-<br>
+Next:&nbsp;<a rel="next" accesskey="n" href="#A-very-short-Forth-primer">A very short Forth primer</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Preamble">Preamble</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
 
-<h2>2 Introduction</h2>
+</div>
 
-<ul>
-<li><a accesskey=1 href="#What%20is%20that%3f">What is that?</a>: 
-<li><a accesskey=2 href="#Why%20this%20project%3f">Why this project?</a>: 
-<li><a accesskey=3 href="#State%20of%20the%20compiler">State of the compiler</a>: 
-<li><a accesskey=4 href="#License">License</a>: 
-<li><a accesskey=5 href="#Why%20not%20use%20Mary%3f">Why not use Mary?</a>: 
-<li><a accesskey=6 href="#Credits">Credits</a>: 
+<h2 class="chapter">2 Introduction</h2>
+
+<ul class="menu">
+<li><a accesskey="1" href="#What-is-that_003f">What is that?</a>
+<li><a accesskey="2" href="#Why-this-project_003f">Why this project?</a>
+<li><a accesskey="3" href="#State-of-the-compiler">State of the compiler</a>
+<li><a accesskey="4" href="#License">License</a>
+<li><a accesskey="5" href="#Why-not-use-Mary_003f">Why not use Mary?</a>
+<li><a accesskey="6" href="#Credits">Credits</a>
+<li><a accesskey="7" href="#Resources">Resources</a>
 </ul>
 
+<div class="node">
+<a name="What-is-that%3f"></a>
+<a name="What-is-that_003f"></a>
 <p><hr>
-Node:<a name="What%20is%20that%3f">What is that?</a>,
-Next:<a rel=next accesskey=n href="#Why%20this%20project%3f">Why this project?</a>,
-Previous:<a rel=previous accesskey=p href="#Introduction">Introduction</a>,
-Up:<a rel=up accesskey=u href="#Introduction">Introduction</a>
-<br>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Why-this-project_003f">Why this project?</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Introduction">Introduction</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Introduction">Introduction</a>
 
-<h3>2.1 What is that?</h3>
+</div>
 
-<p>This program is a Forth compiler for the Microchip PIC 16F87x family.
+<h3 class="section">2.1 What is that?</h3>
 
+<p>This program is a Forth compiler for the Microchip PIC 16F87x and 16F88
+family. The version described in this manual is PicForth 1.3.
+
+<div class="node">
+<a name="Why-this-project%3f"></a>
+<a name="Why-this-project_003f"></a>
 <p><hr>
-Node:<a name="Why%20this%20project%3f">Why this project?</a>,
-Next:<a rel=next accesskey=n href="#State%20of%20the%20compiler">State of the compiler</a>,
-Previous:<a rel=previous accesskey=p href="#What%20is%20that%3f">What is that?</a>,
-Up:<a rel=up accesskey=u href="#Introduction">Introduction</a>
-<br>
+Next:&nbsp;<a rel="next" accesskey="n" href="#State-of-the-compiler">State of the compiler</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#What-is-that_003f">What is that?</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Introduction">Introduction</a>
 
-<h3>2.2 Why this project?</h3>
+</div>
+
+<h3 class="section">2.2 Why this project?</h3>
 
 <p>I needed to write some code on a PIC to control a digital model railroad
 system using the DCC (Digital Control Command) protocol. However, writing
 it in assembly is error-prone and writing it in C is no fun as C compiled code
 typically needs a lot of space.
 
-<p>So I wrote this compiler, not for the purpose of writing a compiler, but as
+   <p>So I wrote this compiler, not for the purpose of writing a compiler, but as
 a tool to write my DCC engine.
 
+<div class="node">
+<a name="State-of-the-compiler"></a>
 <p><hr>
-Node:<a name="State%20of%20the%20compiler">State of the compiler</a>,
-Next:<a rel=next accesskey=n href="#License">License</a>,
-Previous:<a rel=previous accesskey=p href="#Why%20this%20project%3f">Why this project?</a>,
-Up:<a rel=up accesskey=u href="#Introduction">Introduction</a>
-<br>
+Next:&nbsp;<a rel="next" accesskey="n" href="#License">License</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Why-this-project_003f">Why this project?</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Introduction">Introduction</a>
 
-<h3>2.3 State of the compiler</h3>
+</div>
+
+<h3 class="section">2.3 State of the compiler</h3>
 
 <p>The compiler does not aim to be ANS Forth compliant. It has quite a few words
 already implemented, and I will implement more of them as needed. Of course,
 you are welcome to contribute some (see below for license information).
 
-<p>At this time, many words are missing from standard Forth. For example, I have
+   <p>At this time, many words are missing from standard Forth. For example, I have
 no multiply operation as I have no use for it at this time and won't spend
 time to implement things I don't need (remember, Forth is a tool before
 anything else).
 
+<div class="node">
+<a name="License"></a>
 <p><hr>
-Node:<a name="License">License</a>,
-Next:<a rel=next accesskey=n href="#Why%20not%20use%20Mary%3f">Why not use Mary?</a>,
-Previous:<a rel=previous accesskey=p href="#State%20of%20the%20compiler">State of the compiler</a>,
-Up:<a rel=up accesskey=u href="#Introduction">Introduction</a>
-<br>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Why-not-use-Mary_003f">Why not use Mary?</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#State-of-the-compiler">State of the compiler</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Introduction">Introduction</a>
 
-<h3>2.4 License</h3>
+</div>
+
+<h3 class="section">2.4 License</h3>
 
 <p>The compiler is released at the moment under the GNU General Public
-License version 2 (I intend to use the less restrictive BSD license in
+License version 3 (I intend to use the less restrictive BSD license in
 the future, but as it is based on gforth, I have to sort out those
 issues with gforth copyright holders).
 
-<p>However, the code produced by using this compiler is not tainted by the
+   <p>However, the code produced by using this compiler is not tainted by the
 GPL license at all. You can do whatever you want with it, and I claim
 absolutely no right on the input or output of this compiler. I encourage
 to use it for whatever you want.
 
-<p>Note that I would really like people to send me their modifications
+   <p>Note that I would really like people to send me their modifications
 (be they bug fixes or new features) so that I can incorporate them in
 the next release.
 
+<div class="node">
+<a name="Why-not-use-Mary%3f"></a>
+<a name="Why-not-use-Mary_003f"></a>
 <p><hr>
-Node:<a name="Why%20not%20use%20Mary%3f">Why not use Mary?</a>,
-Next:<a rel=next accesskey=n href="#Credits">Credits</a>,
-Previous:<a rel=previous accesskey=p href="#License">License</a>,
-Up:<a rel=up accesskey=u href="#Introduction">Introduction</a>
-<br>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Credits">Credits</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#License">License</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Introduction">Introduction</a>
 
-<h3>2.5 Why not use Mary?</h3>
+</div>
+
+<h3 class="section">2.5 Why not use Mary?</h3>
 
 <p>Mary was a great inspiration source, I even kept some of the names from it. 
 However, no code has been reused, as both Forth do not have the same goal.
 
+<div class="node">
+<a name="Credits"></a>
 <p><hr>
-Node:<a name="Credits">Credits</a>,
-Previous:<a rel=previous accesskey=p href="#Why%20not%20use%20Mary%3f">Why not use Mary?</a>,
-Up:<a rel=up accesskey=u href="#Introduction">Introduction</a>
-<br>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Resources">Resources</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Why-not-use-Mary_003f">Why not use Mary?</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Introduction">Introduction</a>
 
-<h3>2.6 Credits</h3>
+</div>
+
+<h3 class="section">2.6 Credits</h3>
 
 <p>I would like to thank the following people, in no particular order:
 
-<ul>
-<li>Keith Wootten for his precious examples of how he uses a forth-ish
-assembler for the PIC and his inspiration for some control structures
+     <ul>
+<li>Alex Holden for his bug reports
 
-<li>Francisco Rodrigo Escobedo Robles for his Mary PIC Forth compiler
+     <li>Jamie Lawson for his ports on the 16F88 architecture
 
-<li>Herman Tamas for his suggestions for some word names
+     <li>David McNab for his numerous enhancements, bug fixes, contributions and
+ideas
 
-<li>Daniel Serpell for his superoptimizer (a program looking for the
+     <li>Francisco Rodrigo Escobedo Robles for his Mary PIC Forth compiler
+
+     <li>Daniel Serpell for his superoptimizer (a program looking for the
 shortest possible sequences doing a particular job)
 
-<li>Wojciech Zabolotny for his helpful remarks on interrupts and context saving
+     <li>Herman Tamas for his suggestions for some word names
+
+     <li>Keith Wootten for his precious examples of how he uses a forth-ish
+assembler for the PIC and his inspiration for some control structures
+
+     <li>John C. Wren for his code contributions
+
+     <li>Wojciech Zabolotny for his helpful remarks on interrupts and context saving
 </ul>
 
+<div class="node">
+<a name="Resources"></a>
 <p><hr>
-Node:<a name="A%20very%20short%20Forth%20primer">A very short Forth primer</a>,
-Next:<a rel=next accesskey=n href="#Our%20first%20PicForth%20program">Our first PicForth program</a>,
-Previous:<a rel=previous accesskey=p href="#Introduction">Introduction</a>,
-Up:<a rel=up accesskey=u href="#Top">Top</a>
-<br>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Credits">Credits</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Introduction">Introduction</a>
 
-<h2>3 A very short Forth primer</h2>
+</div>
 
-<ul>
-<li><a accesskey=1 href="#Foreword">Foreword</a>: 
-<li><a accesskey=2 href="#Words">Words</a>: 
-<li><a accesskey=3 href="#Stack%20and%20arguments%20passing">Stack and arguments passing</a>: 
-<li><a accesskey=4 href="#Memory%20access">Memory access</a>: 
-<li><a accesskey=5 href="#Constant%20and%20variables">Constant and variables</a>: 
-<li><a accesskey=6 href="#Tests">Tests</a>: 
-<li><a accesskey=7 href="#Loops">Loops</a>: 
+<h3 class="section">2.7 Resources</h3>
+
+<p>PicForth is supported through the following channels:
+     <ul>
+<li>A mailing-list available at
+<a href="http://lists.rfc1149.net/mailman/listinfo/picforth">http://lists.rfc1149.net/mailman/listinfo/picforth</a> and gatewayed
+to a newsgroup at
+<a href="http://dir.gmane.org/gmane.comp.lang.forth.picforth">http://dir.gmane.org/gmane.comp.lang.forth.picforth</a>.
+
+     <li>A wiki server at <a href="http://wiki.enst.fr/bin/view/Picforth">http://wiki.enst.fr/bin/view/Picforth</a>
 </ul>
 
+<div class="node">
+<a name="A-very-short-Forth-primer"></a>
 <p><hr>
-Node:<a name="Foreword">Foreword</a>,
-Next:<a rel=next accesskey=n href="#Words">Words</a>,
-Previous:<a rel=previous accesskey=p href="#A%20very%20short%20Forth%20primer">A very short Forth primer</a>,
-Up:<a rel=up accesskey=u href="#A%20very%20short%20Forth%20primer">A very short Forth primer</a>
-<br>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Our-first-PicForth-program">Our first PicForth program</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Introduction">Introduction</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
 
-<h3>3.1 Foreword</h3>
+</div>
+
+<h2 class="chapter">3 A very short Forth primer</h2>
+
+<ul class="menu">
+<li><a accesskey="1" href="#Foreword">Foreword</a>
+<li><a accesskey="2" href="#Words">Words</a>
+<li><a accesskey="3" href="#Stack-and-arguments-passing">Stack and arguments passing</a>
+<li><a accesskey="4" href="#Memory-access">Memory access</a>
+<li><a accesskey="5" href="#Constant-and-variables">Constant and variables</a>
+<li><a accesskey="6" href="#Tests">Tests</a>
+<li><a accesskey="7" href="#Loops">Loops</a>
+</ul>
+
+<div class="node">
+<a name="Foreword"></a>
+<p><hr>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Words">Words</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#A-very-short-Forth-primer">A very short Forth primer</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#A-very-short-Forth-primer">A very short Forth primer</a>
+
+</div>
+
+<h3 class="section">3.1 Foreword</h3>
 
 <p>For a full introduction to the Forth programming language, please have a
 look at the appropriate section of the Open Directory (maintained by
 volunteers), at address
-&lt;<code>http://dmoz.org/Computers/Programming/Languages/Forth/</code>&gt;. Only a
+<a href="http://dmoz.org/Computers/Programming/Languages/Forth/">http://dmoz.org/Computers/Programming/Languages/Forth/</a>. Only a
 small subset of the language will be presented here, sometimes
 overlooking details.
 
+<div class="node">
+<a name="Words"></a>
 <p><hr>
-Node:<a name="Words">Words</a>,
-Next:<a rel=next accesskey=n href="#Stack%20and%20arguments%20passing">Stack and arguments passing</a>,
-Previous:<a rel=previous accesskey=p href="#Foreword">Foreword</a>,
-Up:<a rel=up accesskey=u href="#A%20very%20short%20Forth%20primer">A very short Forth primer</a>
-<br>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Stack-and-arguments-passing">Stack and arguments passing</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Foreword">Foreword</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#A-very-short-Forth-primer">A very short Forth primer</a>
 
-<h3>3.2 Words</h3>
+</div>
+
+<h3 class="section">3.2 Words</h3>
 
 <p>The Forth programming language may look unusual to people used to other
 languages. First of all, the actions to execute are spelled one after
@@ -307,129 +406,129 @@ each other. The sentence <code>init mainloop cleanup</code> will call, in
 turn, the word <code>init</code>, the word <code>mainloop</code> then the word
 <code>cleanup</code>.
 
-<p>To define a new word, the <code>:</code> defining word is used, while the
+   <p>To define a new word, the <code>:</code> defining word is used, while the
 <code>;</code> word ends the definition. The following code defines a new word
 <code>doit</code> which factors the three words used above:
 
-<br><pre>: doit init mainloop cleanup ;
+<pre class="example">     : doit init mainloop cleanup ;
 </pre>
-
-<p>After it has been defined, the word <code>doit</code> can be called as other
+   <p>After it has been defined, the word <code>doit</code> can be called as other
 words by using its name. A Forth program is a collection of
 application-specific words. Each word, made of other words, will be used
 in turn to define new words, until the whole solution is described.
 
-<p>Words are similar to subprograms in more conventional programming
+   <p>Words are similar to subprograms in more conventional programming
 languages. Any non-blank character can be part of a word name. For
 example, <code>\</code>, <code>^</code>, or <code>$</code> are legal characters in a word
 name, and can even be a word name by themselves.
 
+<div class="node">
+<a name="Stack-and-arguments-passing"></a>
 <p><hr>
-Node:<a name="Stack%20and%20arguments%20passing">Stack and arguments passing</a>,
-Next:<a rel=next accesskey=n href="#Memory%20access">Memory access</a>,
-Previous:<a rel=previous accesskey=p href="#Words">Words</a>,
-Up:<a rel=up accesskey=u href="#A%20very%20short%20Forth%20primer">A very short Forth primer</a>
-<br>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Memory-access">Memory access</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Words">Words</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#A-very-short-Forth-primer">A very short Forth primer</a>
 
-<h3>3.3 Stack and arguments passing</h3>
+</div>
+
+<h3 class="section">3.3 Stack and arguments passing</h3>
 
 <p>In Forth, one does not use parenthesis to give arguments to called
 words. Instead, a stack is used, where the arguments can be pushed and
 where they can be popped from.
 
-<p>The word <code>+</code> pops two arguments from the top of the
+   <p>The word <code>+</code> pops two arguments from the top of the
 stack and pushes their sum. To push an integer to the top of the stack,
 one writes its value. The sentence <code>3 5 +</code> will push
 <code>3</code> on the stack, then <code>5</code>, and calls the word <code>+</code> which
 removes <code>3</code> and <code>5</code> and pushes <code>8</code>.
 
-<p>Some words do manipulate the stack explicitely. <code>dup</code> duplicates
+   <p>Some words do manipulate the stack explicitely. <code>dup</code> duplicates
 the element at the top of the stack, while <code>drop</code> removes
 it. <code>swap</code> exchanges the two top elements. The following word that
 we name <code>2*</code> (remember that this name is perfectly valid in Forth)
 does multiply the top of the stack by two, by adding it to itself:
-<br><pre>: 2* dup + ;
+<pre class="example">     : 2* dup + ;
 </pre>
-
-<p>The stack effect of a word is often written as a comment between
+   <p>The stack effect of a word is often written as a comment between
 parenthesis; those comments are ignored by the Forth compiler. The
 previously defined word could have been written:
-<br><pre>: 2* ( n -- 2*n ) dup + ;
+<pre class="example">     : 2* ( n -- 2*n ) dup + ;
 </pre>
-
-<p>Elements on the stack are represented from left to right (top of the
+   <p>Elements on the stack are represented from left to right (top of the
 stack). For example, the <code>-</code> word which substract the top of the
 stack from the second element on the stack would have a stack comment
 looking like <code>( n1 n2 -- n1-n2 )</code>.
 
-<p>Let's assume that you want to multiply the top of the stack by four. You
+   <p>Let's assume that you want to multiply the top of the stack by four. You
 can define the <code>4*</code> word as:
-<br><pre>: 4* ( n -- 4*n ) dup + dup + ;
+<pre class="example">     : 4* ( n -- 4*n ) dup + dup + ;
 </pre>
-
-<p>But remember that you can define your own words from existing words. If you
+   <p>But remember that you can define your own words from existing words. If you
 now need a word which multiplies the top of the stack by four, you can
 use your previously defined <code>2*</code> word:
-<br><pre>: 4* ( n -- 4*n) 2* 2* ;
+<pre class="example">     : 4* ( n -- 4*n) 2* 2* ;
 </pre>
-
-<p>Definitions in Forth tend to be very short. The grouping of common parts
+   <p>Definitions in Forth tend to be very short. The grouping of common parts
 in words is called <b>factoring</b>, and leads to very concise machine code.
 
+<div class="node">
+<a name="Memory-access"></a>
 <p><hr>
-Node:<a name="Memory%20access">Memory access</a>,
-Next:<a rel=next accesskey=n href="#Constant%20and%20variables">Constant and variables</a>,
-Previous:<a rel=previous accesskey=p href="#Stack%20and%20arguments%20passing">Stack and arguments passing</a>,
-Up:<a rel=up accesskey=u href="#A%20very%20short%20Forth%20primer">A very short Forth primer</a>
-<br>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Constant-and-variables">Constant and variables</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Stack-and-arguments-passing">Stack and arguments passing</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#A-very-short-Forth-primer">A very short Forth primer</a>
 
-<h3>3.4 Memory access</h3>
+</div>
+
+<h3 class="section">3.4 Memory access</h3>
 
 <p>Two useful words allow you to access memory. <code>@</code> gets the
 content of the memory byte whose address is at the top of the stack and
 <code>!</code> stores, in the memory byte whose address is at the top of the
 stack, the following element.
 
-<p>The code below defines a word <code>mirror</code> which mirrors the content of
+   <p>The code below defines a word <code>mirror</code> which mirrors the content of
 port A into port B (we will later see more practical ways of defining
 some of the words seen here):
-<br><pre>: porta 5 ;
-: portb 6 ;
-: mirror porta @ portb ! ;
+<pre class="example">     : porta 5 ;
+     : portb 6 ;
+     : mirror porta @ portb ! ;
 </pre>
-
+   <div class="node">
+<a name="Constant-and-variables"></a>
 <p><hr>
-Node:<a name="Constant%20and%20variables">Constant and variables</a>,
-Next:<a rel=next accesskey=n href="#Tests">Tests</a>,
-Previous:<a rel=previous accesskey=p href="#Memory%20access">Memory access</a>,
-Up:<a rel=up accesskey=u href="#A%20very%20short%20Forth%20primer">A very short Forth primer</a>
-<br>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Tests">Tests</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Memory-access">Memory access</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#A-very-short-Forth-primer">A very short Forth primer</a>
 
-<h3>3.5 Constant and variables</h3>
+</div>
+
+<h3 class="section">3.5 Constant and variables</h3>
 
 <p>The defining word <code>constant</code> allows you to define named
 constants. Using this word, one can simplify the above example:
-<br><pre>5 constant porta
-6 constant portb
-: mirror porta @ portb ! ;
+<pre class="example">     5 constant porta
+     6 constant portb
+     : mirror porta @ portb ! ;
 </pre>
-
-<p>The defining word <code>variable</code> reserves a byte in the PIC RAM and
+   <p>The defining word <code>variable</code> reserves a byte in the PIC RAM and
 gives it a name:
-<br><pre>5 constant porta
-variable counter
-: increment-counter counter @ 1 + counter ! ;
-: counter-to-porta counter @ porta ! ;
+<pre class="example">     5 constant porta
+     variable counter
+     : increment-counter counter @ 1 + counter ! ;
+     : counter-to-porta counter @ porta ! ;
 </pre>
-
+   <div class="node">
+<a name="Tests"></a>
 <p><hr>
-Node:<a name="Tests">Tests</a>,
-Next:<a rel=next accesskey=n href="#Loops">Loops</a>,
-Previous:<a rel=previous accesskey=p href="#Constant%20and%20variables">Constant and variables</a>,
-Up:<a rel=up accesskey=u href="#A%20very%20short%20Forth%20primer">A very short Forth primer</a>
-<br>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Loops">Loops</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Constant-and-variables">Constant and variables</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#A-very-short-Forth-primer">A very short Forth primer</a>
 
-<h3>3.6 Tests</h3>
+</div>
+
+<h3 class="section">3.6 Tests</h3>
 
 <p>Testing in Forth is done using a <code>if</code> construct, terminated by a
 <code>then</code>, with an optional <code>else</code>. Operators such as <code>&lt;</code> or
@@ -437,94 +536,98 @@ Up:<a rel=up accesskey=u href="#A%20very%20short%20Forth%20primer">A very short 
 <code>abs</code> word changes the value on top of the stack to its absolute
 value (note that <code>abs</code> and <code>negate</code> are in fact already
 defined by PicForth):
-<br><pre>: negate 0 swap - ;
-: abs dup 0 &lt; if negate then ;
+<pre class="example">     : negate 0 swap - ;
+     : abs dup 0 &lt; if negate then ;
 </pre>
-
-<p>The word <code>mirror </code>duplicates port A to port B or port C, depending on
+   <p>The word <code>mirror </code>duplicates port A to port B or port C, depending on
 its argument; <code>0</code> for port B, anything else for port C
 (<code>porta</code>, <code>portb</code> and <code>portc</code> constant are already
-defined in PicForth):
-<br><pre>: mirror ( n -- ) porta @ swap if portb ! else portc ! then ;
+defined in PicForth), as are <code>trisa</code>, <code>trisb</code> and <code>trisc</code>:
+<pre class="example">     : mirror ( n -- ) porta @ swap if portb ! else portc ! then ;
 </pre>
+   <p>It is also possible to use Forth's <code>case</code>, <code>of</code>, <code>endof</code> and
+<code>endcase</code>.
 
+<div class="node">
+<a name="Loops"></a>
 <p><hr>
-Node:<a name="Loops">Loops</a>,
-Previous:<a rel=previous accesskey=p href="#Tests">Tests</a>,
-Up:<a rel=up accesskey=u href="#A%20very%20short%20Forth%20primer">A very short Forth primer</a>
-<br>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Tests">Tests</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#A-very-short-Forth-primer">A very short Forth primer</a>
 
-<h3>3.7 Loops</h3>
+</div>
+
+<h3 class="section">3.7 Loops</h3>
 
 <p>Several looping constructs are used in PicForth. The first of them is
 built upon <code>begin</code> and <code>again</code>, which here calls
 <code>do-one-thing</code> indefinitely:
-<br><pre>: mainloop begin do-one-thing again ;
+<pre class="example">     : mainloop begin do-one-thing again ;
 </pre>
-
-<p><code>while</code> and <code>repeat</code> can add a test in the loop and continue
+   <p><code>while</code> and <code>repeat</code> can add a test in the loop and continue
 as long as the word <code>continue?</code> returns a non-null result:
-<br><pre>: mainloop begin do-one-thing continue? while repeat ;
+<pre class="example">     : mainloop begin do-one-thing continue? while repeat ;
 </pre>
-
-<p>Note that <code>while</code> can be present anywhere between <code>begin</code> and
+   <p>Note that <code>while</code> can be present anywhere between <code>begin</code> and
 <code>repeat</code>, letting you build elaborate constructs. Also,
 <code>until</code> allows you to wait for a condition. The following word
 calls <code>do-one-thing</code> until <code>end?</code> returns a non-null value:
-<br><pre>: mainloop begin do-one-thing end? until ;
+<pre class="example">     : mainloop begin do-one-thing end? until ;
 </pre>
-
-<p>The last construct seen here is built around <code>v-for</code> and
+   <p>The last construct seen here is built around <code>v-for</code> and
 <code>v-next</code>. <code>v-for</code> takes a (non-included) high bound and a
 variable address on the stack. The following word <code>main</code> calls
 <code>do-one-thing</code> 10 times:
-<br><pre>variable count
-: main 10 count v-for do-one-thing count v-next ;
+<pre class="example">     variable count
+     : main 10 count v-for do-one-thing count v-next ;
 </pre>
-
+   <div class="node">
+<a name="Our-first-PicForth-program"></a>
 <p><hr>
-Node:<a name="Our%20first%20PicForth%20program">Our first PicForth program</a>,
-Next:<a rel=next accesskey=n href="#Compiler%20documentation">Compiler documentation</a>,
-Previous:<a rel=previous accesskey=p href="#A%20very%20short%20Forth%20primer">A very short Forth primer</a>,
-Up:<a rel=up accesskey=u href="#Top">Top</a>
-<br>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Compiler-documentation">Compiler documentation</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#A-very-short-Forth-primer">A very short Forth primer</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
 
-<h2>4 Our first PicForth program</h2>
+</div>
 
-<ul>
-<li><a accesskey=1 href="#The%20program%20itself">The program itself</a>: 
-<li><a accesskey=2 href="#Line%20by%20line%20explanation">Line by line explanation</a>: 
-<li><a accesskey=3 href="#Generated%20assembly%20code">Generated assembly code</a>: 
-<li><a accesskey=4 href="#An%20alternate%20solution">An alternate solution</a>: 
-<li><a accesskey=5 href="#Using%20inlined%20code">Using inlined code</a>: 
+<h2 class="chapter">4 Our first PicForth program</h2>
+
+<ul class="menu">
+<li><a accesskey="1" href="#The-program-itself">The program itself</a>
+<li><a accesskey="2" href="#Line-by-line-explanation">Line by line explanation</a>
+<li><a accesskey="3" href="#Generated-assembly-code">Generated assembly code</a>
+<li><a accesskey="4" href="#An-alternate-solution">An alternate solution</a>
+<li><a accesskey="5" href="#Using-inlined-code">Using inlined code</a>
 </ul>
 
+<div class="node">
+<a name="The-program-itself"></a>
 <p><hr>
-Node:<a name="The%20program%20itself">The program itself</a>,
-Next:<a rel=next accesskey=n href="#Line%20by%20line%20explanation">Line by line explanation</a>,
-Previous:<a rel=previous accesskey=p href="#Our%20first%20PicForth%20program">Our first PicForth program</a>,
-Up:<a rel=up accesskey=u href="#Our%20first%20PicForth%20program">Our first PicForth program</a>
-<br>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Line-by-line-explanation">Line by line explanation</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Our-first-PicForth-program">Our first PicForth program</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Our-first-PicForth-program">Our first PicForth program</a>
 
-<h3>4.1 The program itself</h3>
+</div>
+
+<h3 class="section">4.1 The program itself</h3>
 
 <p>Our first PicForth program will generate a rectangle wave signal on port
 B0 as fast as possible:
-<br><pre>0 pin-b i/o
-: init i/o &gt;output ;
-: pulse i/o high i/o low ;
-: mainloop begin pulse again ;
-main : program init mainloop ;
+<pre class="example">     0 pin-b i/o
+     : init i/o &gt;output ;
+     : pulse i/o high i/o low ;
+     : mainloop begin pulse again ;
+     main : program init mainloop ;
 </pre>
-
+   <div class="node">
+<a name="Line-by-line-explanation"></a>
 <p><hr>
-Node:<a name="Line%20by%20line%20explanation">Line by line explanation</a>,
-Next:<a rel=next accesskey=n href="#Generated%20assembly%20code">Generated assembly code</a>,
-Previous:<a rel=previous accesskey=p href="#The%20program%20itself">The program itself</a>,
-Up:<a rel=up accesskey=u href="#Our%20first%20PicForth%20program">Our first PicForth program</a>
-<br>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Generated-assembly-code">Generated assembly code</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#The-program-itself">The program itself</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Our-first-PicForth-program">Our first PicForth program</a>
 
-<h3>4.2 Line by line explanation</h3>
+</div>
+
+<h3 class="section">4.2 Line by line explanation</h3>
 
 <p>The first line <code>0 pin-b i/o</code> defines a new word <code>i/o</code> which,
 when executed, will push two integers <code>6</code> (corresponding to portb)
@@ -533,208 +636,226 @@ to manipulate bit 0 of port B you can write <code>i/o</code>, which is shorter
 and lets you change it at only one place should you want to change which
 port is used.
 
-<p>The second line uses the PicForth word <code>&gt;output</code> which sets the
+   <p>The second line uses the PicForth word <code>&gt;output</code> which sets the
 port whose address and bit are on the stack in output mode. This defines
 a new <code>init</code> word which initializes our port B0 as an output.
 
-<p>The third line creates a new word <code>pulse</code> which uses the PicForth
+   <p>The third line creates a new word <code>pulse</code> which uses the PicForth
 words <code>high</code> and <code>low</code> to set a pin high or low. As a result,
 executing the <code>pulse</code> word will set the B0 pin high then low, this
 generating a pulse.
 
-<p>The fourth line defines a <code>mainloop</code> word which calls <code>pulse</code>
+   <p>The fourth line defines a <code>mainloop</code> word which calls <code>pulse</code>
 endlessly, thus generating the rectangle wave signal we want.
 
-<p>The last line uses the PicForth word <code>main</code>. This word indicates to
+   <p>The last line uses the PicForth word <code>main</code>. This word indicates to
 PicForth that the next word to be defined will be the one to call on
 reset. The word, called <code>program</code> here, calls <code>init</code> then
 <code>mainloop</code>. As <code>mainloop</code> never returns, the program runs
 until the end of time (which is usually considered quite a long time).
 
+<div class="node">
+<a name="Generated-assembly-code"></a>
 <p><hr>
-Node:<a name="Generated%20assembly%20code">Generated assembly code</a>,
-Next:<a rel=next accesskey=n href="#An%20alternate%20solution">An alternate solution</a>,
-Previous:<a rel=previous accesskey=p href="#Line%20by%20line%20explanation">Line by line explanation</a>,
-Up:<a rel=up accesskey=u href="#Our%20first%20PicForth%20program">Our first PicForth program</a>
-<br>
+Next:&nbsp;<a rel="next" accesskey="n" href="#An-alternate-solution">An alternate solution</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Line-by-line-explanation">Line by line explanation</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Our-first-PicForth-program">Our first PicForth program</a>
 
-<h3>4.3 Generated assembly code</h3>
+</div>
+
+<h3 class="section">4.3 Generated assembly code</h3>
 
 <p>The generated code looks like:
-<br><pre>0x0000  018A    clrf    0x0A
-0x0001  280C    goto    0x00C   ; (init-picforth)
-0x0002  0000    nop
-        ; name: init
-        ; max return-stack depth: 0
-0x0003  1683    bsf     0x03,5
-0x0004  1006    bcf     0x06,0
-0x0005  1283    bcf     0x03,5
-0x0006  0008    return
-        ; name: pulse
-        ; max return-stack depth: 0
-0x0007  1406    bsf     0x06,0
-0x0008  1006    bcf     0x06,0
-0x0009  0008    return
-        ; name: mainloop
-        ; max return-stack depth: 1
-0x000A  2007    call    0x007   ; pulse
-0x000B  280A    goto    0x00A   ; mainloop (rs depth: 1)
-        ; name: (init-picforth)
-        ; max return-stack depth: 0
-0x000C  3032    movlw   0x32
-0x000D  0084    movwf   0x04
-        ; name: program
-        ; max return-stack depth: 1
-0x000E  2003    call    0x003   ; init
-0x000F  280A    goto    0x00A   ; mainloop (rs depth: 1)
+<pre class="example">     0x0000  018A    clrf    0x0A
+     0x0001  280C    goto    0x00C   ; (init-picforth)
+     0x0002  0000    nop
+             ; name: init
+             ; max return-stack depth: 0
+     0x0003  1683    bsf     0x03,5
+     0x0004  1006    bcf     0x06,0
+     0x0005  1283    bcf     0x03,5
+     0x0006  0008    return
+             ; name: pulse
+             ; max return-stack depth: 0
+     0x0007  1406    bsf     0x06,0
+     0x0008  1006    bcf     0x06,0
+     0x0009  0008    return
+             ; name: mainloop
+             ; max return-stack depth: 1
+     0x000A  2007    call    0x007   ; pulse
+     0x000B  280A    goto    0x00A   ; mainloop (rs depth: 1)
+             ; name: (init-picforth)
+             ; max return-stack depth: 0
+     0x000C  3032    movlw   0x32
+     0x000D  0084    movwf   0x04
+             ; name: program
+             ; max return-stack depth: 1
+     0x000E  2003    call    0x003   ; init
+     0x000F  280A    goto    0x00A   ; mainloop (rs depth: 1)
 </pre>
-
+   <div class="node">
+<a name="An-alternate-solution"></a>
 <p><hr>
-Node:<a name="An%20alternate%20solution">An alternate solution</a>,
-Next:<a rel=next accesskey=n href="#Using%20inlined%20code">Using inlined code</a>,
-Previous:<a rel=previous accesskey=p href="#Generated%20assembly%20code">Generated assembly code</a>,
-Up:<a rel=up accesskey=u href="#Our%20first%20PicForth%20program">Our first PicForth program</a>
-<br>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Using-inlined-code">Using inlined code</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Generated-assembly-code">Generated assembly code</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Our-first-PicForth-program">Our first PicForth program</a>
 
-<h3>4.4 An alternate solution</h3>
+</div>
+
+<h3 class="section">4.4 An alternate solution</h3>
 
 <p>Of course, it is possible to write less factored code for such a
 simple task, and write instead:
-<br><pre>0 pin-b i/o
-main : program i/o &gt;output begin i/o high i/o low repeat ;
+<pre class="example">     0 pin-b i/o
+     main : program i/o &gt;output begin i/o high i/o low repeat ;
 </pre>
-
-<p>In this case, it generates effectively a code which is a bit shorter:
-<br><pre>0x0000  018A    clrf    0x0A
-0x0001  2803    goto    0x003   ; (init-picforth)
-0x0002  0000    nop
-        ; name: (init-picforth)
-        ; max return-stack depth: 0
-0x0003  3032    movlw   0x32
-0x0004  0084    movwf   0x04
-        ; name: program
-        ; max return-stack depth: 0
-0x0005  1683    bsf     0x03,5
-0x0006  1006    bcf     0x06,0
-0x0007  1283    bcf     0x03,5
-0x0008  1406    bsf     0x06,0
-0x0009  1006    bcf     0x06,0
-0x000A  2808    goto    0x008   ; program + 0x003
+   <p>In this case, it generates effectively a code which is a bit shorter:
+<pre class="example">     0x0000  018A    clrf    0x0A
+     0x0001  2803    goto    0x003   ; (init-picforth)
+     0x0002  0000    nop
+             ; name: (init-picforth)
+             ; max return-stack depth: 0
+     0x0003  3032    movlw   0x32
+     0x0004  0084    movwf   0x04
+             ; name: program
+             ; max return-stack depth: 0
+     0x0005  1683    bsf     0x03,5
+     0x0006  1006    bcf     0x06,0
+     0x0007  1283    bcf     0x03,5
+     0x0008  1406    bsf     0x06,0
+     0x0009  1006    bcf     0x06,0
+     0x000A  2808    goto    0x008   ; program + 0x003
 </pre>
-
-<p>However, do not let this short example mislead you. While the code looks
+   <p>However, do not let this short example mislead you. While the code looks
 more efficient and shorter (and it is), this is generally not true for
 real-life programs. For example, in a bigger program it would be quite
 common to have to call <code>pulse</code> from other places.
 
+<div class="node">
+<a name="Using-inlined-code"></a>
 <p><hr>
-Node:<a name="Using%20inlined%20code">Using inlined code</a>,
-Previous:<a rel=previous accesskey=p href="#An%20alternate%20solution">An alternate solution</a>,
-Up:<a rel=up accesskey=u href="#Our%20first%20PicForth%20program">Our first PicForth program</a>
-<br>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#An-alternate-solution">An alternate solution</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Our-first-PicForth-program">Our first PicForth program</a>
 
-<h3>4.5 Using inlined code</h3>
+</div>
+
+<h3 class="section">4.5 Using inlined code</h3>
 
 <p>It is possible to use inlined code by surrounding the words you want to
 inline by the <code>macro</code> and <code>target</code> words:
-<br><pre>0 pin-b i/o
-macro
-: init i/o &gt;output ;
-: pulse i/o high i/o low ;
-: mainloop begin pulse again ;
-target
-main : program init mainloop ;
+<pre class="example">     0 pin-b i/o
+     macro
+     : init i/o &gt;output ;
+     : pulse i/o high i/o low ;
+     : mainloop begin pulse again ;
+     target
+     main : program init mainloop ;
 </pre>
-
-<p>While this code is highly factored and easily maintainable, it generates
+   <p>While this code is highly factored and easily maintainable, it generates
 the very same code as the less-factored version above.
 
+   <p>The only exception is <code>exit</code>: if this word is present in an inlined word,
+it will exit from the caller. As a rule, inlined word should only have
+one regular exit point at the end of the word.
+
+<div class="node">
+<a name="Compiler-documentation"></a>
 <p><hr>
-Node:<a name="Compiler%20documentation">Compiler documentation</a>,
-Next:<a rel=next accesskey=n href="#Optimizations">Optimizations</a>,
-Previous:<a rel=previous accesskey=p href="#Our%20first%20PicForth%20program">Our first PicForth program</a>,
-Up:<a rel=up accesskey=u href="#Top">Top</a>
-<br>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Optimizations">Optimizations</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Our-first-PicForth-program">Our first PicForth program</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
 
-<h2>5 Compiler documentation</h2>
+</div>
 
-<ul>
-<li><a accesskey=1 href="#Organisation">Organisation</a>: 
-<li><a accesskey=2 href="#Compiling">Compiling</a>: 
-<li><a accesskey=3 href="#Code">Code</a>: 
-<li><a accesskey=4 href="#Interactive%20mode">Interactive mode</a>: 
-<li><a accesskey=5 href="#Literals">Literals</a>: 
-<li><a accesskey=6 href="#Default%20base">Default base</a>: 
-<li><a accesskey=7 href="#Stack%20size">Stack size</a>: 
-<li><a accesskey=8 href="#Shifting">Shifting</a>: 
-<li><a accesskey=9 href="#Looping">Looping</a>: 
-<li><a href="#Memory">Memory</a>: 
-<li><a href="#Variables">Variables</a>: 
-<li><a href="#Tables">Tables</a>: 
-<li><a href="#Main%20program">Main program</a>: 
-<li><a href="#Macros">Macros</a>: 
-<li><a href="#Included%20files">Included files</a>: 
-<li><a href="#Assembler">Assembler</a>: 
-<li><a href="#Interrupts">Interrupts</a>: 
-<li><a href="#Argument%20passing">Argument passing</a>: 
-<li><a href="#Bit%20manipulation">Bit manipulation</a>: 
-<li><a href="#Decrementing%20and%20incrementing%20a%20memory%20register">Decrementing and incrementing a memory register</a>: 
-<li><a href="#Watchdog%20timer">Watchdog timer</a>: 
-<li><a href="#Reading%20from%20or%20writing%20to%20EEPROM">Reading from or writing to EEPROM</a>: 
-<li><a href="#Reading%20from%20or%20writing%20to%20flash%20memory">Reading from or writing to flash memory</a>: 
-<li><a href="#Map%20and%20disassembler%20code">Map and disassembler code</a>: 
-<li><a href="#Multitasking">Multitasking</a>: 
-<li><a href="#Libraries">Libraries</a>: 
-<li><a href="#Configuration%20word">Configuration word</a>: 
-<li><a href="#Caveats%20and%20limitations">Caveats and limitations</a>: 
+<h2 class="chapter">5 Compiler documentation</h2>
+
+<ul class="menu">
+<li><a accesskey="1" href="#Organisation">Organisation</a>
+<li><a accesskey="2" href="#Compiling">Compiling</a>
+<li><a accesskey="3" href="#Code">Code</a>
+<li><a accesskey="4" href="#Interactive-mode">Interactive mode</a>
+<li><a accesskey="5" href="#Specifying-the-architecture">Specifying the architecture</a>
+<li><a accesskey="6" href="#Literals">Literals</a>
+<li><a accesskey="7" href="#Default-base">Default base</a>
+<li><a accesskey="8" href="#Stack-size">Stack size</a>
+<li><a accesskey="9" href="#Shifting">Shifting</a>
+<li><a href="#Looping">Looping</a>
+<li><a href="#Memory">Memory</a>
+<li><a href="#Warnings-and-errors">Warnings and errors</a>
+<li><a href="#Variables">Variables</a>
+<li><a href="#Flags">Flags</a>
+<li><a href="#Tables">Tables</a>
+<li><a href="#Jump-tables">Jump tables</a>
+<li><a href="#Main-program">Main program</a>
+<li><a href="#Macros">Macros</a>
+<li><a href="#Included-files">Included files</a>
+<li><a href="#Assembler">Assembler</a>
+<li><a href="#Interrupts">Interrupts</a>
+<li><a href="#Argument-passing">Argument passing</a>
+<li><a href="#Bit-manipulation">Bit manipulation</a>
+<li><a href="#Decrementing-and-incrementing-a-memory-register">Decrementing and incrementing a memory register</a>
+<li><a href="#Watchdog-timer">Watchdog timer</a>
+<li><a href="#Sleep-mode">Sleep mode</a>
+<li><a href="#Reading-from-or-writing-to-EEPROM">Reading from or writing to EEPROM</a>
+<li><a href="#Reading-from-or-writing-to-flash-memory">Reading from or writing to flash memory</a>
+<li><a href="#Map-and-disassembler-code">Map and disassembler code</a>
+<li><a href="#Multitasking">Multitasking</a>
+<li><a href="#Libraries">Libraries</a>
+<li><a href="#Configuration-word">Configuration word</a>
+<li><a href="#Caveats-and-limitations">Caveats and limitations</a>
 </ul>
 
+<div class="node">
+<a name="Organisation"></a>
 <p><hr>
-Node:<a name="Organisation">Organisation</a>,
-Next:<a rel=next accesskey=n href="#Compiling">Compiling</a>,
-Previous:<a rel=previous accesskey=p href="#Compiler%20documentation">Compiler documentation</a>,
-Up:<a rel=up accesskey=u href="#Compiler%20documentation">Compiler documentation</a>
-<br>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Compiling">Compiling</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Compiler-documentation">Compiler documentation</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Compiler-documentation">Compiler documentation</a>
 
-<h3>5.1 Organisation</h3>
+</div>
+
+<h3 class="section">5.1 Organisation</h3>
 
 <p>The stack is indexed by the only indirect register, fsr. The indf register
 automatically points to the top of stack.
 
-<p>The w register is used as a scratch. Attempts to use it to cache the
+   <p>The w register is used as a scratch. Attempts to use it to cache the
 top of stack proved to be inefficient, as we often need a scratch register.
 
+<div class="node">
+<a name="Compiling"></a>
 <p><hr>
-Node:<a name="Compiling">Compiling</a>,
-Next:<a rel=next accesskey=n href="#Code">Code</a>,
-Previous:<a rel=previous accesskey=p href="#Organisation">Organisation</a>,
-Up:<a rel=up accesskey=u href="#Compiler%20documentation">Compiler documentation</a>
-<br>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Code">Code</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Organisation">Organisation</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Compiler-documentation">Compiler documentation</a>
 
-<h3>5.2 Compiling</h3>
+</div>
+
+<h3 class="section">5.2 Compiling</h3>
 
 <p>The compiler is hosted on gforth, a free software compiler for Unix
-systems.  The command line to use to compile file <code>foo.fs</code> into
-<code>foo.hex</code>, and getting a usable map into foo.map is:
+systems.  The command line to use to compile file <samp><span class="file">foo.fs</span></samp> into
+<samp><span class="file">foo.hex</span></samp>, and getting a usable map into foo.map is:
 
-<br><pre>  gforth picforth.fs -e 'include foo.fs file-dump foo.hex map bye' | \
-     sort -o foo.map
+<pre class="example">       gforth picforth.fs -e 'include foo.fs file-dump foo.hex map bye' | \
+          sort -o foo.map
 </pre>
-
-<p>Of course, you should automate this in a Makefile, such as the one provided
+   <p>Of course, you should automate this in a Makefile, such as the one provided
 with the compiler.
 
-<p>If you install the GNU PIC utils (from http://gputils.sourceforge.net/),
+   <p>If you install the GNU PIC utils (from http://gputils.sourceforge.net/),
 then you can read the assembled code by using <code>gpdasm</code>.
 
+<div class="node">
+<a name="Code"></a>
 <p><hr>
-Node:<a name="Code">Code</a>,
-Next:<a rel=next accesskey=n href="#Interactive%20mode">Interactive mode</a>,
-Previous:<a rel=previous accesskey=p href="#Compiling">Compiling</a>,
-Up:<a rel=up accesskey=u href="#Compiler%20documentation">Compiler documentation</a>
-<br>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Interactive-mode">Interactive mode</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Compiling">Compiling</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Compiler-documentation">Compiler documentation</a>
 
-<h3>5.3 Code</h3>
+</div>
+
+<h3 class="section">5.3 Code</h3>
 
 <p>The whole code space can be used. However, code generated in the first
 2048 words is more efficient than the code generated in the following
@@ -742,403 +863,563 @@ Up:<a rel=up accesskey=u href="#Compiler%20documentation">Compiler documentation
 remaining words. This is due to the PIC architecture which does not
 allow to see the code space as a flat zone.
 
+<div class="node">
+<a name="Interactive-mode"></a>
 <p><hr>
-Node:<a name="Interactive%20mode">Interactive mode</a>,
-Next:<a rel=next accesskey=n href="#Literals">Literals</a>,
-Previous:<a rel=previous accesskey=p href="#Code">Code</a>,
-Up:<a rel=up accesskey=u href="#Compiler%20documentation">Compiler documentation</a>
-<br>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Specifying-the-architecture">Specifying the architecture</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Code">Code</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Compiler-documentation">Compiler documentation</a>
 
-<h3>5.4 Interactive mode</h3>
+</div>
+
+<h3 class="section">5.4 Interactive mode</h3>
 
 <p>By executing
 
-<br><pre>  gforth picforth.fs -e 'host picquit'
+<pre class="example">       gforth picforth.fs -e 'host picquit'
 </pre>
-
-<p>(or <code>make interactive</code> from a Unix shell), you are dropped into an
+   <p>(or <code>make interactive</code> from a Unix shell), you are dropped into an
 interactive mode, where you can use the following words to check your code:
 
-<br><pre>  see ( "name" -- )    Disassemble a word
-  map ( -- )           Print code memory map
-  dis ( -- )           Disassemble the whole code section
+<pre class="example">       see ( "name" -- )    Disassemble a word
+       map ( -- )           Print code memory map
+       dis ( -- )           Disassemble the whole code section
 </pre>
-
+   <div class="node">
+<a name="Specifying-the-architecture"></a>
 <p><hr>
-Node:<a name="Literals">Literals</a>,
-Next:<a rel=next accesskey=n href="#Default%20base">Default base</a>,
-Previous:<a rel=previous accesskey=p href="#Interactive%20mode">Interactive mode</a>,
-Up:<a rel=up accesskey=u href="#Compiler%20documentation">Compiler documentation</a>
-<br>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Literals">Literals</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Interactive-mode">Interactive mode</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Compiler-documentation">Compiler documentation</a>
 
-<h3>5.5 Literals</h3>
+</div>
+
+<h3 class="section">5.5 Specifying the architecture</h3>
+
+<p>You can choose the architecture you want to compile for by using:
+
+<pre class="example">       pic16f87x ( -- )     Generate code for a PIC16F87x target
+       pic16f88  ( -- )     Generate code for a PIC16F88 target
+</pre>
+   <div class="node">
+<a name="Literals"></a>
+<p><hr>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Default-base">Default base</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Specifying-the-architecture">Specifying the architecture</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Compiler-documentation">Compiler documentation</a>
+
+</div>
+
+<h3 class="section">5.6 Literals</h3>
 
 <p>Hexadecimal literals should be prefixed by a dollar sign <code>$</code> to avoid
 confusion with existing constants (such as <code>c</code> for carry bit). This is a
 strong advice.
 
+<div class="node">
+<a name="Default-base"></a>
 <p><hr>
-Node:<a name="Default%20base">Default base</a>,
-Next:<a rel=next accesskey=n href="#Stack%20size">Stack size</a>,
-Previous:<a rel=previous accesskey=p href="#Literals">Literals</a>,
-Up:<a rel=up accesskey=u href="#Compiler%20documentation">Compiler documentation</a>
-<br>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Stack-size">Stack size</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Literals">Literals</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Compiler-documentation">Compiler documentation</a>
 
-<h3>5.6 Default base</h3>
+</div>
+
+<h3 class="section">5.7 Default base</h3>
 
 <p>The default base is hexadecimal. Do not change it before including libraries
 bundled with the compiler, as they do expect hexadecimal mode.
 
+<div class="node">
+<a name="Stack-size"></a>
 <p><hr>
-Node:<a name="Stack%20size">Stack size</a>,
-Next:<a rel=next accesskey=n href="#Shifting">Shifting</a>,
-Previous:<a rel=previous accesskey=p href="#Default%20base">Default base</a>,
-Up:<a rel=up accesskey=u href="#Compiler%20documentation">Compiler documentation</a>
-<br>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Shifting">Shifting</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Default-base">Default base</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Compiler-documentation">Compiler documentation</a>
 
-<h3>5.7 Stack size</h3>
+</div>
+
+<h3 class="section">5.8 Stack size</h3>
 
 <p>The default stack size is 16. If you use the multitasker included in
-<code>multitasker.fs</code> (see below), each task gets an additionnal 8 bytes of
+<samp><span class="file">multitasker.fs</span></samp> (see below), each task gets an additionnal 8 bytes of
 task-specific stack.
 
-<p>You can change the default stack size by using
+   <p>You can change the default stack size by using
 
-<br><pre>  set-stack-size ( n -- )
+<pre class="example">       set-stack-size ( n -- )
 </pre>
+   <p>in interpretation mode before using <code>main</code>.
 
-<p>in interpretation mode before using <code>main</code>.
-
+<div class="node">
+<a name="Shifting"></a>
 <p><hr>
-Node:<a name="Shifting">Shifting</a>,
-Next:<a rel=next accesskey=n href="#Looping">Looping</a>,
-Previous:<a rel=previous accesskey=p href="#Stack%20size">Stack size</a>,
-Up:<a rel=up accesskey=u href="#Compiler%20documentation">Compiler documentation</a>
-<br>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Looping">Looping</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Stack-size">Stack size</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Compiler-documentation">Compiler documentation</a>
 
-<h3>5.8 Shifting</h3>
+</div>
+
+<h3 class="section">5.9 Shifting</h3>
 
 <p><code>rlf-tos</code> and <code>rrf-tos</code> respectively shift the top-of-stack
 left and right, with the carry entering the byte and the outgoing bit
 entering the carry.
 
-<p><code>rlf!</code> and <code>rrf!</code> respectively shift the given variable left
+   <p><code>rlf!</code> and <code>rrf!</code> respectively shift the given variable left
 and right, with the carry entering the byte and the outgoing bit entering
 the carry.
 
-<p><code>lshift</code> and <code>rshift</code> used with a constant shift, and
+   <p><code>lshift</code> and <code>rshift</code> used with a constant shift, and
 <code>2*</code> and <code>2/</code> do have the last exited bit in the carry.
 
-<p><code>swapf-tos</code> will swap the upper and lower nibble of the top-of-stack.
+   <p><code>swapf-tos</code> will swap the upper and lower nibble of the top-of-stack.
 
+<div class="node">
+<a name="Looping"></a>
 <p><hr>
-Node:<a name="Looping">Looping</a>,
-Next:<a rel=next accesskey=n href="#Memory">Memory</a>,
-Previous:<a rel=previous accesskey=p href="#Shifting">Shifting</a>,
-Up:<a rel=up accesskey=u href="#Compiler%20documentation">Compiler documentation</a>
-<br>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Memory">Memory</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Shifting">Shifting</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Compiler-documentation">Compiler documentation</a>
 
-<h3>5.9 Looping</h3>
+</div>
+
+<h3 class="section">5.10 Looping</h3>
 
 <p>There exists a <code>v-for</code>/<code>v-next</code> structure (v stands for variable):
 
-<br><pre>  v-for ( n addr -- )
-    Initialize addr content with n.
-
-  v-next ( -- )
-    Decrement addr content. If content is not zero,
-    jump to v-for location.
+<pre class="example">       v-for ( n addr -- )
+         Initialize addr content with n.
+     
+       v-next ( -- )
+         Decrement addr content. If content is not zero,
+         jump to v-for location.
 </pre>
+   <p>The address has to be located in bank 0.
 
-<p>The address has to be located in bank 0.
-
-<p>Also, the words <code>begin</code>, <code>again</code>, <code>while</code>, <code>until</code>
+   <p>Also, the words <code>begin</code>, <code>again</code>, <code>while</code>, <code>until</code>
 and <code>repeat</code> are implemented.
 
+<div class="node">
+<a name="Memory"></a>
 <p><hr>
-Node:<a name="Memory">Memory</a>,
-Next:<a rel=next accesskey=n href="#Variables">Variables</a>,
-Previous:<a rel=previous accesskey=p href="#Looping">Looping</a>,
-Up:<a rel=up accesskey=u href="#Compiler%20documentation">Compiler documentation</a>
-<br>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Warnings-and-errors">Warnings and errors</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Looping">Looping</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Compiler-documentation">Compiler documentation</a>
 
-<h3>5.10 Memory</h3>
+</div>
+
+<h3 class="section">5.11 Memory</h3>
 
 <p>You can choose the memory bank that will be used by the memory commands
 in interpretation mode by using the words <code>bank0</code>, <code>bank1</code>,
 <code>bank2</code> and <code>bank3</code> (check that it applies to your device
 first).
 
-<p>Those commands do affect the subsequent <code>create</code>, <code>variable</code>,
+   <p>Those commands do affect the subsequent <code>create</code>, <code>variable</code>,
 <code>allot</code>, <code>,</code> and <code>here</code> commands. However, note that you
 can only access indirectly variables located in bank 0 or in bank
 1. Locations in other banks must be accessed using their static
 addresses.
 
-<p>You can define your own memory sections using the words <code>section</code>,
+   <p>You can define your own memory sections using the words <code>section</code>,
 <code>idata</code> and <code>udata</code>. No check will be made to ensure that
 those sections do not overlap.
 
-<p><hr>
-Node:<a name="Variables">Variables</a>,
-Next:<a rel=next accesskey=n href="#Tables">Tables</a>,
-Previous:<a rel=previous accesskey=p href="#Memory">Memory</a>,
-Up:<a rel=up accesskey=u href="#Compiler%20documentation">Compiler documentation</a>
-<br>
+   <p>In <code>code</code> words, you can adjust the current bank by inserting
+<code>adjust-bank</code> after a variable name. This will adjust the current
+bank and alter the variable address so that it fits between 00 and
+7f. When a <code>call</code>, <code>goto</code> or <code>return</code> statement is
+encountered, the bank must have been restored to 0 using
+<code>restore-bank</code>).  If the compiler detects a possible bank
+mismatch at variable access or call or return time, it will issue a
+warning (see below).
 
-<h3>5.11 Variables</h3>
+<div class="node">
+<a name="Warnings-and-errors"></a>
+<p><hr>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Variables">Variables</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Memory">Memory</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Compiler-documentation">Compiler documentation</a>
+
+</div>
+
+<h3 class="section">5.12 Warnings and errors</h3>
+
+<p>By default, warnings are fatal. If you want them to be non-fatal, use
+the word <code>non-fatal-warnings</code>. The word <code>fatal-warnings</code> will
+restore the default situation.
+
+   <p>You can suspend the warnings temporarily by using <code>suspend-warnings</code>. 
+This will let the old warnings state on the stack. This integer must be
+given back to <code>restore-warnings</code> to come back to the latest warnings
+state.
+
+<div class="node">
+<a name="Variables"></a>
+<p><hr>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Flags">Flags</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Warnings-and-errors">Warnings and errors</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Compiler-documentation">Compiler documentation</a>
+
+</div>
+
+<h3 class="section">5.13 Variables</h3>
 
 <p>Variables are not automatically initialized to zero, as this would waste
 too much code if it is not needed. If you want a variable explicitely
 initialized, use <code>create</code> and <code>,</code> such as in:
 
-<br><pre>  create attempts 3 ,
+<pre class="example">       create attempts 3 ,
 </pre>
-
+   <div class="node">
+<a name="Flags"></a>
 <p><hr>
-Node:<a name="Tables">Tables</a>,
-Next:<a rel=next accesskey=n href="#Main%20program">Main program</a>,
-Previous:<a rel=previous accesskey=p href="#Variables">Variables</a>,
-Up:<a rel=up accesskey=u href="#Compiler%20documentation">Compiler documentation</a>
-<br>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Tables">Tables</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Variables">Variables</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Compiler-documentation">Compiler documentation</a>
 
-<h3>5.12 Tables</h3>
+</div>
+
+<h3 class="section">5.14 Flags</h3>
+
+<p>An easy habit to fall into is using a whole 8-bit variable for storing
+a simple binary flag, then using another variable for another flag and
+so on. This not only wastes data memory, but setting and testing such
+values requires more code.
+
+   <p>The <code>flag</code> word lets you define a 1-bit variable which can then
+be modified with <code>bit-set</code>, <code>bit-clr</code> and <code>bit-toggle</code>
+words, and tested with <code>bit-set?</code> and <code>bit-clr?</code>  words.
+
+   <p>The following example shows how to manipulate a <code>emergency</code>
+boolean value and exit a loop when it is set:
+
+<pre class="example">       flag emergency
+     
+       : xxx ... ;
+       : yyy ... ;
+     
+       : do-futile-things ( -- )
+           emergency bit-clr
+           begin
+              xxx  ( complex program that can set emergency )
+              yyy  ( complex program that can set emergency )
+           emergency bit-set? until
+       ;
+</pre>
+   <div class="node">
+<a name="Tables"></a>
+<p><hr>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Jump-tables">Jump tables</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Flags">Flags</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Compiler-documentation">Compiler documentation</a>
+
+</div>
+
+<h3 class="section">5.15 Tables</h3>
 
 <p>Tables can be created either in RAM (with run-time initialization, which
 is costly), in program flash memory or in the internal EEPROM.
 
-<p>The following words allow you to create tables:
+   <p>The following words allow you to create tables:
 
-<br><pre>  table      ( "name" -- )        Start a RAM table
-  ftable     ( "name" -- )        Start a program flash table
-  eetable    ( "name" -- )        Start an EEPROM flash table
-  t,         ( n -- )             Add one byte to the table
-  table&gt;     ( "b1 .. bn" -- )    Add bytes b1 to bn to the table
-  end-table  ( -- )               End table declaration
+<pre class="example">       table      ( "name" -- )        Start a RAM table
+       ftable     ( "name" -- )        Start a program flash table
+       eetable    ( "name" -- )        Start an EEPROM flash table
+       t,         ( n -- )             Add one byte to the table
+       table&gt;     ( "b1 .. bn" -- )    Add bytes b1 to bn to the table
+       end-table  ( -- )               End table declaration
 </pre>
-
-<p>The following code shows a table called <code>substitutions</code> and a
+   <p>The following code shows a table called <code>substitutions</code> and a
 <code>substitute</code> word which takes a byte in area <code>old-key</code> and
 sets it at the right place in area <code>new-key</code>, according to the
 <code>substitutions</code> table.
 
-<br><pre>ftable substitutions
- table&gt; 14 4 13 1 2 15 11 8 3 10 6 12 5 9 0 7
- table&gt; 0 15 7 4 14 2 13 1 12 6 12 11 9 5 3 8
- table&gt; 4 1 14 8 13 6 2 11 15 12 9 7 3 10 5 0
- table&gt; 15 12 8 2 4 9 1 7 5 11 3 14 10 0 6 13
-end-table
-
-: substitute ( n -- ) dup old-key +  swap substitutions new-key + ! ;
+<pre class="example">     ftable substitutions
+      table&gt; 14 4 13 1 2 15 11 8 3 10 6 12 5 9 0 7
+      table&gt; 0 15 7 4 14 2 13 1 12 6 12 11 9 5 3 8
+      table&gt; 4 1 14 8 13 6 2 11 15 12 9 7 3 10 5 0
+      table&gt; 15 12 8 2 4 9 1 7 5 11 3 14 10 0 6 13
+     end-table
+     
+     : substitute ( n -- ) dup old-key + @ swap substitutions new-key + ! ;
 </pre>
-
+   <div class="node">
+<a name="Jump-tables"></a>
 <p><hr>
-Node:<a name="Main%20program">Main program</a>,
-Next:<a rel=next accesskey=n href="#Macros">Macros</a>,
-Previous:<a rel=previous accesskey=p href="#Tables">Tables</a>,
-Up:<a rel=up accesskey=u href="#Compiler%20documentation">Compiler documentation</a>
-<br>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Main-program">Main program</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Tables">Tables</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Compiler-documentation">Compiler documentation</a>
 
-<h3>5.13 Main program</h3>
+</div>
+
+<h3 class="section">5.16 Jump tables</h3>
+
+<p>Jump tables can be created by including the <samp><span class="file">libjtable.fs</span></samp> and
+using the following words:
+
+<pre class="example">       jtable      ( "name" -- )       Create a jump table
+       t,          ( word -- )         Add an element to the jump table
+       end-table   ( -- )              End table declaration
+</pre>
+   <p>Here is an example of jump tables usage:
+
+<pre class="example">       needs libjtable.fs
+     
+       : print ( -- ) ... ;
+     
+       : word1  ... ;
+       : word2  ... ;
+       : word3  ... ;
+     
+       jtable myjump
+           word1 t,
+           word2 t,
+           word3 t,
+       end-table
+     
+       main : main
+         c" About to invoke jumptable" print
+         1 myjump
+         c" Back from jumptable" print
+       ;
+</pre>
+   <p>You can also define constants for simpler access and emulation of the
+sorely-missed <code>'</code> and <code>execute</code> words:
+
+<pre class="example">       jtable execute
+           word1 t,   0 constant 'word1
+           word2 t,   1 constant 'word2
+           word3 t,   2 constant 'word3
+       end-table
+     
+       main : main
+         c" About to invoke jumptable" print
+         'word1 execute
+         c" Back from jumptable" print
+       ;
+</pre>
+   <div class="node">
+<a name="Main-program"></a>
+<p><hr>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Macros">Macros</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Jump-tables">Jump tables</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Compiler-documentation">Compiler documentation</a>
+
+</div>
+
+<h3 class="section">5.17 Main program</h3>
 
 <p>A <code>main</code> word indicates that the next address is the main program. Use for
 example:
 
-<br><pre>  main : main-program ( -- )
-    (do initialisations)
-    (call mainloop)
-  ;
+<pre class="example">       main : main-program ( -- )
+         (do initialisations)
+         (call mainloop)
+       ;
 </pre>
-
+   <div class="node">
+<a name="Macros"></a>
 <p><hr>
-Node:<a name="Macros">Macros</a>,
-Next:<a rel=next accesskey=n href="#Included%20files">Included files</a>,
-Previous:<a rel=previous accesskey=p href="#Main%20program">Main program</a>,
-Up:<a rel=up accesskey=u href="#Compiler%20documentation">Compiler documentation</a>
-<br>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Included-files">Included files</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Main-program">Main program</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Compiler-documentation">Compiler documentation</a>
 
-<h3>5.14 Macros</h3>
+</div>
+
+<h3 class="section">5.18 Macros</h3>
 
 <p>You can switch to macro mode by using the <code>macro</code> word. You get back to
 target mode by using the <code>target</code> word.
 
+<div class="node">
+<a name="Included-files"></a>
 <p><hr>
-Node:<a name="Included%20files">Included files</a>,
-Next:<a rel=next accesskey=n href="#Assembler">Assembler</a>,
-Previous:<a rel=previous accesskey=p href="#Macros">Macros</a>,
-Up:<a rel=up accesskey=u href="#Compiler%20documentation">Compiler documentation</a>
-<br>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Assembler">Assembler</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Macros">Macros</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Compiler-documentation">Compiler documentation</a>
 
-<h3>5.15 Included files</h3>
+</div>
+
+<h3 class="section">5.19 Included files</h3>
 
 <p>You can include files using <code>include file</code> or <code>needs
 file</code> (which prevents from multiple inclusions to happen).
 
+<div class="node">
+<a name="Assembler"></a>
 <p><hr>
-Node:<a name="Assembler">Assembler</a>,
-Next:<a rel=next accesskey=n href="#Interrupts">Interrupts</a>,
-Previous:<a rel=previous accesskey=p href="#Included%20files">Included files</a>,
-Up:<a rel=up accesskey=u href="#Compiler%20documentation">Compiler documentation</a>
-<br>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Interrupts">Interrupts</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Included-files">Included files</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Compiler-documentation">Compiler documentation</a>
 
-<h3>5.16 Assembler</h3>
+</div>
+
+<h3 class="section">5.20 Assembler</h3>
 
 <p>There is a full prefix assembler included. Use <code>code</code> and
 <code>end-code</code> to define words written in assembler. <code>]asm</code> and
 <code>asm[</code> let you respectively switch to assembler mode and back
 during the compilation of a Forth word.
 
-<p>The <code>label:</code> defining word can be used to define a label that will
-then be used with <code>goto</code>. See the <code>piceeprom.fs</code> file for an
+   <p>The <code>label:</code> defining word can be used to define a label that will
+then be used with <code>goto</code>. See the <samp><span class="file">piceeprom.fs</span></samp> file for an
 example.
 
+<div class="node">
+<a name="Interrupts"></a>
 <p><hr>
-Node:<a name="Interrupts">Interrupts</a>,
-Next:<a rel=next accesskey=n href="#Argument%20passing">Argument passing</a>,
-Previous:<a rel=previous accesskey=p href="#Assembler">Assembler</a>,
-Up:<a rel=up accesskey=u href="#Compiler%20documentation">Compiler documentation</a>
-<br>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Argument-passing">Argument passing</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Assembler">Assembler</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Compiler-documentation">Compiler documentation</a>
 
-<h3>5.17 Interrupts</h3>
+</div>
+
+<h3 class="section">5.21 Interrupts</h3>
 
 <p>If you want to use interrupts, use
 
-<br><pre>  include picisr.fs
+<pre class="example">       include picisr.fs
 </pre>
-
-<p>Two words do respectively save and restore the context around interrupt
+   <p>Two words do respectively save and restore the context around interrupt
 handling code:
 
-<br><pre>  isr-save ( -- )
-  isr-restore-return ( -- )
+<pre class="example">       isr-save ( -- )
+       isr-restore-return ( -- )
 </pre>
-
-<p>Note that <code>isr-save</code> is called automatically, you do not need to
+   <p>Note that <code>isr-save</code> is called automatically, you do not need to
 call it explicitely.
 
-<p>Also, the word <code>isr</code> is provided to notify that the next address is the
+   <p>Also, the word <code>isr</code> is provided to notify that the next address is the
 isr handler.
 
-<p>For example, you can write an interrupt handler with:
+   <p>For example, you can write an interrupt handler with:
 
-<br><pre>  isr : interrupt-handler ( -- )
-    (interrupt handling code here)
-    isr-restore-return
-  ;
+<pre class="example">       isr : interrupt-handler ( -- )
+         (interrupt handling code here)
+         isr-restore-return
+       ;
 </pre>
-
-<p>Do not forget that the return stack depth is only height. An interrupt can
+   <p>Do not forget that the return stack depth is only height. An interrupt can
 occur at any time unless you mask them or unset the GIE bit.
 
-<p>Two facility words that manipulate GIE are also provided:
+   <p>Two facility words that manipulate GIE are also provided:
 
-<br><pre>  enable-interrupts ( -- )
-  disable-interrupts ( -- )
+<pre class="example">       enable-interrupts ( -- )
+       disable-interrupts ( -- )
 </pre>
-
-<p>You have to dispatch the interrupts and clear the interrupt bits manually
+   <p>You have to dispatch the interrupts and clear the interrupt bits manually
 before you return from the handler.
 
-<p>You can also use the following two words to save the status of the GIE
+   <p>You can also use the following two words to save the status of the GIE
 bit and disable interrupts, and to restore the previous GIE status:
 
-<br><pre>  suspend-interrupts ( -- )
-  restore-interrupts ( -- )
+<pre class="example">       suspend-interrupts ( -- )
+       restore-interrupts ( -- )
 </pre>
+   <p>Versions that do nothing are provided in the default compiler. Useful versions
+are redefined when using <samp><span class="file">picisr.fs</span></samp>.
 
-<p>Versions that do nothing are provided in the default compiler. Useful versions
-are redefined when using <code>picisr.fs</code>.
-
-<p>Because of this, include <code>picisr.fs</code> as soon as possible,
+   <p>Because of this, include <samp><span class="file">picisr.fs</span></samp> as soon as possible,
 before other files and before using enable-interrupts and
 disable-interrupts. Other included files may fail to act properly if you
 don't.
 
+<div class="node">
+<a name="Argument-passing"></a>
 <p><hr>
-Node:<a name="Argument%20passing">Argument passing</a>,
-Next:<a rel=next accesskey=n href="#Bit%20manipulation">Bit manipulation</a>,
-Previous:<a rel=previous accesskey=p href="#Interrupts">Interrupts</a>,
-Up:<a rel=up accesskey=u href="#Compiler%20documentation">Compiler documentation</a>
-<br>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Bit-manipulation">Bit manipulation</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Interrupts">Interrupts</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Compiler-documentation">Compiler documentation</a>
 
-<h3>5.18 Argument passing</h3>
+</div>
+
+<h3 class="section">5.22 Argument passing</h3>
 
 <p>In Forth, argument passing is done on the stack. However, if you want to
-transmit the top-of-stack argument in the w register (for example if a word
+transmit the top-of-stack value in the w register (for example if a word
 typically takes a constant which is put on the stack just before calling it),
 you can use the defining word <code>::</code> instead of <code>:</code>. All calls will
-automatically use this convention.
+automatically use this convention. Similarly, you can use the
+defining word <code>::code</code> instead of <code>code</code> to force the caller to
+load the top-of-stack value into the w register.
 
-<p>If you want to return a value in the w register, you can use the word
+   <p>If you want to return a value in the w register, you can use the word
 <code>&gt;w</code> which loads the top-of-stack into the w register before every
 exit point.  After calling a word which returns its result in the w
 register, you can call <code>w&gt;</code> to put the w register value onto the
 stack.
 
-<p><hr>
-Node:<a name="Bit%20manipulation">Bit manipulation</a>,
-Next:<a rel=next accesskey=n href="#Decrementing%20and%20incrementing%20a%20memory%20register">Decrementing and incrementing a memory register</a>,
-Previous:<a rel=previous accesskey=p href="#Argument%20passing">Argument passing</a>,
-Up:<a rel=up accesskey=u href="#Compiler%20documentation">Compiler documentation</a>
-<br>
+   <p>Alternatively, you can use the <code>return-in-w</code> word after the word
+definition to indicate that the last-defined word returns its argument
+in the w register. In this case, all the callers will automatically
+append <code>w&gt;</code> when needed.
 
-<h3>5.19 Bit manipulation</h3>
+<div class="node">
+<a name="Bit-manipulation"></a>
+<p><hr>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Decrementing-and-incrementing-a-memory-register">Decrementing and incrementing a memory register</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Argument-passing">Argument passing</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Compiler-documentation">Compiler documentation</a>
+
+</div>
+
+<h3 class="section">5.23 Bit manipulation</h3>
 
 <p>To ease bit manipulation, the following words are defined for port p:
 
-<br><pre>  and!       ( n p -- )    logical and with n
-  /and!      ( n p -- )    logical and with ~n
-  /and       ( a b -- c )  logical and of a and ~b
-  or!        ( n p -- )    logical or with n
-  xor!       ( n p -- )    logical xor with n
-  invert!    ( p -- )      invert content
-  bit-set    ( p b -- )    set bit b of p (both have to be constants)
-  bit-clr    ( p b -- )    clear bit b of p (both have to be constants)
-  bit-toggle ( p b -- )    toggle bit b of p (both have to be constants)
-  bit-mask   ( p b -- m )  put 1&lt;&lt;b on stack
-  bit-set?   ( p b -- m )  put bit-mask (non-zero) on stack if bit b of
-                           p is set, zero otherwise
-  bit-clr?   ( p b -- f )  true if bit b of p is clear
+<pre class="example">       and!       ( n p -- )    logical and with n
+       /and!      ( n p -- )    logical and with ~n
+       /and       ( a b -- c )  logical and of a and ~b
+       or!        ( n p -- )    logical or with n
+       xor!       ( n p -- )    logical xor with n
+       invert!    ( p -- )      invert content
+       bit-set    ( p b -- )    set bit b of p (both have to be constants)
+       bit-clr    ( p b -- )    clear bit b of p (both have to be constants)
+       bit-toggle ( p b -- )    toggle bit b of p (both have to be constants)
+       bit-mask   ( p b -- m )  put 1&lt;&lt;b on stack
+       bit-set?   ( p b -- m )  put bit-mask (non-zero) on stack if bit b of
+                                p is set, zero otherwise
+       bit-clr?   ( p b -- f )  true if bit b of p is clear
 </pre>
+   <p>Six words help designate bit or port pins:
 
-<p>Six words help designate bit or port pins:
-
-<br><pre>  bit    ( n addr "name" -- )    ( Runtime: -- addr n )
-  pin-a  ( n "name" -- )         ( Runtime: -- porta n )
-  pin-b  ( n "name" -- )         ( Runtime: -- portb n )
-  pin-c  ( n "name" -- )         ( Runtime: -- portc n )
-  pin-d  ( n "name" -- )         ( Runtime: -- portd n )
-  pin-e  ( n "name" -- )         ( Runtime: -- porte n )
+<pre class="example">       bit    ( n addr "name" -- )    ( Runtime: -- addr n )
+       pin-a  ( n "name" -- )         ( Runtime: -- porta n )
+       pin-b  ( n "name" -- )         ( Runtime: -- portb n )
+       pin-c  ( n "name" -- )         ( Runtime: -- portc n )
+       pin-d  ( n "name" -- )         ( Runtime: -- portd n )
+       pin-e  ( n "name" -- )         ( Runtime: -- porte n )
 </pre>
-
-<p>For example, you can create a pin designating an error LED and manipulate
+   <p>For example, you can create a pin designating an error LED and manipulate
 it using:
 
-<br><pre>  3 pin-b error-led                   \ Error LED is on port B3
-  : error error-led bit-set ;         \ Signal error
-  : no-error error-led bit-clr ;      \ Clear error
+<pre class="example">       3 pin-b error-led                   \ Error LED is on port B3
+       : error error-led bit-set ;         \ Signal error
+       : no-error error-led bit-clr ;      \ Clear error
 </pre>
-
-<p>To ease reading, the words <code>high</code>, <code>low</code>, <code>high?</code>,
+   <p>To ease reading, the words <code>high</code>, <code>low</code>, <code>high?</code>,
 <code>low?</code> and <code>toggle</code> are aliases for, respectively,
 <code>bit-set</code>, <code>bit-low</code>, <code>bit-set?</code>, <code>bit-clr?</code> and
 <code>bit-toggle</code>.
 
-<p>You can change the direction of a pin by using <code>&gt;input</code> or
+   <p>You can change the direction of a pin by using <code>&gt;input</code> or
 <code>&gt;output</code> after a pin defined with <code>pin-x</code>. For example, to
 set the error led port as an output, use:
 
-<br><pre>  error-led &gt;output
+<pre class="example">       error-led &gt;output
 </pre>
-
+   <div class="node">
+<a name="Decrementing-and-incrementing-a-memory-register"></a>
 <p><hr>
-Node:<a name="Decrementing%20and%20incrementing%20a%20memory%20register">Decrementing and incrementing a memory register</a>,
-Next:<a rel=next accesskey=n href="#Watchdog%20timer">Watchdog timer</a>,
-Previous:<a rel=previous accesskey=p href="#Bit%20manipulation">Bit manipulation</a>,
-Up:<a rel=up accesskey=u href="#Compiler%20documentation">Compiler documentation</a>
-<br>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Watchdog-timer">Watchdog timer</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Bit-manipulation">Bit manipulation</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Compiler-documentation">Compiler documentation</a>
 
-<h3>5.20 Decrementing and incrementing a memory register</h3>
+</div>
+
+<h3 class="section">5.24 Decrementing and incrementing a memory register</h3>
 
 <p>A value in memory can be decremented using the <code>1 mem -!</code>
 sequence. However, as this will be optimized to use the <code>decf mem,f</code>
@@ -1147,775 +1428,906 @@ however, if you want to propagate a carry, you want this flag to be
 set. To that issue, you can use the <code>1 &gt;w mem w-!</code> sequence, which
 generates <code>movlw 1; subwf mem,f</code> and position the carry.
 
-<p>Note that propagating the carry while incrementing is easier: the
+   <p>Note that propagating the carry while incrementing is easier: the
 <code>z</code> flag is set if needed by the <code>incf mem,f</code> instruction
 generated by the use of the <code>1 mem +!</code> sequence. If <code>z</code> is
 set, a carry has been generated.
 
-<p>Here is an example to increment a 16 bits value held at location <code>bar</code>:
+   <p>Here is an example to increment a 16 bits value held at location <code>bar</code>:
 
-<br><pre>  : inc-16 ( adder -- ) 1 bar 1+ +! z bit-set? if 1 bar +! then ;
+<pre class="example">       : inc-16 ( adder -- ) 1 bar 1+ +! z bit-set? if 1 bar +! then ;
 </pre>
+   <p>This will generate the following code:
 
-<p>This will generate the following code:
-
-<br><pre>  ; name: inc-16
-  incf    0x34,f
-  btfsc   0x03,2
-  incf    0x33,f
-  return
+<pre class="example">       ; name: inc-16
+       incf    0x34,f
+       btfsc   0x03,2
+       incf    0x33,f
+       return
 </pre>
-
+   <div class="node">
+<a name="Watchdog-timer"></a>
 <p><hr>
-Node:<a name="Watchdog%20timer">Watchdog timer</a>,
-Next:<a rel=next accesskey=n href="#Reading%20from%20or%20writing%20to%20EEPROM">Reading from or writing to EEPROM</a>,
-Previous:<a rel=previous accesskey=p href="#Decrementing%20and%20incrementing%20a%20memory%20register">Decrementing and incrementing a memory register</a>,
-Up:<a rel=up accesskey=u href="#Compiler%20documentation">Compiler documentation</a>
-<br>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Sleep-mode">Sleep mode</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Decrementing-and-incrementing-a-memory-register">Decrementing and incrementing a memory register</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Compiler-documentation">Compiler documentation</a>
 
-<h3>5.21 Watchdog timer</h3>
+</div>
+
+<h3 class="section">5.25 Watchdog timer</h3>
 
 <p>The word <code>clrwdt</code> is available from Forth to clear the watchdog timer.
 
+<div class="node">
+<a name="Sleep-mode"></a>
 <p><hr>
-Node:<a name="Reading%20from%20or%20writing%20to%20EEPROM">Reading from or writing to EEPROM</a>,
-Next:<a rel=next accesskey=n href="#Reading%20from%20or%20writing%20to%20flash%20memory">Reading from or writing to flash memory</a>,
-Previous:<a rel=previous accesskey=p href="#Watchdog%20timer">Watchdog timer</a>,
-Up:<a rel=up accesskey=u href="#Compiler%20documentation">Compiler documentation</a>
-<br>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Reading-from-or-writing-to-EEPROM">Reading from or writing to EEPROM</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Watchdog-timer">Watchdog timer</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Compiler-documentation">Compiler documentation</a>
 
-<h3>5.22 Reading from or writing to EEPROM</h3>
+</div>
+
+<h3 class="section">5.26 Sleep mode</h3>
+
+<p>The word <code>sleep</code> is available from Forth to enter sleep mode.
+
+<div class="node">
+<a name="Reading-from-or-writing-to-EEPROM"></a>
+<p><hr>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Reading-from-or-writing-to-flash-memory">Reading from or writing to flash memory</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Sleep-mode">Sleep mode</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Compiler-documentation">Compiler documentation</a>
+
+</div>
+
+<h3 class="section">5.27 Reading from or writing to EEPROM</h3>
 
 <p>By using
 
-<br><pre>  include piceeprom.fs
+<pre class="example">       include piceeprom.fs
 </pre>
+   <p>you have access to new words allowing you to access the PIC EEPROM:
 
-<p>you have access to new words allowing you to access the PIC EEPROM:
-
-<br><pre>  ee@          ( a -- b )     read the content of a and return it
-  ee!          ( b a -- )     write b into a
+<pre class="example">       ee@          ( a -- b )     read the content of a and return it
+       ee!          ( b a -- )     write b into a
 </pre>
+   <p>Also, in any case, you can store data in EEPROM using those words:
 
-<p>Also, in any case, you can store data in EEPROM using those words:
-
-<br><pre>  eecreate     ( "name" -- )            similar as create but in
-                                        EEPROM space
-  ee,          ( b -- )                 store byte in EEPROM
-  s"           ( &lt;ccc&gt;" -- eaddr n )    store string in EEPROM
-  l"           ( &lt;ccc&gt;" -- eaddr n )    strore string + character 13
-                                        in EEPROM
+<pre class="example">       eecreate     ( "name" -- )            similar as create but in
+                                             EEPROM space
+       ee,          ( b -- )                 store byte in EEPROM
+       s"           ( &lt;ccc&gt;" -- eaddr n )    store string in EEPROM
+       l"           ( &lt;ccc&gt;" -- eaddr n )    strore string + character 13
+                                             in EEPROM
 </pre>
-
+   <div class="node">
+<a name="Reading-from-or-writing-to-flash-memory"></a>
 <p><hr>
-Node:<a name="Reading%20from%20or%20writing%20to%20flash%20memory">Reading from or writing to flash memory</a>,
-Next:<a rel=next accesskey=n href="#Map%20and%20disassembler%20code">Map and disassembler code</a>,
-Previous:<a rel=previous accesskey=p href="#Reading%20from%20or%20writing%20to%20EEPROM">Reading from or writing to EEPROM</a>,
-Up:<a rel=up accesskey=u href="#Compiler%20documentation">Compiler documentation</a>
-<br>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Map-and-disassembler-code">Map and disassembler code</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Reading-from-or-writing-to-EEPROM">Reading from or writing to EEPROM</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Compiler-documentation">Compiler documentation</a>
 
-<h3>5.23 Reading from or writing to flash memory</h3>
+</div>
+
+<h3 class="section">5.28 Reading from or writing to flash memory</h3>
 
 <p>Two words allow reading from and writing to the flash memory when the file
-<code>picflash.fs</code> is included with
+<samp><span class="file">picflash.fs</span></samp> is included with
 
-<br><pre>  include picflash.fs
+<pre class="example">       include picflash.fs
 </pre>
-
-<p>Those words expect manipulate a 14 bits program memory cell whose 13 bits
+   <p>Those words expect manipulate a 14 bits program memory cell whose 13 bits
 address is in EEADRH:EEADR. The data is read from or stored to EEDATH:EEDATA.
 
-<br><pre>  flash-read ( -- )
-  flash-write ( -- )
+<pre class="example">       flash-read ( -- )
+       flash-write ( -- )
 </pre>
-
-<p>If <code>picisr.fs</code> has been included before this file, interrupts will
+   <p>If <samp><span class="file">picisr.fs</span></samp> has been included before this file, interrupts will
 be properly disabled around flash writes.
 
-<p>The <code>libstrings.fs</code> library defines two words useful for working
+   <p>The <samp><span class="file">libstrings.fs</span></samp> library defines two words useful for working
 with strings stored in flash memory:
 
-<br><pre>  c" ( &lt;ccc&gt;" -- )     Define a packed 7-bits zero-terminated string
-  str-char             Get next char of previously encountered c"
+<pre class="example">       c" ( &lt;ccc&gt;" -- )     Define a packed 7-bits zero-terminated string
+       str-char             Get next char of previously encountered c"
 </pre>
+   <p>Note that <code>c"</code> must be used in target mode only and will not work
+properly in macro mode.
 
-<p>The following example assumes that you have a <code>emit</code> word working,
+   <p>The following example assumes that you have a <code>emit</code> word working,
 which outputs one character.
 
-<br><pre>: print ( -- ) begin str-char dup while emit repeat drop ;
-: greetings ( -- ) c" Welcome to this PicForth program" print ;
+<pre class="example">     : print ( -- ) begin str-char dup while emit repeat drop ;
+     : greetings ( -- ) c" Welcome to this PicForth program" print ;
 </pre>
+   <p>It is necessary to include <samp><span class="file">picflash.fs</span></samp> before <samp><span class="file">libstrings.fs</span></samp>.
 
-<p>It is necessary to include <code>picflash.fs</code> before <code>libstrings.fs</code>.
-
+<div class="node">
+<a name="Map-and-disassembler-code"></a>
 <p><hr>
-Node:<a name="Map%20and%20disassembler%20code">Map and disassembler code</a>,
-Next:<a rel=next accesskey=n href="#Multitasking">Multitasking</a>,
-Previous:<a rel=previous accesskey=p href="#Reading%20from%20or%20writing%20to%20flash%20memory">Reading from or writing to flash memory</a>,
-Up:<a rel=up accesskey=u href="#Compiler%20documentation">Compiler documentation</a>
-<br>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Multitasking">Multitasking</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Reading-from-or-writing-to-flash-memory">Reading from or writing to flash memory</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Compiler-documentation">Compiler documentation</a>
 
-<h3>5.24 Map and disassembler code</h3>
+</div>
+
+<h3 class="section">5.29 Map and disassembler code</h3>
 
 <p>A map can be generated in interactive mode using the <code>map</code> word.
 
+<div class="node">
+<a name="Multitasking"></a>
 <p><hr>
-Node:<a name="Multitasking">Multitasking</a>,
-Next:<a rel=next accesskey=n href="#Libraries">Libraries</a>,
-Previous:<a rel=previous accesskey=p href="#Map%20and%20disassembler%20code">Map and disassembler code</a>,
-Up:<a rel=up accesskey=u href="#Compiler%20documentation">Compiler documentation</a>
-<br>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Libraries">Libraries</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Map-and-disassembler-code">Map and disassembler code</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Compiler-documentation">Compiler documentation</a>
 
-<h3>5.25 Multitasking</h3>
+</div>
+
+<h3 class="section">5.30 Multitasking</h3>
 
 <p>Two multitasker have been implemented.
 
-<ul>
-<li><a accesskey=1 href="#Priority-based%20multitasker">Priority-based multitasker</a>: 
-<li><a accesskey=2 href="#Basic%20cooperative%20multitasker">Basic cooperative multitasker</a>: 
+<ul class="menu">
+<li><a accesskey="1" href="#Priority_002dbased-multitasker">Priority-based multitasker</a>
+<li><a accesskey="2" href="#Basic-cooperative-multitasker">Basic cooperative multitasker</a>
 </ul>
 
+<div class="node">
+<a name="Priority-based-multitasker"></a>
+<a name="Priority_002dbased-multitasker"></a>
 <p><hr>
-Node:<a name="Priority-based%20multitasker">Priority-based multitasker</a>,
-Next:<a rel=next accesskey=n href="#Basic%20cooperative%20multitasker">Basic cooperative multitasker</a>,
-Previous:<a rel=previous accesskey=p href="#Multitasking">Multitasking</a>,
-Up:<a rel=up accesskey=u href="#Multitasking">Multitasking</a>
-<br>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Basic-cooperative-multitasker">Basic cooperative multitasker</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Multitasking">Multitasking</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Multitasking">Multitasking</a>
 
-<h4>5.25.1 Priority-based multitasker</h4>
+</div>
+
+<h4 class="subsection">5.30.1 Priority-based multitasker</h4>
 
 <p>A basic priority-based cooperative multitasker allows you to
 concurrently run several indenpendant tasks. Each task should execute
 in a short time and will be called again next time (the entry point
 does not change). This looks like a state machine.
 
-<p>To use this multitasker, use <code>include priotasker.fs</code> in your program.
+   <p>To use this multitasker, use <code>include priotasker.fs</code> in your program.
 
-<p>The following words can be used to define tasks (the entry point for the
+   <p>The following words can be used to define tasks (the entry point for the
 task is the next defined word):
 
-<br><pre>  task ( prio "name" -- )
-                 Define a new task with priority prio. By default, this
-                 task will be active. You can use the <code>start</code> and
-                 <code>stop</code> words to control it. Those words can be
-                 used from an interrupt handler.
-
-  task-cond ( prio "name" -- )
-                 Define a new task with priority prio. By default, this
-                 task is inactive. You can enable it by using the
-                 <code>signal</code> word on it. If you use <code>signal</code> N
-                 times, then the task will be run exactly N
-                 times. <code>signal</code> can be used from an interrupt handler.
-
-  task-idle ( -- )
-                 Define a new task which will be executed
-                 inconditionnaly when there is nothing else to do. Such
-                 a task can not be stopped.
-
-  task-set ( bit port prio -- )
-                 Define a new task with priority prio that will be run
-                 when bit bit of port port is set.
-
-  task-clr ( bit port prio -- )
-                 Define a new task with priority prio that will be run
-                 when bit bit of port port is clear.
+<pre class="example">       task ( prio "name" -- )
+                      Define a new task with priority prio. By default, this
+                      task will be active. You can use the <code>start</code> and
+                      <code>stop</code> words to control it. Those words can be
+                      used from an interrupt handler.
+     
+       task-cond ( prio "name" -- )
+                      Define a new task with priority prio. By default, this
+                      task is inactive. You can enable it by using the
+                      <code>signal</code> word on it. If you use <code>signal</code> N
+                      times, then the task will be run exactly N
+                      times. <code>signal</code> can be used from an interrupt handler.
+     
+       task-idle ( -- )
+                      Define a new task which will be executed
+                      inconditionnaly when there is nothing else to do. Such
+                      a task can not be stopped.
+     
+       task-set ( bit port prio -- )
+                      Define a new task with priority prio that will be run
+                      when bit bit of port port is set.
+     
+       task-clr ( bit port prio -- )
+                      Define a new task with priority prio that will be run
+                      when bit bit of port port is clear.
 </pre>
-
-<p>Priority 0 is the greatest one, while priority 255 corresponds to the lowest
+   <p>Priority 0 is the greatest one, while priority 255 corresponds to the lowest
 (idle) priority. You should use priority in the range 0-254 for your own
 tasks.
 
-<p>The multitasker is run by using the word <code>multitasker</code>. This word takes care
+   <p>The multitasker is run by using the word <code>multitasker</code>. This word takes care
 of scheduling the highest priority tasks first. It also clears the watchdog
 once per round.
 
-<p>The multitasker looks for all tasks of priority 0 ready to execute. If it
+   <p>The multitasker looks for all tasks of priority 0 ready to execute. If it
 find some, it executes them and starts over. If it doesn't, it looks for
 priority 1 tasks ready to execute. If it find some, it executes them and
 starts over. If it doesn't, etc. It does this up to priority 255.
 
-<p>Since each word is called each time from the beginning, there is no
+   <p>Since each word is called each time from the beginning, there is no
 need to maintain task-specific stacks, as the stack has to be
 considered empty.
 
+<div class="node">
+<a name="Basic-cooperative-multitasker"></a>
 <p><hr>
-Node:<a name="Basic%20cooperative%20multitasker">Basic cooperative multitasker</a>,
-Previous:<a rel=previous accesskey=p href="#Priority-based%20multitasker">Priority-based multitasker</a>,
-Up:<a rel=up accesskey=u href="#Multitasking">Multitasking</a>
-<br>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Priority_002dbased-multitasker">Priority-based multitasker</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Multitasking">Multitasking</a>
 
-<h4>5.25.2 Basic cooperative multitasker</h4>
+</div>
+
+<h4 class="subsection">5.30.2 Basic cooperative multitasker</h4>
 
 <p>The basic cooperative multitasker is much simpler. It allows you to
 relinguish the CPU whenever you want, provided that you are not in the
 middle of a call (context-switch only occurs during top-level calls).
 
-<p>To use this multitasker, use <code>include multitasker.fs</code> at the top of
+   <p>To use this multitasker, use <code>include multitasker.fs</code> at the top of
 your program. The following words are defined:
 
-<br><pre>  task ( -- )
-      Create a new task with its own data stack. The task entry point
-      will be the next defined word.
-
-  yield ( -- )
-      Relinguish control so that another task gets a chance to
-      execute.
-
-  multitasker ( -- )
-      Code for the multitasker program. This word never returns.
+<pre class="example">       task ( -- )
+           Create a new task with its own data stack. The task entry point
+           will be the next defined word.
+     
+       yield ( -- )
+           Relinguish control so that another task gets a chance to
+           execute.
+     
+       multitasker ( -- )
+           Code for the multitasker program. This word never returns.
 </pre>
-
-<p>This multitasker makes no use of the return stack at all. However, each
+   <p>This multitasker makes no use of the return stack at all. However, each
 task takes four to six program words for initialization and five program
 words to resume the task, plus three or four program words per yield
-instruction. Context-switching takes at most 18 instruction cycles (3.6
-microseconds max on a 20MHz PIC, 18 microseconds on a 4MHz PIC), and
-typically 14. Also, the multitasker takes care of clearing the watchdog
+instruction. Context-switching takes at most 20 instruction cycles (4
+microseconds max on a 20MHz PIC, 20 microseconds on a 4MHz PIC), and
+typically 16. Also, the multitasker takes care of clearing the watchdog
 timer at each round.
 
-<p>Each task needs 3 bytes in RAM to save its context and 8 bytes for its
-data stack.
+   <p>Each task needs 3 bytes in RAM to save its context and 8 bytes for its
+data stack. You can change the size of the data stack by redefining the
+<code>task-stack-size</code> value after including <samp><span class="file">multitasker.fs</span></samp>. This
+value must be changed in <code>meta</code> mode.
 
+   <p>However, one must take care of calling <code>yield</code> only from the
+toplevel word of each task, as the return stack is not addressable on
+this architecture. To be precise, only one task in the system is able
+to call <code>yield</code> from words deeper than the toplevel, but this is
+not recommended.
+
+<div class="node">
+<a name="Libraries"></a>
 <p><hr>
-Node:<a name="Libraries">Libraries</a>,
-Next:<a rel=next accesskey=n href="#Configuration%20word">Configuration word</a>,
-Previous:<a rel=previous accesskey=p href="#Multitasking">Multitasking</a>,
-Up:<a rel=up accesskey=u href="#Compiler%20documentation">Compiler documentation</a>
-<br>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Configuration-word">Configuration word</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Multitasking">Multitasking</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Compiler-documentation">Compiler documentation</a>
 
-<h3>5.26 Libraries</h3>
+</div>
+
+<h3 class="section">5.31 Libraries</h3>
 
 <p>Some libraries can be used to enhance your application:
 
-<ul>
-<li><code>libnibble.fs</code>
+     <ul>
+<li><samp><span class="file">libcmove.fs</span></samp>
+implementation of ANS Forth <code>cmove</code> word
+
+     <li><samp><span class="file">libextra.fs</span></samp>
+implementation of ANS Forth <code>rot</code> and <code>2swap</code> words as well as
+<code>-rot</code>
+
+     <li><samp><span class="file">libfetch.fs</span></samp>
+implementation of ANS Forth <code>@</code> word with arbitrary addresses
+
+     <li><samp><span class="file">libjtable.fs</span></samp>
+jump tables
+
+     <li><samp><span class="file">liblshift.fs</span></samp>
+implementation of ANS Forth <code>lshift</code> word with arbitrary shift
+
+     <li><samp><span class="file">libnibble.fs</span></samp>
 nibbles and characters conversion
 
-<li><code>libcmove.fs</code>
-implementation of ANS Forth <code>cmove</code> word
-</ul>
+     <li><samp><span class="file">libroll.fs</span></samp>
+implementation of ANS Forth <code>roll</code> word as well as its counterpart
+<code>-roll</code>
 
+     <li><samp><span class="file">librshift.fs</span></samp>
+implementation of ANS Forth <code>rshift</code> word with arbitrary shift
+
+     <li><samp><span class="file">libstore.fs</span></samp>
+implementation of ANS Forth <code>!</code> word with arbitrary addresses
+
+     <li><samp><span class="file">libstrings.fs</span></samp>
+counted strings in flash memory
+
+   </ul>
+
+<div class="node">
+<a name="Configuration-word"></a>
 <p><hr>
-Node:<a name="Configuration%20word">Configuration word</a>,
-Next:<a rel=next accesskey=n href="#Caveats%20and%20limitations">Caveats and limitations</a>,
-Previous:<a rel=previous accesskey=p href="#Libraries">Libraries</a>,
-Up:<a rel=up accesskey=u href="#Compiler%20documentation">Compiler documentation</a>
-<br>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Caveats-and-limitations">Caveats and limitations</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Libraries">Libraries</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Compiler-documentation">Compiler documentation</a>
 
-<h3>5.27 Configuration word</h3>
+</div>
 
-<p>The configuration can be configured with the following words:
+<h3 class="section">5.32 Configuration word</h3>
 
-<br><pre>  set-fosc   ( n -- )       Choose oscillator mode (default: fosc-rc)
-     fosc-lp   Low power
-     fosc-xt   External oscillator
-     fosc-hs   High-speed oscillator
-     fosc-rc   RC circuit
-  set-wdte   ( flag -- )    Watchdog timer enable (default: true)
-  set-/pwrte ( flag -- )    Power-on timer disable (default: true)
-  set-boden  ( flag -- )    Brown-out detect enable (default: true)
-  set-lvp    ( flag -- )    Low voltage programming (default: true)
-  set-cpd    ( flag -- )    EEPROM protection disable (default: true)
-  set-wrt    ( flag -- )    FLASH protection disable (default: true)
-  set-debug  ( flag -- )    In-circuit debugger disable (default: true)
-  set-cp     ( n -- )       Code protection (default: no-cp)
-     no-cp     No protection
-     full-cp   Full protection
-     xxxxx     Anything you want, with the right bits set
-               (see datasheet)
+<p>On PIC1687x, he configuration can be configured with the following words:
+
+<pre class="example">       set-fosc   ( n -- )       Choose oscillator mode (default: fosc-rc)
+          fosc-lp   Low power
+          fosc-xt   External oscillator
+          fosc-hs   High-speed oscillator
+          fosc-rc   RC circuit
+       set-wdte   ( flag -- )    Watchdog timer enable (default: true)
+       set-/pwrte ( flag -- )    Power-on timer disable (default: true)
+       set-boden  ( flag -- )    Brown-out detect enable (default: true)
+       set-boren  ( flag -- )    (alias for set-boden)
+       set-lvp    ( flag -- )    Low voltage programming (default: true)
+       set-cpd    ( flag -- )    EEPROM protection disable (default: true)
+       set-wrt    ( flag -- )    FLASH protection disable (default: true)
+       set-debug  ( flag -- )    In-circuit debugger disable (default: true)
+       set-cp     ( n -- )       Code protection (default: no-cp)
+          no-cp     No protection
+          full-cp   Full protection
+          xxxxx     Anything you want, with the right bits set
+                    (see datasheet)
 </pre>
-
+   <p>If you use a PIC16F8x, you can give the following extra
+parameter to <code>set-fosc</code>:
+<pre class="example">          fosc-extclk
+          fosc-intrc-io
+          fosc-intrc-clk
+          fosc-extrc-io
+          fosc-extrc-clk
+</pre>
+   <p>Also, the following words can be used:
+<pre class="example">       set-fcmen ( -- )
+       set-ieso  ( -- )
+</pre>
+   <div class="node">
+<a name="Caveats-and-limitations"></a>
 <p><hr>
-Node:<a name="Caveats%20and%20limitations">Caveats and limitations</a>,
-Previous:<a rel=previous accesskey=p href="#Configuration%20word">Configuration word</a>,
-Up:<a rel=up accesskey=u href="#Compiler%20documentation">Compiler documentation</a>
-<br>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Configuration-word">Configuration word</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Compiler-documentation">Compiler documentation</a>
 
-<h3>5.28 Caveats and limitations</h3>
+</div>
+
+<h3 class="section">5.33 Caveats and limitations</h3>
 
 <p>This compiler release suffers from the following known limitations. Note
 that most of them (if not all) will disappear in subsequent releases.
 
-<ul>
+     <ul>
 <li>No interactivity
 There is no link between the compiler and the target. 
 </ul>
 
+<div class="node">
+<a name="Optimizations"></a>
 <p><hr>
-Node:<a name="Optimizations">Optimizations</a>,
-Next:<a rel=next accesskey=n href="#Examples">Examples</a>,
-Previous:<a rel=previous accesskey=p href="#Compiler%20documentation">Compiler documentation</a>,
-Up:<a rel=up accesskey=u href="#Top">Top</a>
-<br>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Examples">Examples</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Compiler-documentation">Compiler documentation</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
 
-<h2>6 Optimizations</h2>
+</div>
 
-<p>The following optimizations are implemented:
+<h2 class="chapter">6 Optimizations</h2>
 
-<ul>
-<li><a accesskey=1 href="#Tail%20recursion">Tail recursion</a>: 
-<li><a accesskey=2 href="#Redundant%20pop%2fpush%20are%20removed">Redundant pop/push are removed</a>: 
-<li><a accesskey=3 href="#Direct-access%20and%20literal%20variants">Direct-access and literal variants</a>: 
-<li><a accesskey=4 href="#Load">Load</a>: 
-<li><a accesskey=5 href="#Condition%20inversions">Condition inversions</a>: 
-<li><a accesskey=6 href="#Bank%20switch%20optimizations">Bank switch optimizations</a>: 
-<li><a accesskey=7 href="#Operation%20retarget">Operation retarget</a>: 
-<li><a accesskey=8 href="#Bit%20test%20operations">Bit test operations</a>: 
-<li><a accesskey=9 href="#Useless%20loads%20removed%20when%20testing">Useless loads removed when testing</a>: 
-<li><a href="#Increment%2fdecrement%20and%20skip%20if%20zero%20used%20when%20possible">Increment/decrement and skip if zero used when possible</a>: 
-<li><a href="#Values%20are%20not%20normalized%20when%20this%20is%20not%20necessary">Values are not normalized when this is not necessary</a>: 
+<p>PicForth tries very hard to generate efficient code. The optimizer,
+which is on by default, can be turned off by using
+<code>disallow-optimizations</code> and back on by using <code>allow-optimizations</code>.
+
+   <p>The following optimizations are implemented:
+
+<ul class="menu">
+<li><a accesskey="1" href="#Tail-recursion">Tail recursion</a>
+<li><a accesskey="2" href="#Redundant-pop_002fpush-are-removed">Redundant pop/push are removed</a>
+<li><a accesskey="3" href="#Direct_002daccess-and-literal-variants">Direct-access and literal variants</a>
+<li><a accesskey="4" href="#Load">Load</a>
+<li><a accesskey="5" href="#Condition-inversions">Condition inversions</a>
+<li><a accesskey="6" href="#Bank-switch-optimizations">Bank switch optimizations</a>
+<li><a accesskey="7" href="#Operation-retarget">Operation retarget</a>
+<li><a accesskey="8" href="#Bit-test-operations">Bit test operations</a>
+<li><a accesskey="9" href="#Useless-loads-removed-when-testing">Useless loads removed when testing</a>
+<li><a href="#Increment_002fdecrement-and-skip-if-zero-used-when-possible">Increment/decrement and skip if zero used when possible</a>
+<li><a href="#Values-are-not-normalized-when-this-is-not-necessary">Values are not normalized when this is not necessary</a>
+<li><a href="#Optimize-words-ending-with-constants-pushing">Optimize words ending with constants pushing</a>
+<li><a href="#Use-subwf-when-possible">Use subwf when possible</a>
 </ul>
 
+<div class="node">
+<a name="Tail-recursion"></a>
 <p><hr>
-Node:<a name="Tail%20recursion">Tail recursion</a>,
-Next:<a rel=next accesskey=n href="#Redundant%20pop%2fpush%20are%20removed">Redundant pop/push are removed</a>,
-Previous:<a rel=previous accesskey=p href="#Optimizations">Optimizations</a>,
-Up:<a rel=up accesskey=u href="#Optimizations">Optimizations</a>
-<br>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Redundant-pop_002fpush-are-removed">Redundant pop/push are removed</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Optimizations">Optimizations</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Optimizations">Optimizations</a>
 
-<h3>6.1 Tail recursion</h3>
+</div>
+
+<h3 class="section">6.1 Tail recursion</h3>
 
 <p>Tail recursion is implemented at <code>exit</code> and <code>;</code> points.
 
-<br><pre>  : x y z ;
+<pre class="example">       : x y z ;
 </pre>
+   <p>generates the following code for word x:
 
-<p>generates the following code for word x:
-
-<br><pre>  call    y
-  goto    z
+<pre class="example">       call    y
+       goto    z
 </pre>
+   <p>The sequence <code>recurse exit</code> also benefits from tail recursion.
 
-<p>The sequence <code>recurse exit</code> also benefits from tail recursion.
-
+<div class="node">
+<a name="Redundant-pop%2fpush-are-removed"></a>
+<a name="Redundant-pop_002fpush-are-removed"></a>
 <p><hr>
-Node:<a name="Redundant%20pop%2fpush%20are%20removed">Redundant pop/push are removed</a>,
-Next:<a rel=next accesskey=n href="#Direct-access%20and%20literal%20variants">Direct-access and literal variants</a>,
-Previous:<a rel=previous accesskey=p href="#Tail%20recursion">Tail recursion</a>,
-Up:<a rel=up accesskey=u href="#Optimizations">Optimizations</a>
-<br>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Direct_002daccess-and-literal-variants">Direct-access and literal variants</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Tail-recursion">Tail recursion</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Optimizations">Optimizations</a>
 
-<h3>6.2 Redundant pop/push are removed</h3>
+</div>
+
+<h3 class="section">6.2 Redundant pop/push are removed</h3>
 
 <p>For example, the (particularily useless)
 
-<br><pre>  dup dup drop
+<pre class="example">       dup dup drop
 </pre>
+   <p>sequence generates
 
-<p>sequence generates
-
-<br><pre>  movf     0x00,w
-  decf     0x04,f
-  movwf    0x00
+<pre class="example">       movf     0x00,w
+       decf     0x04,f
+       movwf    0x00
 </pre>
+   <p>which in fact corresponds to a single <code>dup</code>.
 
-<p>which in fact corresponds to a single <code>dup</code>.
+   <p>Also, the following sequence
 
-<p>Also, the following sequence
-
-<br><pre>  drop 3
+<pre class="example">       drop 3
 </pre>
+   <p>generates
 
-<p>generates
-
-<br><pre>  movlw    0x03
-  movwf    0x00
+<pre class="example">       movlw    0x03
+       movwf    0x00
 </pre>
+   <p>while
 
-<p>while
-
-<br><pre>  drop 0
+<pre class="example">       drop 0
 </pre>
+   <p>gives
 
-<p>gives
-
-<br><pre> clrf      0x00
+<pre class="example">      clrf      0x00
 </pre>
-
+   <div class="node">
+<a name="Direct-access-and-literal-variants"></a>
+<a name="Direct_002daccess-and-literal-variants"></a>
 <p><hr>
-Node:<a name="Direct-access%20and%20literal%20variants">Direct-access and literal variants</a>,
-Next:<a rel=next accesskey=n href="#Load">Load</a>,
-Previous:<a rel=previous accesskey=p href="#Redundant%20pop%2fpush%20are%20removed">Redundant pop/push are removed</a>,
-Up:<a rel=up accesskey=u href="#Optimizations">Optimizations</a>
-<br>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Load">Load</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Redundant-pop_002fpush-are-removed">Redundant pop/push are removed</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Optimizations">Optimizations</a>
 
-<h3>6.3 Direct-access and literal variants</h3>
+</div>
+
+<h3 class="section">6.3 Direct-access and literal variants</h3>
 
 <p>Most operations use direct-access and literal variants when
 possible. The following sequence
 
-<br><pre>  9 and
+<pre class="example">       9 and
 </pre>
+   <p>generates
 
-<p>generates
-
-<br><pre>  movlw    0x09
-  andwf    0x00,f
+<pre class="example">       movlw    0x09
+       andwf    0x00,f
 </pre>
+   <p>Also, combined with the redundant push/pop eliminations, the following code
 
-<p>Also, combined with the redundant push/pop eliminations, the following code
-
-<br><pre>  dup 9 and if ...
+<pre class="example">       dup 9 and if ...
 </pre>
+   <p>generates
 
-<p>generates
-
-<br><pre>  movf    0x00,w
-  andlw   0x09
-  btfsc   0x03,2
+<pre class="example">       movf    0x00,w
+       andlw   0x09
+       btfsc   0x03,2
 </pre>
-
+   <div class="node">
+<a name="Load"></a>
 <p><hr>
-Node:<a name="Load">Load</a>,
-Next:<a rel=next accesskey=n href="#Condition%20inversions">Condition inversions</a>,
-Previous:<a rel=previous accesskey=p href="#Direct-access%20and%20literal%20variants">Direct-access and literal variants</a>,
-Up:<a rel=up accesskey=u href="#Optimizations">Optimizations</a>
-<br>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Condition-inversions">Condition inversions</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Direct_002daccess-and-literal-variants">Direct-access and literal variants</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Optimizations">Optimizations</a>
 
-<h3>6.4 Load, store and operations are mixed</h3>
+</div>
+
+<h3 class="section">6.4 Load, store and operations are mixed</h3>
 
 <p>The following sequence (with <code>current</code> and <code>next</code> being variables)
 
-<br><pre>  current @ 1+ 7 and next !
+<pre class="example">       current @ 1+ 7 and next !
 </pre>
+   <p>generates
 
-<p>generates
-
-<br><pre>  movf    0x3B,w
-  addlw   0x01
-  andlw   0x07
-  movwf   0x3C
+<pre class="example">       movf    0x3B,w
+       addlw   0x01
+       andlw   0x07
+       movwf   0x3C
 </pre>
-
+   <div class="node">
+<a name="Condition-inversions"></a>
 <p><hr>
-Node:<a name="Condition%20inversions">Condition inversions</a>,
-Next:<a rel=next accesskey=n href="#Bank%20switch%20optimizations">Bank switch optimizations</a>,
-Previous:<a rel=previous accesskey=p href="#Load">Load</a>,
-Up:<a rel=up accesskey=u href="#Optimizations">Optimizations</a>
-<br>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Bank-switch-optimizations">Bank switch optimizations</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Load">Load</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Optimizations">Optimizations</a>
 
-<h3>6.5 Condition inversions</h3>
+</div>
+
+<h3 class="section">6.5 Condition inversions</h3>
 
 <p>Short (one instruction) <code>if</code> actions are transformed into reversed
 conditions. For example, the following word:
 
-<br><pre>  \ This word clears port a0 if port c2 is high, and sets port b1
-  \ in any case.
-  : z portc 2 high? if porta 0 low then portb 0 high ;
+<pre class="example">       \ This word clears port a0 if port c2 is high, and sets port b1
+       \ in any case.
+       : z portc 2 high? if porta 0 low then portb 1 high ;
 </pre>
+   <p>generates the following code:
 
-<p>generates the following code:
-
-<br><pre>  btfsc    0x07,2  ; skip next instruction if port c2 is low
-  bcf      0x05,0  ; set port a0 low
-  bsf      0x06,1  ; set port b1 high
-  return           ; return from word
+<pre class="example">       btfsc    0x07,2  ; skip next instruction if port c2 is low
+       bcf      0x05,0  ; set port a0 low
+       bsf      0x06,1  ; set port b1 high
+       return           ; return from word
 </pre>
-
+   <div class="node">
+<a name="Bank-switch-optimizations"></a>
 <p><hr>
-Node:<a name="Bank%20switch%20optimizations">Bank switch optimizations</a>,
-Next:<a rel=next accesskey=n href="#Operation%20retarget">Operation retarget</a>,
-Previous:<a rel=previous accesskey=p href="#Condition%20inversions">Condition inversions</a>,
-Up:<a rel=up accesskey=u href="#Optimizations">Optimizations</a>
-<br>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Operation-retarget">Operation retarget</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Condition-inversions">Condition inversions</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Optimizations">Optimizations</a>
 
-<h3>6.6 Bank switch optimizations</h3>
+</div>
+
+<h3 class="section">6.6 Bank switch optimizations</h3>
 
 <p>The compiler tries to remove useless bank manipulations. The following word
 
-<br><pre> :: ee@ ( addr -- n ) eeadr ! eepgd bit-set rd bit-set eedata @ ;
+<pre class="example">      :: ee@ ( addr -- n ) eeadr ! eepgd bit-set rd bit-set eedata @ ;
 </pre>
+   <p>generates:
 
-<p>generates:
-
-<br><pre>  bsf      0x03,6     ; select bank 2
-  movwf    0x0d       ; write into eeadr (in bank 2)
-  bsf      0x03,5     ; select bank 3
-  bsf      0x0c,7     ; set bit eepgd of eecon1 (in bank 3)
-  bsf      0x0c,0     ; set bit rd of eecon1 (in bank 3)
-  bcf      0x03,5     ; select bank 2
-  movf     0x0c,w     ; read eedata (in bank 2)
-  bcf      0x03,6     ; select bank 0
-  decf     0x04,f     ; decrement stack pointer
-  movwf    0x00       ; place read value on top of stack
-  return
+<pre class="example">       bsf      0x03,6     ; select bank 2
+       movwf    0x0d       ; write into eeadr (in bank 2)
+       bsf      0x03,5     ; select bank 3
+       bsf      0x0c,7     ; set bit eepgd of eecon1 (in bank 3)
+       bsf      0x0c,0     ; set bit rd of eecon1 (in bank 3)
+       bcf      0x03,5     ; select bank 2
+       movf     0x0c,w     ; read eedata (in bank 2)
+       bcf      0x03,6     ; select bank 0
+       decf     0x04,f     ; decrement stack pointer
+       movwf    0x00       ; place read value on top of stack
+       return
 </pre>
-
+   <div class="node">
+<a name="Operation-retarget"></a>
 <p><hr>
-Node:<a name="Operation%20retarget">Operation retarget</a>,
-Next:<a rel=next accesskey=n href="#Bit%20test%20operations">Bit test operations</a>,
-Previous:<a rel=previous accesskey=p href="#Bank%20switch%20optimizations">Bank switch optimizations</a>,
-Up:<a rel=up accesskey=u href="#Optimizations">Optimizations</a>
-<br>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Bit-test-operations">Bit test operations</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Bank-switch-optimizations">Bank switch optimizations</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Optimizations">Optimizations</a>
 
-<h3>6.7 Operation retarget</h3>
+</div>
+
+<h3 class="section">6.7 Operation retarget</h3>
 
 <p>If an operation result is stored on the stack then popped into w, the
 operation is modified to target w directly.
 
-<p>For example, the following word:
+   <p>For example, the following word:
 
-<br><pre>  : timer ( n -- ) invert tmr0 ! ;
+<pre class="example">       : timer ( n -- ) invert tmr0 ! ;
 </pre>
+   <p>generates
 
-<p>generates
-
-<br><pre>  comf     0x00,w
-  incf     0x04,f
-  movwf    0x01
-  return
+<pre class="example">       comf     0x00,w
+       incf     0x04,f
+       movwf    0x01
+       return
 </pre>
-
+   <div class="node">
+<a name="Bit-test-operations"></a>
 <p><hr>
-Node:<a name="Bit%20test%20operations">Bit test operations</a>,
-Next:<a rel=next accesskey=n href="#Useless%20loads%20removed%20when%20testing">Useless loads removed when testing</a>,
-Previous:<a rel=previous accesskey=p href="#Operation%20retarget">Operation retarget</a>,
-Up:<a rel=up accesskey=u href="#Optimizations">Optimizations</a>
-<br>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Useless-loads-removed-when-testing">Useless loads removed when testing</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Operation-retarget">Operation retarget</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Optimizations">Optimizations</a>
 
-<h3>6.8 Bit test operations</h3>
+</div>
+
+<h3 class="section">6.8 Bit test operations</h3>
 
 <p>If a <code>and</code> operation before a test can be rewritten using a bit test
 operation, it will.
 
-<p>For example, the code:
+   <p>For example, the code:
 
-<br><pre>  checksum @ 1 and if parity-error exit then ...
+<pre class="example">       checksum @ 1 and if parity-error exit then ...
 </pre>
+   <p>will be compiled as:
 
-<p>will be compiled as:
-
-<br><pre>  btfsc    0x33,0
-  goto     0x037      ; parity-error
-  ...
+<pre class="example">       btfsc    0x33,0
+       goto     0x037      ; parity-error
+       ...
 </pre>
+   <p>Using an explicit bit-test holds the same result:
 
-<p>Using an explicit bit-test holds the same result:
-
-<br><pre>  porta 3 high? if exit then
+<pre class="example">       porta 3 high? if 1+ then
 </pre>
+   <p>will be compiled as:
 
-<p>will be compiled as:
-
-<br><pre>  btfsc   0x05,3
-  return
+<pre class="example">       btfsc   0x05,3
+       incf    0x00,f
 </pre>
-
+   <div class="node">
+<a name="Useless-loads-removed-when-testing"></a>
 <p><hr>
-Node:<a name="Useless%20loads%20removed%20when%20testing">Useless loads removed when testing</a>,
-Next:<a rel=next accesskey=n href="#Increment%2fdecrement%20and%20skip%20if%20zero%20used%20when%20possible">Increment/decrement and skip if zero used when possible</a>,
-Previous:<a rel=previous accesskey=p href="#Bit%20test%20operations">Bit test operations</a>,
-Up:<a rel=up accesskey=u href="#Optimizations">Optimizations</a>
-<br>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Increment_002fdecrement-and-skip-if-zero-used-when-possible">Increment/decrement and skip if zero used when possible</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Bit-test-operations">Bit test operations</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Optimizations">Optimizations</a>
 
-<h3>6.9 Useless loads removed when testing</h3>
+</div>
+
+<h3 class="section">6.9 Useless loads removed when testing</h3>
 
 <p>Before a test, if the z status bit already holds the right result, no extra
 test will be generated.
 
-<br><pre>  9 and dup if 1+ then
+<pre class="example">       9 and dup if 1+ then
 </pre>
+   <p>will be compiled as:
 
-<p>will be compiled as:
-
-<br><pre>  movlw    0x09
-  andwf    0x00,f
-  btfss    0x03,2
-  incf     0x00,f
+<pre class="example">       movlw    0x09
+       andwf    0x00,f
+       btfss    0x03,2
+       incf     0x00,f
 </pre>
-
-<p>Also, the compiler detects operation which do not modify neither w or the
+   <p>Also, the compiler detects operation which do not modify neither w or the
 top of stack. For example,
 
-<br><pre>  dup checksum xor! dcc-high !
+<pre class="example">       dup checksum xor! dcc-high !
 </pre>
+   <p>will be compiled as
 
-<p>will be compiled as
-
-<br><pre>  movf    0x00,w
-  xorwf   0x6c,f
-  incf    0x04,f
-  movwf   0x5b
+<pre class="example">       movf    0x00,w
+       xorwf   0x6c,f
+       incf    0x04,f
+       movwf   0x5b
 </pre>
-
+   <div class="node">
+<a name="Increment%2fdecrement-and-skip-if-zero-used-when-possible"></a>
+<a name="Increment_002fdecrement-and-skip-if-zero-used-when-possible"></a>
 <p><hr>
-Node:<a name="Increment%2fdecrement%20and%20skip%20if%20zero%20used%20when%20possible">Increment/decrement and skip if zero used when possible</a>,
-Next:<a rel=next accesskey=n href="#Values%20are%20not%20normalized%20when%20this%20is%20not%20necessary">Values are not normalized when this is not necessary</a>,
-Previous:<a rel=previous accesskey=p href="#Useless%20loads%20removed%20when%20testing">Useless loads removed when testing</a>,
-Up:<a rel=up accesskey=u href="#Optimizations">Optimizations</a>
-<br>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Values-are-not-normalized-when-this-is-not-necessary">Values are not normalized when this is not necessary</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Useless-loads-removed-when-testing">Useless loads removed when testing</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Optimizations">Optimizations</a>
 
-<h3>6.10 Increment/decrement and skip if zero used when possible</h3>
+</div>
+
+<h3 class="section">6.10 Increment/decrement and skip if zero used when possible</h3>
 
 <p>The following word:
 
-<br><pre>  : action-times ( n -- ) begin action 1- dup while repeat drop ;
+<pre class="example">       : action-times ( n -- ) begin action 1- dup while repeat drop ;
 </pre>
+   <p>will be compiled as:
 
-<p>will be compiled as:
-
-<br><pre>  call    0x022          ; call action
-  decfsz  0x00,f
-  goto    0x027          ; jump to <code>call action</code> above
-  incf    0x04,f
-  return
+<pre class="example">       call    0x022          ; call action
+       decfsz  0x00,f
+       goto    0x027          ; jump to <code>call action</code> above
+       incf    0x04,f
+       return
 </pre>
-
+   <div class="node">
+<a name="Values-are-not-normalized-when-this-is-not-necessary"></a>
 <p><hr>
-Node:<a name="Values%20are%20not%20normalized%20when%20this%20is%20not%20necessary">Values are not normalized when this is not necessary</a>,
-Previous:<a rel=previous accesskey=p href="#Increment%2fdecrement%20and%20skip%20if%20zero%20used%20when%20possible">Increment/decrement and skip if zero used when possible</a>,
-Up:<a rel=up accesskey=u href="#Optimizations">Optimizations</a>
-<br>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Optimize-words-ending-with-constants-pushing">Optimize words ending with constants pushing</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Increment_002fdecrement-and-skip-if-zero-used-when-possible">Increment/decrement and skip if zero used when possible</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Optimizations">Optimizations</a>
 
-<h3>6.11 Values are not normalized when this is not necessary</h3>
+</div>
+
+<h3 class="section">6.11 Values are not normalized when this is not necessary</h3>
 
 <p>The word:
 
-<br><pre>  :: x ( n -- flag ) 3 &lt; if a then ;
+<pre class="example">       :: x ( n -- flag ) 3 &lt; if a then ;
 </pre>
+   <p>generates
 
-<p>generates
-
-<br><pre>  addlw   0xFD
-  btfss   0x03,0
-  call    a
-  return
+<pre class="example">       addlw   0xFD
+       btfss   0x03,0
+       goto    a
+       return
 </pre>
-
-<p>The <code>&lt;</code> test did not cause the value to be normalized to 0 or -1, as it is
+   <p>The <code>&lt;</code> test did not cause the value to be normalized to 0 or -1, as it is
 not needed.
 
+<div class="node">
+<a name="Optimize-words-ending-with-constants-pushing"></a>
 <p><hr>
-Node:<a name="Examples">Examples</a>,
-Previous:<a rel=previous accesskey=p href="#Optimizations">Optimizations</a>,
-Up:<a rel=up accesskey=u href="#Top">Top</a>
-<br>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Use-subwf-when-possible">Use subwf when possible</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Values-are-not-normalized-when-this-is-not-necessary">Values are not normalized when this is not necessary</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Optimizations">Optimizations</a>
 
-<h2>Appendix A Examples</h2>
+</div>
+
+<h3 class="section">6.12 Optimize words ending with constants pushing</h3>
+
+<p>If a word is marked as returning the top of stack in w using
+<code>return-in-w</code> and the last instruction before returning is a constant
+push, <code>retlw</code> will be used.
+
+   <p>For example,
+
+<pre class="example">     : check-portd ( -- n/w )
+       portd 3 high? if 3 &gt;w exit then
+       portd 4 high? if 4 &gt;w exit then
+       0 &gt;w ; return-in-w
+</pre>
+   <p>will be compiled as
+
+<pre class="example">       btfsc   0x08,3
+       retlw   0x03
+       btfsc   0x08,4
+       retlw   0x04
+       retlw   0x00
+</pre>
+   <div class="node">
+<a name="Use-subwf-when-possible"></a>
+<p><hr>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Optimize-words-ending-with-constants-pushing">Optimize words ending with constants pushing</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Optimizations">Optimizations</a>
+
+</div>
+
+<h3 class="section">6.13 Use subwf when possible</h3>
+
+<p>The following code:
+
+<pre class="example">     variable v1
+     variable v2
+     
+     : op v1  v2 -! ;
+</pre>
+   <p>generates the following code:
+
+<pre class="example">       movf    0x22,w
+       subwf   0x23,f
+       return
+</pre>
+   <div class="node">
+<a name="Examples"></a>
+<p><hr>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Optimizations">Optimizations</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
+
+</div>
+
+<h2 class="appendix">Appendix A Examples</h2>
 
 <p>Some files are included as examples with a Makefile. E.g, to build
-<code>booster.hex</code>, run <code>make booster.fs</code>:
+<samp><span class="file">booster.hex</span></samp>, run <code>make booster.fs</code>:
 
-<ul>
-<li><code>booster.fs</code>
-code for a booster which handles overload and overheat signals This also
-serves as an example for the priority-based multitasker.
+     <ul>
+<li><samp><span class="file">booster.fs</span></samp>
+code for a booster which handles overload and overheat signals; this also
+serves as an example for the priority-based multitasker
 
-<li><code>generator.fs</code>
-code for a DCC signal generator based on serial commands (work in
-progress, not functional yet)
+     <li><samp><span class="file">generator.fs</span></samp>
+code for a DCC signal generator based on serial commands
 
-<li><code>silver.fs</code>
+     <li><samp><span class="file">silver.fs</span></samp>
 code that runs on a silver card (a smartcard with a 16f876 and a 24c64
 serial eeprom)
 
-<li><code>taskexample.fs</code>
+     <li><samp><span class="file">taskexample.fs</span></samp>
 example of multitasking code using the basic multitasker
 
-<li><code>controller.fs</code>
+     <li><samp><span class="file">controller.fs</span></samp>
 another multitasking example, used to control multiple peripherals and
 inputs using a serial link
 
-<li><code>i2cloader.fs</code>
+     <li><samp><span class="file">i2cloader.fs</span></samp>
 a flash and eeprom loader using an I2C bus to reprogram the PIC
 
-<li><code>spifcard.fs</code>
+     <li><samp><span class="file">spifcard.fs</span></samp>
 production code used in the Ambience European project; includes i2c
 code, dialog with a bq2010 chip, interface with a smartcard reader using
 a TDA8004, interrupt code for implementing an in-house watchdog, working
 around I2C bugs and blinking a led, and analog to digital conversion
 
-</ul>
+   </ul>
 
-
+   <div class="contents">
 <h2>Table of Contents</h2>
 <ul>
-<li><a name="toc_Preamble"></a>
-    <a href="#Preamble">1 Preamble</a>
-<li><a name="toc_Introduction"></a>
-    <a href="#Introduction">2 Introduction</a>
+<li><a name="toc_Preamble" href="#Preamble">1 Preamble</a>
+<li><a name="toc_Introduction" href="#Introduction">2 Introduction</a>
 <ul>
-<li><a href="#What%20is%20that%3f">2.1 What is that?</a>
-<li><a href="#Why%20this%20project%3f">2.2 Why this project?</a>
-<li><a href="#State%20of%20the%20compiler">2.3 State of the compiler</a>
+<li><a href="#What-is-that_003f">2.1 What is that?</a>
+<li><a href="#Why-this-project_003f">2.2 Why this project?</a>
+<li><a href="#State-of-the-compiler">2.3 State of the compiler</a>
 <li><a href="#License">2.4 License</a>
-<li><a href="#Why%20not%20use%20Mary%3f">2.5 Why not use Mary?</a>
+<li><a href="#Why-not-use-Mary_003f">2.5 Why not use Mary?</a>
 <li><a href="#Credits">2.6 Credits</a>
-</ul>
-<li><a name="toc_A%20very%20short%20Forth%20primer"></a>
-    <a href="#A%20very%20short%20Forth%20primer">3 A very short Forth primer</a>
+<li><a href="#Resources">2.7 Resources</a>
+</li></ul>
+<li><a name="toc_A-very-short-Forth-primer" href="#A-very-short-Forth-primer">3 A very short Forth primer</a>
 <ul>
 <li><a href="#Foreword">3.1 Foreword</a>
 <li><a href="#Words">3.2 Words</a>
-<li><a href="#Stack%20and%20arguments%20passing">3.3 Stack and arguments passing</a>
-<li><a href="#Memory%20access">3.4 Memory access</a>
-<li><a href="#Constant%20and%20variables">3.5 Constant and variables</a>
+<li><a href="#Stack-and-arguments-passing">3.3 Stack and arguments passing</a>
+<li><a href="#Memory-access">3.4 Memory access</a>
+<li><a href="#Constant-and-variables">3.5 Constant and variables</a>
 <li><a href="#Tests">3.6 Tests</a>
 <li><a href="#Loops">3.7 Loops</a>
-</ul>
-<li><a name="toc_Our%20first%20PicForth%20program"></a>
-    <a href="#Our%20first%20PicForth%20program">4 Our first PicForth program</a>
+</li></ul>
+<li><a name="toc_Our-first-PicForth-program" href="#Our-first-PicForth-program">4 Our first PicForth program</a>
 <ul>
-<li><a href="#The%20program%20itself">4.1 The program itself</a>
-<li><a href="#Line%20by%20line%20explanation">4.2 Line by line explanation</a>
-<li><a href="#Generated%20assembly%20code">4.3 Generated assembly code</a>
-<li><a href="#An%20alternate%20solution">4.4 An alternate solution</a>
-<li><a href="#Using%20inlined%20code">4.5 Using inlined code</a>
-</ul>
-<li><a name="toc_Compiler%20documentation"></a>
-    <a href="#Compiler%20documentation">5 Compiler documentation</a>
+<li><a href="#The-program-itself">4.1 The program itself</a>
+<li><a href="#Line-by-line-explanation">4.2 Line by line explanation</a>
+<li><a href="#Generated-assembly-code">4.3 Generated assembly code</a>
+<li><a href="#An-alternate-solution">4.4 An alternate solution</a>
+<li><a href="#Using-inlined-code">4.5 Using inlined code</a>
+</li></ul>
+<li><a name="toc_Compiler-documentation" href="#Compiler-documentation">5 Compiler documentation</a>
 <ul>
 <li><a href="#Organisation">5.1 Organisation</a>
 <li><a href="#Compiling">5.2 Compiling</a>
 <li><a href="#Code">5.3 Code</a>
-<li><a href="#Interactive%20mode">5.4 Interactive mode</a>
-<li><a href="#Literals">5.5 Literals</a>
-<li><a href="#Default%20base">5.6 Default base</a>
-<li><a href="#Stack%20size">5.7 Stack size</a>
-<li><a href="#Shifting">5.8 Shifting</a>
-<li><a href="#Looping">5.9 Looping</a>
-<li><a href="#Memory">5.10 Memory</a>
-<li><a href="#Variables">5.11 Variables</a>
-<li><a href="#Tables">5.12 Tables</a>
-<li><a href="#Main%20program">5.13 Main program</a>
-<li><a href="#Macros">5.14 Macros</a>
-<li><a href="#Included%20files">5.15 Included files</a>
-<li><a href="#Assembler">5.16 Assembler</a>
-<li><a href="#Interrupts">5.17 Interrupts</a>
-<li><a href="#Argument%20passing">5.18 Argument passing</a>
-<li><a href="#Bit%20manipulation">5.19 Bit manipulation</a>
-<li><a href="#Decrementing%20and%20incrementing%20a%20memory%20register">5.20 Decrementing and incrementing a memory register</a>
-<li><a href="#Watchdog%20timer">5.21 Watchdog timer</a>
-<li><a href="#Reading%20from%20or%20writing%20to%20EEPROM">5.22 Reading from or writing to EEPROM</a>
-<li><a href="#Reading%20from%20or%20writing%20to%20flash%20memory">5.23 Reading from or writing to flash memory</a>
-<li><a href="#Map%20and%20disassembler%20code">5.24 Map and disassembler code</a>
-<li><a href="#Multitasking">5.25 Multitasking</a>
+<li><a href="#Interactive-mode">5.4 Interactive mode</a>
+<li><a href="#Specifying-the-architecture">5.5 Specifying the architecture</a>
+<li><a href="#Literals">5.6 Literals</a>
+<li><a href="#Default-base">5.7 Default base</a>
+<li><a href="#Stack-size">5.8 Stack size</a>
+<li><a href="#Shifting">5.9 Shifting</a>
+<li><a href="#Looping">5.10 Looping</a>
+<li><a href="#Memory">5.11 Memory</a>
+<li><a href="#Warnings-and-errors">5.12 Warnings and errors</a>
+<li><a href="#Variables">5.13 Variables</a>
+<li><a href="#Flags">5.14 Flags</a>
+<li><a href="#Tables">5.15 Tables</a>
+<li><a href="#Jump-tables">5.16 Jump tables</a>
+<li><a href="#Main-program">5.17 Main program</a>
+<li><a href="#Macros">5.18 Macros</a>
+<li><a href="#Included-files">5.19 Included files</a>
+<li><a href="#Assembler">5.20 Assembler</a>
+<li><a href="#Interrupts">5.21 Interrupts</a>
+<li><a href="#Argument-passing">5.22 Argument passing</a>
+<li><a href="#Bit-manipulation">5.23 Bit manipulation</a>
+<li><a href="#Decrementing-and-incrementing-a-memory-register">5.24 Decrementing and incrementing a memory register</a>
+<li><a href="#Watchdog-timer">5.25 Watchdog timer</a>
+<li><a href="#Sleep-mode">5.26 Sleep mode</a>
+<li><a href="#Reading-from-or-writing-to-EEPROM">5.27 Reading from or writing to EEPROM</a>
+<li><a href="#Reading-from-or-writing-to-flash-memory">5.28 Reading from or writing to flash memory</a>
+<li><a href="#Map-and-disassembler-code">5.29 Map and disassembler code</a>
+<li><a href="#Multitasking">5.30 Multitasking</a>
 <ul>
-<li><a href="#Priority-based%20multitasker">5.25.1 Priority-based multitasker</a>
-<li><a href="#Basic%20cooperative%20multitasker">5.25.2 Basic cooperative multitasker</a>
-</ul>
-<li><a href="#Libraries">5.26 Libraries</a>
-<li><a href="#Configuration%20word">5.27 Configuration word</a>
-<li><a href="#Caveats%20and%20limitations">5.28 Caveats and limitations</a>
-</ul>
-<li><a name="toc_Optimizations"></a>
-    <a href="#Optimizations">6 Optimizations</a>
+<li><a href="#Priority_002dbased-multitasker">5.30.1 Priority-based multitasker</a>
+<li><a href="#Basic-cooperative-multitasker">5.30.2 Basic cooperative multitasker</a>
+</li></ul>
+<li><a href="#Libraries">5.31 Libraries</a>
+<li><a href="#Configuration-word">5.32 Configuration word</a>
+<li><a href="#Caveats-and-limitations">5.33 Caveats and limitations</a>
+</li></ul>
+<li><a name="toc_Optimizations" href="#Optimizations">6 Optimizations</a>
 <ul>
-<li><a href="#Tail%20recursion">6.1 Tail recursion</a>
-<li><a href="#Redundant%20pop%2fpush%20are%20removed">6.2 Redundant pop/push are removed</a>
-<li><a href="#Direct-access%20and%20literal%20variants">6.3 Direct-access and literal variants</a>
+<li><a href="#Tail-recursion">6.1 Tail recursion</a>
+<li><a href="#Redundant-pop_002fpush-are-removed">6.2 Redundant pop/push are removed</a>
+<li><a href="#Direct_002daccess-and-literal-variants">6.3 Direct-access and literal variants</a>
 <li><a href="#Load">6.4 Load, store and operations are mixed</a>
-<li><a href="#Condition%20inversions">6.5 Condition inversions</a>
-<li><a href="#Bank%20switch%20optimizations">6.6 Bank switch optimizations</a>
-<li><a href="#Operation%20retarget">6.7 Operation retarget</a>
-<li><a href="#Bit%20test%20operations">6.8 Bit test operations</a>
-<li><a href="#Useless%20loads%20removed%20when%20testing">6.9 Useless loads removed when testing</a>
-<li><a href="#Increment%2fdecrement%20and%20skip%20if%20zero%20used%20when%20possible">6.10 Increment/decrement and skip if zero used when possible</a>
-<li><a href="#Values%20are%20not%20normalized%20when%20this%20is%20not%20necessary">6.11 Values are not normalized when this is not necessary</a>
-</ul>
-<li><a name="toc_Examples"></a>
-    <a href="#Examples">Appendix A Examples</a>
-</ul>
+<li><a href="#Condition-inversions">6.5 Condition inversions</a>
+<li><a href="#Bank-switch-optimizations">6.6 Bank switch optimizations</a>
+<li><a href="#Operation-retarget">6.7 Operation retarget</a>
+<li><a href="#Bit-test-operations">6.8 Bit test operations</a>
+<li><a href="#Useless-loads-removed-when-testing">6.9 Useless loads removed when testing</a>
+<li><a href="#Increment_002fdecrement-and-skip-if-zero-used-when-possible">6.10 Increment/decrement and skip if zero used when possible</a>
+<li><a href="#Values-are-not-normalized-when-this-is-not-necessary">6.11 Values are not normalized when this is not necessary</a>
+<li><a href="#Optimize-words-ending-with-constants-pushing">6.12 Optimize words ending with constants pushing</a>
+<li><a href="#Use-subwf-when-possible">6.13 Use subwf when possible</a>
+</li></ul>
+<li><a name="toc_Examples" href="#Examples">Appendix A Examples</a>
+</li></ul>
+</div>
 
 </body></html>
 
