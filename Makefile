@@ -14,7 +14,7 @@ PROGS=		booster.hex generator.hex silver.hex \
 		librshift.hex liblshift.hex libnibble.hex libcmove.hex \
 		libstrings.hex libextra.hex
 
-GFORTH?=	gforth-0.7.3
+GFORTH?=	gforth
 PAGER?=		less
 
 DISASM=		${PROGS:.hex=.disasm}
