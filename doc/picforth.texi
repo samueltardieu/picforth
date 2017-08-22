@@ -8,7 +8,7 @@
 @titlepage
 @title PicForth programmer manual
 @subtitle Using PicForth @version{}
-@subtitle @today
+@subtitle @today{}
 @author Samuel Tardieu
 
 @end titlepage
