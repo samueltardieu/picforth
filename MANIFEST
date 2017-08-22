@@ -27,6 +27,7 @@ i2cloader.fs
 spifcard.fs
 input.fs
 require.fs
+doc/Makefile
 doc/picforth.html
 doc/picforth.pdf
 doc/picforth.info
