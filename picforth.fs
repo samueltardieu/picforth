@@ -616,7 +616,7 @@ only forth also macrowords definitions also forth
 : ;  ;-hook ?struc postpone exit reveal postpone macro-[ ; immediate
 : macro! postpone (literal) ;
 : ( postpone ( ; immediate
-: ) ) ;
+: ) postpone ) ; immediate
 : \ postpone \ ; immediate
 
 \ ----------------------------------------------------------------------
