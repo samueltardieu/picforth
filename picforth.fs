@@ -458,20 +458,20 @@ variable prefix?
 : ,w 0 to f? ;
 : bofro:
     create 8 lshift , does> @ >prefix swap check-bank 7f and or f? or cs, ;
-7 bofro: addwf
-5 bofro: andwf
-9 bofro: comf
-3 bofro: decf
-b bofro: decfsz
-a bofro: incf
-f bofro: incfsz
-4 bofro: iorwf
-8 bofro: movf
-d bofro: rlf
-c bofro: rrf
-2 bofro: subwf
-e bofro: swapf
-6 bofro: xorwf
+$7 bofro: addwf
+$5 bofro: andwf
+$9 bofro: comf
+$3 bofro: decf
+$b bofro: decfsz
+$a bofro: incf
+$f bofro: incfsz
+$4 bofro: iorwf
+$8 bofro: movf
+$d bofro: rlf
+$c bofro: rrf
+$2 bofro: subwf
+$e bofro: swapf
+$6 bofro: xorwf
 : clrf  >prefix check-bank 7f and 180 or cs, ;
 : movwf >prefix check-bank 7f and 080 or cs, ;
 
