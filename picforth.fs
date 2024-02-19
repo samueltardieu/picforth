@@ -2601,5 +2601,3 @@ target
 \ 4 bytes at a time on 16F8xxA devices)
 
 4 org
-
-unsupported2 foo bar
