@@ -1,6 +1,7 @@
 \ require.fs
 
-\ Copyright (C) 1995,1996,1997,1998,2000,2003,2006,2007 Free Software Foundation, Inc.
+\ Authors: Anton Ertl, Bernd Paysan, Neal Crook, Jens Wilke
+\ Copyright (C) 1995,1996,1997,1998,2000,2003,2006,2007,2010,2012,2013,2016,2017,2019,2022,2023 Free Software Foundation, Inc.
 
 \ This file is part of Gforth.
 
@@ -19,22 +20,23 @@
 
 \ Now: Kernel Module, Reloadable
 
-create included-files 0 , 0 , ( pointer to and count of included files )
-\ note: these names must not contain a "/" or "\"; otherwise a part of
-\ that name might be used when expanding "./" (see expandtopic).
-here ," *somewhere*" dup c@ swap 1 + swap
-, A, here 2 cells -
-create image-included-files 1 , A, ( pointer to and count of included files )
-\ included-files points to ALLOCATEd space, while image-included-files
-\ points to ALLOTed objects, so it survives a save-system
+$[]Variable included-files
 
 : sourcefilename ( -- c-addr u ) \ gforth
     \G The name of the source file which is currently the input
     \G source.  The result is valid only while the file is being
     \G loaded.  If the current input source is no (stream) file, the
     \G result is undefined.  In Gforth, the result is valid during the
-    \G whole seesion (but not across @code{savesystem} etc.).
-    loadfilename 2@ ;
+    \G whole session (but not across @code{savesystem} etc.).
+    loadfilename# @ included-filename[] ;
+
+: included-filename[] ( index -- c-addr u ) \ gforth-internal
+    \G convert a file name index to a file name
+    dup -3 = IF  drop s" *a block*"           EXIT  THEN
+    dup -2 = IF  drop s" *evaluated string*"  EXIT  THEN
+    dup 0<   IF  drop s" *the terminal*"      EXIT  THEN
+    included-files $@ rot cells safe/string
+    IF  $@  ELSE  drop  s" *unknown file*"  THEN ;
 
 : sourceline# ( -- u ) \ gforth		sourceline-number
     \G The line number of the line that is currently being interpreted
@@ -43,9 +45,15 @@ create image-included-files 1 , A, ( pointer to and count of included files )
     \G undefined.
     loadline @ ;
 
-: init-included-files ( -- ) \ gforth-internal
-    image-included-files 2@ 2* cells save-mem drop ( addr )
-    image-included-files 2@ nip included-files 2! ;
+: str>loadfilename# ( addr u -- n )
+    included-files $@ bounds ?do ( addr u )
+	2dup I $@ str= if
+	    2drop I included-files $@ drop - cell/ unloop exit
+	endif
+    cell +loop
+    2dup s" *a block*"          str= IF  2drop -3  EXIT  THEN
+    2dup s" *evaluated string*" str= IF  2drop -2  EXIT  THEN
+    2drop -1 ;
 
 : included? ( c-addr u -- f ) \ gforth
     \G True only if the file @var{c-addr u} is in the list of earlier
@@ -54,36 +62,41 @@ create image-included-files 1 , A, ( pointer to and count of included files )
     \G Forth search path. To return @code{true} from @code{included?},
     \G you must specify the exact path to the file, even if that is
     \G @file{./foo.fs}
-    included-files 2@ 0
-    ?do ( c-addr u addr )
-	dup >r 2@ 2over str=
-	if
-	    2drop rdrop unloop
-	    true EXIT
-	then
-	r> cell+ cell+
-    loop
-    2drop drop false ;
+    str>loadfilename# 0>= ;
 
-: add-included-file ( c-addr u -- ) \ gforth
+: add-included-file ( c-addr u -- ) \ gforth-internal
     \G add name c-addr u to included-files
-    included-files 2@ 2* cells 2 cells extend-mem
-    2/ cell / included-files 2!
-    2! ;
+    $make included-files >stack ;
 
-: included1 ( i*x file-id c-addr u -- j*x ) \ gforth
+: included1 ( i*x file-id c-addr u -- j*x ) \ gforth-internal
 \G Include the file file-id with the name given by @var{c-addr u}.
-    save-mem 2dup add-included-file
-    includefilename 2@ 2>r 2dup includefilename 2!
-    ['] read-loop execute-parsing-named-file
-    2r> includefilename 2! ;
+    add-included-file  included-files $@ + cell-
+    $@ ['] read-loop execute-parsing-named-file ;
+
+Defer >included ( c-addr1 u1 -- fd c-addr2 u2 wior )
+' open-fpath-file is >included
+Defer >include ( c-addr1 u1 -- c-addr2 u2 )
+' noop is >include
+
+variable include-auto-extension-filename
+: >include-auto-extension ( c-addr1 u1 -- fd c-addr2 u2 wior )
+    2>r 2r@ open-fpath-file dup if \ if not found extend with .4th suffix
+        drop \ ignore error
+        2r> include-auto-extension-filename $!
+        s" .4th" include-auto-extension-filename $+!
+        include-auto-extension-filename $@
+        open-fpath-file
+    else
+        2rdrop \ drop filename
+    then ;
+' >include-auto-extension is >included
 
 : included ( i*x c-addr u -- j*x ) \ file
     \G @code{include-file} the file whose name is given by the string
     \G @var{c-addr u}.
-    open-fpath-file throw included1 ;
+    >included throw included1 ;
 
-: required ( i*x addr u -- i*x ) \ gforth
+: required ( i*x addr u -- i*x ) \ file-ext
     \G @code{include-file} the file with the name given by @var{addr
     \G u}, if it is not @code{included} (or @code{required})
     \G already. Currently this works by comparing the name of the file
@@ -93,7 +106,7 @@ create image-included-files 1 , A, ( pointer to and count of included files )
     \ problems with several paths to the same file (e.g., due to
     \ links) and we would catch files included with include-file and
     \ write a require-file.
-    open-fpath-file throw 2dup included?
+    >included throw 2dup included?
     if
 	2drop close-file throw
     else
@@ -102,13 +115,13 @@ create image-included-files 1 , A, ( pointer to and count of included files )
 
 \ INCLUDE                                               9may93jaw
 
-: include  ( ... "file" -- ... ) \ gforth
+: include  ( ... "file" -- ... ) \ file-ext
     \G @code{include-file} the file @var{file}.
-    name included ;
+    ?parse-name >include included ;
 
-: require  ( ... "file" -- ... ) \ gforth
+: require  ( ... "file" -- ... ) \ file-ext
     \G @code{include-file} @var{file} only if it is not included already.
-    name required ;
+    ?parse-name >include required ;
 
 \ : \I
 \   here 
@@ -129,12 +142,8 @@ create image-included-files 1 , A, ( pointer to and count of included files )
 \   REPEAT
 \   drop ;
 
-: .strings ( addr u -- ) \ gforth
-    \G list the strings from an array of string descriptors at addr
-    \G with u entries, one per line.
-    2* cells bounds ?DO
-	cr I 2@ type 2 cells +LOOP ;
-
 : .included ( -- ) \ gforth
-    \G list the names of the files that have been @code{included}
-    included-files 2@ 2 cells under+ 1- .strings ;
+    \G List the names of the files that have been @code{included}.
+    included-files $@ bounds ?DO
+	cr I $@ type
+    cell +LOOP ;
