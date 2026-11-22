@@ -2343,8 +2343,15 @@ host
 
 : | ;
 
-include input.fs
-include require.fs
+\ input.fs and require.fs are adapted copies of Gforth internals and depend on
+\ the Gforth version.
+s" gforth" environment? drop s" 0.7" string-prefix? [if]
+    include input-0.7.fs
+    include require-0.7.fs
+[else]
+    include input.fs
+    include require.fs
+[then]
 
 meta
 

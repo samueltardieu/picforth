@@ -26,7 +26,9 @@ controller.fs
 i2cloader.fs
 spifcard.fs
 input.fs
+input-0.7.fs
 require.fs
+require-0.7.fs
 doc/Makefile
 doc/picforth.html
 doc/picforth.pdf
