@@ -1602,7 +1602,7 @@ meta
 : rrf! get-const select-bank ,f rrf restore-bank ;
 : rlf! get-const select-bank ,f rlf restore-bank ;
 
-: log2 ( n -- n' )
+: exact-log2 ( n -- n' )
     7 for 1 lshift dup 100 = if drop i unloop exit then next drop -1 ;
 
 : and
@@ -1613,7 +1613,7 @@ meta
 	    pushw? if
 		cs-rewind2 andlw pushw
 	    else
-		dup invert ff and log2 dup -1 <> if
+		dup invert ff and exact-log2 dup -1 <> if
 		    indf swap bcf drop
 		else
 		    drop movlw indf ,f andwf
@@ -1628,7 +1628,7 @@ meta
 : and!
     const? if
 	kill-const const? if
-	    kill-const dup invert ff and log2 dup -1 <> if
+	    kill-const dup invert ff and exact-log2 dup -1 <> if
 		nip >r select-bank r> bcf restore-bank
 	    else
 		drop movlw ,f select-bank andwf restore-bank
@@ -1682,7 +1682,7 @@ meta
 	    pushw? if
 		cs-rewind2 iorlw pushw
 	    else
-		dup log2 dup -1 <> if
+		dup exact-log2 dup -1 <> if
 		    indf swap bsf drop
 		else
 		    drop
@@ -1698,7 +1698,7 @@ meta
 : or!
     const? if
 	kill-const const? if
-	    kill-const dup log2 dup -1 <> if
+	    kill-const dup exact-log2 dup -1 <> if
 		nip >r select-bank r> bsf restore-bank
 	    else
 		drop movlw ,f select-bank iorwf restore-bank
@@ -1856,7 +1856,7 @@ meta
 
 : bit-test? ( -- f )
     opt2? if lastcs ff00 and 3900 =
-	     lastcs ff and log2 -1 <> and
+	     lastcs ff and exact-log2 -1 <> and
 	     prevlastcs ff00 and 0800 = and
 	 else
 	     false
@@ -1866,7 +1866,7 @@ meta
 \ Rewrite a bit-test sequence
 
 : rewrite-bit-test ( -- addr bit )
-    cs-unwind2 ff and swap ff and log2 ;
+    cs-unwind2 ff and swap ff and exact-log2 ;
 
 \ If we have decf 0,f then btfss 3,2, replace it with decfsz 0,f.
 \ Idem for incf/incfsz.
