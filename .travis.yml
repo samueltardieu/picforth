@@ -1,9 +1,0 @@
-language: c
-sudo: false
-addons:
-  apt:
-    packages:
-      - gforth
-      - texinfo
-      - texlive
-script: make test

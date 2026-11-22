@@ -1,0 +1,66 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  tests:
+    name: Tests (gforth ${{ matrix.gforth }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        gforth: ["0.7.3", "1.0.2"]
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Install gforth from Ubuntu
+        if: matrix.gforth == '0.7.3'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y gforth
+          echo "GFORTH=gforth" >> "$GITHUB_ENV"
+
+      - name: Cache gforth ${{ matrix.gforth }}
+        if: matrix.gforth != '0.7.3'
+        id: cache-gforth
+        uses: actions/cache@v4
+        with:
+          path: ~/gforth
+          key: gforth-${{ matrix.gforth }}-${{ runner.os }}-v1
+
+      - name: Build gforth ${{ matrix.gforth }}
+        if: matrix.gforth != '0.7.3' && steps.cache-gforth.outputs.cache-hit != 'true'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y build-essential libffi-dev libltdl-dev libtool
+          curl -fsSL https://www.complang.tuwien.ac.at/forth/gforth/Snapshots/${{ matrix.gforth }}/gforth-${{ matrix.gforth }}.tar.xz | tar xJf -
+          cd gforth-${{ matrix.gforth }}
+          ./configure --prefix="$HOME/gforth" --without-check
+          make -j"$(nproc)"
+          # Some optional C library bindings may fail to install; picforth
+          # does not need them, so keep going and check gforth works.
+          make -k install || true
+          "$HOME/gforth/bin/gforth" -e '1 2 + . cr bye'
+
+      - name: Use gforth ${{ matrix.gforth }}
+        if: matrix.gforth != '0.7.3'
+        run: echo "GFORTH=$HOME/gforth/bin/gforth" >> "$GITHUB_ENV"
+
+      - name: Run tests
+        run: |
+          "$GFORTH" --version
+          make test GFORTH="$GFORTH" < /dev/null
+
+  docs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - name: Install texinfo
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y texinfo texlive
+      - name: Build documentation
+        run: make docs

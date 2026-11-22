@@ -650,7 +650,7 @@ top of stack proved to be inefficient, as we often need a scratch register.
 @section Compiling
 
 The compiler is hosted on gforth, a free software compiler for Unix
-systems.  The command line to use to compile file @file{foo.fs} into
+systems.  Gforth 0.7.3 and 1.0.x are supported.  The command line to use to compile file @file{foo.fs} into
 @file{foo.hex}, and getting a usable map into foo.map is:
 
 @example
