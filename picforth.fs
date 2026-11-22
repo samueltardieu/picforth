@@ -2107,7 +2107,9 @@ meta
 : 2/ const? if kill-const 2/ (literal) else indf ,w rlf indf ,f rrf then ;
 
 : clrwdt clrwdt ;
-: sleep sleep ;
+\ Recent Gforth versions define their own sleep (multitasker), which
+\ would shadow the PIC opcode: use the picassembler one explicitly.
+also picassembler ' sleep previous alias sleep
 
 \ Definitions
 
