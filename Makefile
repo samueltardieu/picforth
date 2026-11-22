@@ -3,7 +3,7 @@
 # automates the process of building files for PIC quite well
 #
 
-COMPILER=	picforth.fs
+COMPILER=	picforth.fs input.fs require.fs input-0.7.fs require-0.7.fs
 LIBRARIES=	picisr.fs libfetch.fs libstore.fs picflash.fs piceeprom.fs \
 		librshift.fs liblshift.fs multitasker.fs priotasker.fs \
 		libnibble.fs libcmove.fs libstrings.fs
@@ -29,10 +29,10 @@ docs:
 interactive:
 	${GFORTH} picforth.fs
 
-.fs.hex: ${COMPILER} ${LIBRARIES}
+%.hex: %.fs ${COMPILER} ${LIBRARIES}
 	${GFORTH} picforth.fs -e 'include $< file-dump ${<:.fs=.hex} write-map ${<:.fs=.map} bye'
 
-.fs.disasm: ${COMPILER} ${LIBRARIES}
+%.disasm: %.fs ${COMPILER} ${LIBRARIES}
 	${GFORTH} picforth.fs -e 'include $< file-dump ${<:.fs=.hex} write-map ${<:.fs=.map} write-dis ${<:.fs=.disasm} bye'
 
 .hex.asm:
@@ -42,7 +42,7 @@ interactive:
 	${MAKE} ${<:.fs=.disasm}
 	${PAGER} ${<:.fs=.disasm}
 
-.fs.serprog: ${COMPILER} ${LIBRARIES} serial.fs
+%.serprog: %.fs ${COMPILER} ${LIBRARIES} serial.fs
 	${MAKE} ${<:fs=hex}
 	${GFORTH} picforth.fs -e 'include $< include serial.fs serprog bye'
 #	${GFORTH} picforth.fs -e 'include $< include serial.fs serprog firmware bye'
@@ -86,8 +86,8 @@ clean::
 	cd doc && ${MAKE} clean
 
 test::
-	${MAKE} release all
-	env MAKE=${MAKE} sh support/runtests.sh
+	env MAKE="${MAKE}" GFORTH="${GFORTH}" sh support/runtests.sh
+	${MAKE} GFORTH="${GFORTH}" ${PROGS} ${DISASM}
 	cp ${PROGS} ${DISASM} testresults/
 	diff --unified --recursive tests/expected testresults
 	rm -rf testresults
