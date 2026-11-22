@@ -20,53 +20,9 @@
 
 \ Now: Kernel Module, Reloadable
 
-$[]Variable included-files
-
-: sourcefilename ( -- c-addr u ) \ gforth
-    \G The name of the source file which is currently the input
-    \G source.  The result is valid only while the file is being
-    \G loaded.  If the current input source is no (stream) file, the
-    \G result is undefined.  In Gforth, the result is valid during the
-    \G whole session (but not across @code{savesystem} etc.).
-    loadfilename# @ included-filename[] ;
-
-: included-filename[] ( index -- c-addr u ) \ gforth-internal
-    \G convert a file name index to a file name
-    dup -3 = IF  drop s" *a block*"           EXIT  THEN
-    dup -2 = IF  drop s" *evaluated string*"  EXIT  THEN
-    dup 0<   IF  drop s" *the terminal*"      EXIT  THEN
-    included-files $@ rot cells safe/string
-    IF  $@  ELSE  drop  s" *unknown file*"  THEN ;
-
-: sourceline# ( -- u ) \ gforth		sourceline-number
-    \G The line number of the line that is currently being interpreted
-    \G from a (stream) file. The first line has the number 1. If the
-    \G current input source is not a (stream) file, the result is
-    \G undefined.
-    loadline @ ;
-
-: str>loadfilename# ( addr u -- n )
-    included-files $@ bounds ?do ( addr u )
-	2dup I $@ str= if
-	    2drop I included-files $@ drop - cell/ unloop exit
-	endif
-    cell +loop
-    2dup s" *a block*"          str= IF  2drop -3  EXIT  THEN
-    2dup s" *evaluated string*" str= IF  2drop -2  EXIT  THEN
-    2drop -1 ;
-
-: included? ( c-addr u -- f ) \ gforth
-    \G True only if the file @var{c-addr u} is in the list of earlier
-    \G included files. If the file has been loaded, it may have been
-    \G specified as, say, @file{foo.fs} and found somewhere on the
-    \G Forth search path. To return @code{true} from @code{included?},
-    \G you must specify the exact path to the file, even if that is
-    \G @file{./foo.fs}
-    str>loadfilename# 0>= ;
-
-: add-included-file ( c-addr u -- ) \ gforth-internal
-    \G add name c-addr u to included-files
-    $make included-files >stack ;
+\ PicForth: included-files, sourcefilename, sourceline#, included? and
+\ add-included-file are reused from the Gforth kernel: the kernel's
+\ path expansion (expandtopic) resolves relative names through them.
 
 : included1 ( i*x file-id c-addr u -- j*x ) \ gforth-internal
 \G Include the file file-id with the name given by @var{c-addr u}.
