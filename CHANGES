@@ -2,6 +2,37 @@
 
 To understand the scope of these changes, please refer to the documentation.
 
+* New in version 1.5
+
+** Various
+
+  + Support gforth 1.0.x in addition to gforth 0.7.3.
+
+  + Use GitHub Actions instead of Travis CI. Tests are run with
+    gforth 0.7.3 and gforth 1.0.2.
+
+** Bug fixes
+
+  + Relative includes (e.g. "../file.fs") are resolved from the
+    including file with recent gforth versions.
+
+  + The Makefile rebuilds outputs when the compiler changes with
+    GNU make 4.3 or later.
+
+  + Include pic16f628.inc and the texinfo documentation source in
+    the distribution.
+
+* New in version 1.4
+
+** New features
+
+  + Support for pic16f627a and pic16f628 (pic16f628.inc). Contributed
+    by Paul <prsephton@gmail.com>.
+
+** Bug fixes
+
+  + Include doc/Makefile in the distribution.
+
 * New in version 1.3
 
 ** Various

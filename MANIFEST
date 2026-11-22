@@ -47,6 +47,10 @@ tools/bootloading/example.fs
 tools/bootloading/README
 support/makedoc.pl
 support/runtests.sh
+README.md
+doc/picforth.texi
+library-license.txt
+pic16f628.inc
 tests/abs.fs
 tests/bankloop.fs
 tests/banks.fs
