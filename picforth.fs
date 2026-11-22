@@ -611,10 +611,9 @@ only forth also macrowords definitions also forth
 : macro-[ state off ; immediate
 : ] macro-] ;
 : [ postpone macro-[ ; immediate
-: macro-(:noname) docol: cfa, defstart macro-] :-hook ;
-: : header macro-(:noname) ;
-: ;  ;-hook ?struc postpone exit reveal postpone macro-[ ; immediate
-: macro! postpone (literal) ;
+: : : ;
+: ; postpone ; ; immediate
+: macro! postpone (literal) ; immediate
 : ( postpone ( ; immediate
 : ) postpone ) ; immediate
 : \ postpone \ ; immediate
